@@ -1,2 +1,25 @@
 # RB3-X360-Keyboard
-A personal project involving the RB3 Xbox 360 keyboard, with a goal of making it usable with other programs while connected to an Xbox 360 receiver.
+## About
+This project aims to allow you to use the Rock Band 3 Xbox 360 keyboard with other programs while it's connected to an Xbox 360 wireless receiver, via either keypresses or MIDI inputs.
+
+I have documented everything I've learned so far in [a .txt file included in this repo.](https://github.com/TheNathannator/RB3-X360-Keyboard/blob/main/X360%20Keys%20Inputs.txt) Note that I may update it with new info as I progress through development.
+
+## Roadmap
+Here's what needs to be done that I can think of so far:
+- Framework for the input data
+- Keypress output stuff
+- MIDI output stuff
+- UI
+
+## Similar Projects
+Jason Harley's [RB3KB-USB2MIDI](https://jasonharley2o.com/wiki/doku.php?id=rb3keyboard), [RB3KB-USB2PSKB](https://jasonharley2o.com/wiki/doku.php?id=rb3keyboardps), and [RB3M-USB2MIDI](https://jasonharley2o.com/wiki/doku.php?id=rb3mustang) 
+
+martinjos's [rb3_driver](https://github.com/martinjos/rb3_driver)
+
+## Acknowledgements
+bearzly's [RockBandPiano](https://github.com/bearzly/RockBandPiano) project for keyboard input info
+
+[SharpDX](http://sharpdx.org/) for an XInput framework
+
+## License
+This project is licensed under the MIT License. See [LICENSE](https://github.com/TheNathannator/RB3-X360-Keyboard/blob/main/LICENSE) for details.
