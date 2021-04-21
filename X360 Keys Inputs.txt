@@ -1,0 +1,62 @@
+RB Keys
+-------------------------
+thanks to this project for pointing me in the right direction for some things:
+https://github.com/bearzly/RockBandPiano
+
+values collected using AntiMicro:
+https://github.com/AntiMicro/antimicro
+and converted from decimal to binary via the Windows calculator in Programmer mode
+-------------------------
+
+Face buttons work like a standard Xbox 360 controller
+
+Keys:
+C1 is the leftmost key, C3 is the rightmost key
+AntiMicro reports the trigger values as a 16 bit integer, but the implementation that RockBandPiano uses reports the trigger values as a byte. These contain the value reported by AntiMicro, converted to binary. I'll try to collect data directly from XInput at some point.
+
+x = this bit doesn't matter
+1 = this bit is activated/used by this input
+Note name - Input  Decimal value  Binary value
+
+C1  - LT  16448  0b x1xx xxxx x1xx xxxx
+Db1 - LT  8224   0b xx1x xxxx xx1x xxxx
+D1  - LT  4112   0b xxx1 xxxx xxx1 xxxx
+Eb1 - LT  2056   0b xxxx 1xxx xxxx 1xxx
+E1  - LT  1028   0b xxxx x1xx xxxx x1xx
+F1  - LT  514    0b xxxx xx1x xxxx xx1x
+Gb1 - LT  257    0b xxxx xxx1 xxxx xxx1
+G1  - LT  129    0b xxxx xxxx 1xxx xxx1
+
+Ab1 - RT  16448  0b x1xx xxxx x1xx xxxx
+A1  - RT  8224   0b xx1x xxxx xx1x xxxx
+Bb1 - RT  4112   0b xxx1 xxxx xxx1 xxxx
+B1  - RT  2056   0b xxxx 1xxx xxxx 1xxx
+C2  - RT  1028   0b xxxx x1xx xxxx x1xx
+Db2 - RT  514    0b xxxx xx1x xxxx xx1x
+D2  - RT  257    0b xxxx xxx1 xxxx xxx1
+Eb2 - RT  129    0b xxxx xxxx 1xxx xxx1
+
+E2  - L Stick X  128  0b xxxx xxxx 1xxx xxxx
+F2  - L Stick X  64   0b xxxx xxxx x1xx xxxx
+Gb2 - L Stick X  32   0b xxxx xxxx xx1x xxxx
+G2  - L Stick X  16   0b xxxx xxxx xxx1 xxxx
+Ab2 - L Stick X  8    0b xxxx xxxx xxxx 1xxx
+A2  - L Stick X  4    0b xxxx xxxx xxxx x1xx
+Bb2 - L Stick X  2    0b xxxx xxxx xxxx xx1x
+B2  - L Stick X  1    0b xxxx xxxx xxxx xxx1
+
+C3  - L Stick X  -32767  0b 1xxx xxxx xxxx xxx1
+	...that bottom bit being active seems problematic, but that's what AntiMicro tells me. I'll see if this is still the case via the actual XInput data.
+
+Velocity:
+	1st key: L Stick X  0b x111 1111 xxxx xxxx
+	2nd key: L Stick Y  0b xxxx xxxx x111 1111
+	3rd key: L Stick Y  0b x111 1111 xxxx xxxx
+	4th key: R Stick X  0b xxxx xxxx x111 1111
+	5th key: R Stick X  0b x111 1111 xxxx xxxx
+	further keys don't register velocities
+
+Overdrive button: Right Stick Y  128  0b xxxx xxxx 1xxx xxxx
+	also, 0b xxxx xxxx x000 0000 when first powered on, then 0b xxxx xxxx x111 1111 (127) after it's pressed for the first time 
+
+Effect slider: just increments the XInput packet count, no inputs assigned to it
