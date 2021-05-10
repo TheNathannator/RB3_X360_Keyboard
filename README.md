@@ -4,7 +4,7 @@ This project aims to allow you to use the Rock Band 3 Xbox 360 keyboard with oth
 
 I have documented everything I've learned so far in [a .txt file included in this repo.](https://github.com/TheNathannator/RB3-X360-Keyboard/blob/main/X360%20Keys%20Inputs.txt) Note that I may update it with new info as I progress through development.
 
-No code yet, still learning and structuring things for a functional base product.
+**Note: The code is unfinished, I am still working on structuring things and making a functional first version.**
 
 ## Roadmap
 Here's what needs to be done that I can think of so far:
