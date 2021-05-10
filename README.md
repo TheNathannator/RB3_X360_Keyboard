@@ -4,6 +4,8 @@ This project aims to allow you to use the Rock Band 3 Xbox 360 keyboard with oth
 
 I have documented everything I've learned so far in [a .txt file included in this repo.](https://github.com/TheNathannator/RB3-X360-Keyboard/blob/main/X360%20Keys%20Inputs.txt) Note that I may update it with new info as I progress through development.
 
+No code yet, still learning and structuring things for a functional base product.
+
 ## Roadmap
 Here's what needs to be done that I can think of so far:
 - Framework for the input data
@@ -19,7 +21,11 @@ martinjos's [rb3_driver](https://github.com/martinjos/rb3_driver)
 ## Acknowledgements
 bearzly's [RockBandPiano](https://github.com/bearzly/RockBandPiano) project for keyboard input info
 
-[SharpDX](http://sharpdx.org/) for an XInput framework
+[SharpDX](http://sharpdx.org/) for XInput reading stuff
+
+[ViGEm.NET](https://github.com/ViGEm/ViGEm.NET) for XInput device emulation
+
+[DryWetMIDI](https://github.com/melanchall/drywetmidi) for MIDI output
 
 ## License
 This project is licensed under the MIT License. See [LICENSE](https://github.com/TheNathannator/RB3-X360-Keyboard/blob/main/LICENSE) for details.
