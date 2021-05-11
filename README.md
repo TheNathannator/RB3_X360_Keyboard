@@ -14,16 +14,22 @@ Here's what needs to be done that I can think of so far:
 - UI
 
 ## Similar Projects
-Jason Harley's [RB3KB-USB2MIDI](https://jasonharley2o.com/wiki/doku.php?id=rb3keyboard), [RB3KB-USB2PSKB](https://jasonharley2o.com/wiki/doku.php?id=rb3keyboardps), and [RB3M-USB2MIDI](https://jasonharley2o.com/wiki/doku.php?id=rb3mustang) 
+Jason Harley's [RB3KB-USB2MIDI](https://jasonharley2o.com/wiki/doku.php?id=rb3keyboard),
+ [RB3KB-USB2PSKB](https://jasonharley2o.com/wiki/doku.php?id=rb3keyboardps),
+ and [RB3M-USB2MIDI](https://jasonharley2o.com/wiki/doku.php?id=rb3mustang) 
 
 martinjos's [rb3_driver](https://github.com/martinjos/rb3_driver)
+
+## Building
+
+Requires SharpDX.XInput, ViGEm.NET, and DryWetMIDI from NuGet.
 
 ## Acknowledgements
 bearzly's [RockBandPiano](https://github.com/bearzly/RockBandPiano) project for keyboard input info
 
 [SharpDX](http://sharpdx.org/) for XInput reading stuff
 
-[ViGEm.NET](https://github.com/ViGEm/ViGEm.NET) for XInput device emulation
+[ViGEm.NET](https://github.com/ViGEm/ViGEm.NET) and [ViGEmBus](https://github.com/ViGEm/ViGEmBus) for XInput device emulation
 
 [DryWetMIDI](https://github.com/melanchall/drywetmidi) for MIDI output
 
