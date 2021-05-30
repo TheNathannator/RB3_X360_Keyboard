@@ -2,13 +2,14 @@
 ## About
 This project aims to allow you to use the Rock Band 3 Xbox 360 keyboard with other programs while it's connected to an Xbox 360 wireless receiver, via either an emulated Xbox 360 controller, keypresses or MIDI inputs.
 
-I have documented everything I've learned so far in [a .txt file included in this repo.](https://github.com/TheNathannator/RB3-X360-Keyboard/blob/main/X360%20Keys%20Inputs.txt) Note that I may update it with new info as I progress through development.
+I have documented everything I've learned so far in [a .txt file included in this repo.](https://github.com/TheNathannator/RB3-X360-Keyboard/blob/main/X360%20Keys%20Inputs.txt) Note that I will update it with new info as I progress through development.
 
 **Note: The code is unfinished, I am still working on structuring things and making a functional first version.**
 
 ## Roadmap
 Here's what needs to be done that I can think of so far:
 - Framework for the input data
+- XInput output stuff
 - Keypress output stuff
 - MIDI output stuff
 - UI
@@ -25,13 +26,13 @@ martinjos's [rb3_driver](https://github.com/martinjos/rb3_driver)
 Requires SharpDX.XInput, ViGEm.NET, and DryWetMIDI from NuGet.
 
 ## Acknowledgements
-bearzly's [RockBandPiano](https://github.com/bearzly/RockBandPiano) project for keyboard input info
+bearzly's [RockBandPiano](https://github.com/bearzly/RockBandPiano) project for pointing me in the right direction with how the inputs work
 
-[SharpDX](http://sharpdx.org/) for XInput reading stuff
+[SharpDX](http://sharpdx.org/) for XInput reading
 
 [ViGEm.NET](https://github.com/ViGEm/ViGEm.NET) and [ViGEmBus](https://github.com/ViGEm/ViGEmBus) for XInput device emulation
 
-[DryWetMIDI](https://github.com/melanchall/drywetmidi) for MIDI output
+[DryWetMIDI](https://github.com/melanchall/drywetmidi) for MIDI output (not used yet, but it's in the plans)
 
 ## License
 This project is licensed under the MIT License. See [LICENSE](https://github.com/TheNathannator/RB3-X360-Keyboard/blob/main/LICENSE) for details.
