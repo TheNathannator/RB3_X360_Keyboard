@@ -16,14 +16,18 @@ Here's what needs to be done that I can think of so far:
 
 ## Similar Projects
 Jason Harley's [RB3KB-USB2MIDI](https://jasonharley2o.com/wiki/doku.php?id=rb3keyboard),
- [RB3KB-USB2PSKB](https://jasonharley2o.com/wiki/doku.php?id=rb3keyboardps),
- and [RB3M-USB2MIDI](https://jasonharley2o.com/wiki/doku.php?id=rb3mustang) 
+[RB3KB-USB2PSKB](https://jasonharley2o.com/wiki/doku.php?id=rb3keyboardps), and 
+[RB3M-USB2MIDI](https://jasonharley2o.com/wiki/doku.php?id=rb3mustang) programs for PS3 and Wii keyboards and Mustang guitars.
 
-martinjos's [rb3_driver](https://github.com/martinjos/rb3_driver)
+martinjos's [rb3_driver](https://github.com/martinjos/rb3_driver) for Wii (and likely PS3) keyboards.
 
 ## Building
 
-Requires SharpDX.XInput, ViGEm.NET, and DryWetMIDI from NuGet.
+Requires 
+[SharpDX.XInput](https://www.nuget.org/packages/SharpDX.XInput/), 
+[ViGEm.NET](https://www.nuget.org/packages/Nefarius.ViGEm.Client/), and 
+[DryWetMIDI](https://www.nuget.org/packages/Melanchall.DryWetMidi/) from 
+[NuGet](https://www.nuget.org/).
 
 ## Acknowledgements
 bearzly's [RockBandPiano](https://github.com/bearzly/RockBandPiano) project for pointing me in the right direction with how the inputs work

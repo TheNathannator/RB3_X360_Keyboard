@@ -1,5 +1,5 @@
 ﻿
-namespace WinFormsApp1
+namespace Program
 {
     partial class Form1
     {
