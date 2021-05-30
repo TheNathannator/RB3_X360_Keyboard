@@ -1,6 +1,6 @@
 RB Keys
 -------------------------
-thanks to this project for pointing me in the right direction for some things:
+thanks to this project for pointing me in the right direction for things:
 https://github.com/bearzly/RockBandPiano
 -------------------------
 Face buttons work like a standard Xbox 360 controller
@@ -39,7 +39,7 @@ A2  - L Stick X  4    0b xxxx xxxx xxxx x1xx
 Bb2 - L Stick X  2    0b xxxx xxxx xxxx xx1x
 B2  - L Stick X  1    0b xxxx xxxx xxxx xxx1
 
-C3  - L Stick X  -32767  0b 1xxx xxxx xxxx xxxx
+C3  - L Stick X  -32768  0b 1xxx xxxx xxxx xxxx
 
 Velocity:
 	1st key: L Stick X  0b x111 1111 xxxx xxxx
@@ -50,8 +50,8 @@ Velocity:
 	further keys don't register velocities
 
 Overdrive button: Right Stick Y  128  0b xxxx xxxx 1xxx xxxx
-Pedal port: Right Stick Y  128  0b 1xxx xxxx xxxx xxxx
+Pedal port: Right Stick Y  -32768  0b 1xxx xxxx xxxx xxxx
 
 Right Stick Y 32512 0b x111 1111 xxxx xxxx is always active for some reason
 
-Effect slider: just increments the XInput packet count as far as I can tell, no inputs assigned to it. Probably not possible to get its data via XInput, but Rock Band 3 can do it somehow.
+Effect slider: just increments the XInput packet count as far as I can tell, no inputs assigned to it. Probably not possible to get its data via XInput, but it's gotta be possible some way else, RB3 can get position data from it.
