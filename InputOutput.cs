@@ -107,34 +107,34 @@ namespace InputOutput
 				overdrive = (inputGamepad.RightThumbY & 0xFF) == 0xFF;
 				pedal = (inputGamepad.RightThumbY & 0x8000) == 0x8000;
 
-				key[0]  = (range[0] & (int)Bits.bit1)  == (int)Bits.bit1;	// key[0]  = inputGamepad.LeftTrigger & 0x1
-				key[1]  = (range[0] & (int)Bits.bit2)  == (int)Bits.bit2;	// key[1]  = inputGamepad.LeftTrigger & 0x2
-				key[2]  = (range[0] & (int)Bits.bit3)  == (int)Bits.bit3;	// key[2]  = inputGamepad.LeftTrigger & 0x4
-				key[3]  = (range[0] & (int)Bits.bit4)  == (int)Bits.bit4;	// key[3]  = inputGamepad.LeftTrigger & 0x8
-				key[4]  = (range[0] & (int)Bits.bit5)  == (int)Bits.bit5;	// key[4]  = inputGamepad.LeftTrigger & 0x10
-				key[5]  = (range[0] & (int)Bits.bit6)  == (int)Bits.bit6;	// key[5]  = inputGamepad.LeftTrigger & 0x20
-				key[6]  = (range[0] & (int)Bits.bit7)  == (int)Bits.bit7;	// key[6]  = inputGamepad.LeftTrigger & 0x40
-				key[7]  = (range[0] & (int)Bits.bit8)  == (int)Bits.bit8;	// key[7]  = inputGamepad.LeftTrigger & 0x80
+				key[0]  = (range[0] & (int)Bits.bit1)  == (int)Bits.bit1;	// C1	= inputGamepad.LeftTrigger & 0x1
+				key[1]  = (range[0] & (int)Bits.bit2)  == (int)Bits.bit2;	// C#1	= inputGamepad.LeftTrigger & 0x2
+				key[2]  = (range[0] & (int)Bits.bit3)  == (int)Bits.bit3;	// D1	= inputGamepad.LeftTrigger & 0x4
+				key[3]  = (range[0] & (int)Bits.bit4)  == (int)Bits.bit4;	// D#1	= inputGamepad.LeftTrigger & 0x8
+				key[4]  = (range[0] & (int)Bits.bit5)  == (int)Bits.bit5;	// E1	= inputGamepad.LeftTrigger & 0x10
+				key[5]  = (range[0] & (int)Bits.bit6)  == (int)Bits.bit6;	// F1	= inputGamepad.LeftTrigger & 0x20
+				key[6]  = (range[0] & (int)Bits.bit7)  == (int)Bits.bit7;	// F#1	= inputGamepad.LeftTrigger & 0x40
+				key[7]  = (range[0] & (int)Bits.bit8)  == (int)Bits.bit8;	// G1	= inputGamepad.LeftTrigger & 0x80
 
-				key[8]  = (range[1] & (int)Bits.bit1)  == (int)Bits.bit1;	// key[8]  = inputGamepad.RightTrigger & 0x1
-				key[9]  = (range[1] & (int)Bits.bit2)  == (int)Bits.bit2;	// key[9]  = inputGamepad.RightTrigger & 0x2
-				key[10] = (range[1] & (int)Bits.bit3)  == (int)Bits.bit3;	// key[10] = inputGamepad.RightTrigger & 0x4
-				key[11] = (range[1] & (int)Bits.bit4)  == (int)Bits.bit4;	// key[11] = inputGamepad.RightTrigger & 0x8
-				key[12] = (range[1] & (int)Bits.bit5)  == (int)Bits.bit5;	// key[12] = inputGamepad.RightTrigger & 0x10
-				key[13] = (range[1] & (int)Bits.bit6)  == (int)Bits.bit6;	// key[13] = inputGamepad.RightTrigger & 0x20
-				key[14] = (range[1] & (int)Bits.bit7)  == (int)Bits.bit7;	// key[14] = inputGamepad.RightTrigger & 0x40
-				key[15] = (range[1] & (int)Bits.bit8)  == (int)Bits.bit8;	// key[15] = inputGamepad.RightTrigger & 0x80
+				key[8]  = (range[1] & (int)Bits.bit1)  == (int)Bits.bit1;	// G#1	= inputGamepad.RightTrigger & 0x1
+				key[9]  = (range[1] & (int)Bits.bit2)  == (int)Bits.bit2;	// A1	= inputGamepad.RightTrigger & 0x2
+				key[10] = (range[1] & (int)Bits.bit3)  == (int)Bits.bit3;	// A#1	= inputGamepad.RightTrigger & 0x4
+				key[11] = (range[1] & (int)Bits.bit4)  == (int)Bits.bit4;	// B1	= inputGamepad.RightTrigger & 0x8
+				key[12] = (range[1] & (int)Bits.bit5)  == (int)Bits.bit5;	// C2	= inputGamepad.RightTrigger & 0x10
+				key[13] = (range[1] & (int)Bits.bit6)  == (int)Bits.bit6;	// C#2	= inputGamepad.RightTrigger & 0x20
+				key[14] = (range[1] & (int)Bits.bit7)  == (int)Bits.bit7;	// D2	= inputGamepad.RightTrigger & 0x40
+				key[15] = (range[1] & (int)Bits.bit8)  == (int)Bits.bit8;	// D#2	= inputGamepad.RightTrigger & 0x80
 
-				key[16] = (range[2] & (int)Bits.bit1)  == (int)Bits.bit1;	// key[16] = inputGamepad.LeftThumbX & 0x1
-				key[17] = (range[2] & (int)Bits.bit2)  == (int)Bits.bit2;	// key[17] = inputGamepad.LeftThumbX & 0x2
-				key[18] = (range[2] & (int)Bits.bit3)  == (int)Bits.bit3;	// key[18] = inputGamepad.LeftThumbX & 0x4
-				key[19] = (range[2] & (int)Bits.bit4)  == (int)Bits.bit4;	// key[19] = inputGamepad.LeftThumbX & 0x8
-				key[20] = (range[2] & (int)Bits.bit5)  == (int)Bits.bit5;	// key[20] = inputGamepad.LeftThumbX & 0x10
-				key[21] = (range[2] & (int)Bits.bit6)  == (int)Bits.bit6;	// key[21] = inputGamepad.LeftThumbX & 0x20
-				key[22] = (range[2] & (int)Bits.bit7)  == (int)Bits.bit7;	// key[22] = inputGamepad.LeftThumbX & 0x40
-				key[23] = (range[2] & (int)Bits.bit8)  == (int)Bits.bit8;	// key[23] = inputGamepad.LeftThumbX & 0x80
+				key[16] = (range[2] & (int)Bits.bit1)  == (int)Bits.bit1;	// E2	= inputGamepad.LeftThumbX & 0x1
+				key[17] = (range[2] & (int)Bits.bit2)  == (int)Bits.bit2;	// F2	= inputGamepad.LeftThumbX & 0x2
+				key[18] = (range[2] & (int)Bits.bit3)  == (int)Bits.bit3;	// F#2	= inputGamepad.LeftThumbX & 0x4
+				key[19] = (range[2] & (int)Bits.bit4)  == (int)Bits.bit4;	// G2	= inputGamepad.LeftThumbX & 0x8
+				key[20] = (range[2] & (int)Bits.bit5)  == (int)Bits.bit5;	// G#2	= inputGamepad.LeftThumbX & 0x10
+				key[21] = (range[2] & (int)Bits.bit6)  == (int)Bits.bit6;	// A2	= inputGamepad.LeftThumbX & 0x20
+				key[22] = (range[2] & (int)Bits.bit7)  == (int)Bits.bit7;	// A#2	= inputGamepad.LeftThumbX & 0x40
+				key[23] = (range[2] & (int)Bits.bit8)  == (int)Bits.bit8;	// B2	= inputGamepad.LeftThumbX & 0x80
 
-				key[24] = (range[3] & (int)Bits.bit16) == (int)Bits.bit16;	// key[24] = inputGamepad.LeftThumbX & 0x8000
+				key[24] = (range[3] & (int)Bits.bit16) == (int)Bits.bit16;	// C2	= inputGamepad.LeftThumbX & 0x8000
 
 				dpadU = ((int)inputGamepad.Buttons & (int)Bits.bit1)  == (int)Bits.bit1;	// XINPUT_GAMEPAD_DPAD_UP        = state & 0x0001
 				dpadD = ((int)inputGamepad.Buttons & (int)Bits.bit2)  == (int)Bits.bit2;	// XINPUT_GAMEPAD_DPAD_DOWN      = state & 0x0002
@@ -167,21 +167,15 @@ namespace InputOutput
 		/// </summary>
 
 		static IXbox360Controller outputController;
-		static IKeyboardSimulator keyboardOutput;
-
-		//	public enum Keys
-		//	{
-		//		C1 = keyCode.VK_Z
-		//		
-		//	}
+		static IKeyboardSimulator keyOut;
+		static ViGEmClient vigem;
 
 		/// <summary>
 		/// Initializes the ViGEmBus client.
 		/// </summary>
 		static void InitializeViGEmBus(string[] args)
 		{
-			ViGEmClient client = new ViGEmClient();
-			outputController = client.CreateXbox360Controller();
+			outputController = vigem.CreateXbox360Controller();
 			outputController.Connect();
 		}
 
@@ -190,52 +184,101 @@ namespace InputOutput
 		/// </summary>
 		public void ViGEmBus()
 		{
-			outputController.SetButtonState(Xbox360Button.A, Input.key[0]  ||				//	C1, C2, A = A
-															 Input.key[12] ||
-															 Input.btnA);
+			outputController.SetButtonState(Xbox360Button.A,	//	C1, C2, A = A
+				Input.key[0]  ||
+				Input.key[12] ||
+				Input.btnA);
 
-			outputController.SetButtonState(Xbox360Button.B, Input.key[2]  ||				//	D1, D2, B = B
-															 Input.key[14] ||
-															 Input.btnB);
+			outputController.SetButtonState(Xbox360Button.B,	//	D1, D2, B = B
+				Input.key[2]  ||
+				Input.key[14] ||
+				Input.btnB);
 
-			outputController.SetButtonState(Xbox360Button.Y, Input.key[4]  ||				//	E1, E2, Y = Y
-															 Input.key[16] ||
-															 Input.btnY);
+			outputController.SetButtonState(Xbox360Button.Y,	//	E1, E2, Y = Y
+				Input.key[4]  ||
+				Input.key[16] ||
+				Input.btnY);
 
-			outputController.SetButtonState(Xbox360Button.X, Input.key[5]  ||				//	F1, F2, X = X
-															 Input.key[17] ||
-															 Input.btnX);
+			outputController.SetButtonState(Xbox360Button.X,	//	F1, F2, X = X
+				Input.key[5]  ||
+				Input.key[17] ||
+				Input.btnX);
 
-			outputController.SetButtonState(Xbox360Button.LeftShoulder,  Input.key[7]  ||	//	G1, G2, LB, pedal = LB
-																		 Input.key[19] ||
-																		 Input.btnLB   ||
-																		 Input.pedal);
 
-			outputController.SetButtonState(Xbox360Button.RightShoulder, Input.key[9]  ||	//	A1, A2, RB = RB
-																		 Input.key[21] ||
-																		 Input.btnRB);
+			outputController.SetButtonState(Xbox360Button.LeftShoulder, 	//	G1, G2, LB, pedal = LB
+				Input.key[7]  ||
+				Input.key[19] ||
+				Input.btnLB   ||
+				Input.pedal);
 
-			outputController.SetButtonState(Xbox360Button.Start, Input.btnSt);				//	Start = Start
+			outputController.SetButtonState(Xbox360Button.RightShoulder,	//	A1, A2, RB = RB
+				Input.key[9]  ||
+				Input.key[21] ||
+				Input.btnRB);
 
-			outputController.SetButtonState(Xbox360Button.Back,  Input.overdrive ||
-																 Input.btnBk);				//	OD button, Back = Back
 
-			outputController.SetButtonState(Xbox360Button.Up,    Input.dpadU);				//	D-pad Up = D-pad Up
-			outputController.SetButtonState(Xbox360Button.Down,  Input.dpadD);				//	D-pad Down = D-pad Down
-			outputController.SetButtonState(Xbox360Button.Left,  Input.dpadL);				//	D-pad Left = D-pad Left
-			outputController.SetButtonState(Xbox360Button.Right, Input.dpadR);				//	D-pad Right = D-pad Right
+			outputController.SetButtonState(Xbox360Button.Start,	//	Start = Start
+				Input.btnSt);	
+
+			outputController.SetButtonState(Xbox360Button.Back, 	//	OD button, Back = Back
+				Input.overdrive ||
+				Input.btnBk);				
+
+
+			outputController.SetButtonState(Xbox360Button.Up,		//	D-pad Up = D-pad Up
+				Input.dpadU);
+
+			outputController.SetButtonState(Xbox360Button.Down, 	//	D-pad Down = D-pad Down
+				Input.dpadD);
+
+			outputController.SetButtonState(Xbox360Button.Left, 	//	D-pad Left = D-pad Left
+				Input.dpadL);
+
+			outputController.SetButtonState(Xbox360Button.Right,	//	D-pad Right = D-pad Right
+				Input.dpadR);
+
 
 			Thread.Sleep(1);
 		}
 
 		static void Keyboard()
 		{
+			/*
+			C1  = Z
+			C#1 = S
+			D1  = X
+			D#1 = D
+			E1  = C
+			F1  = V
+			F#1 = G
+			G1  = B
+			G#1 = H
+			A1  = N
+			A#1 = J
+			B1  = M
+			C2  = Q
+			C#2 = 2
+			D2  = W
+			D#2 = 3
+			E2  = E
+			F2  = R
+			F#2 = 5
+			G2  = T
+			G#2 = 6
+			A2  = Y
+			A#2 = 7
+			B2  = U
+			C3  = I
+			*/
+
+			// keyOut.KeyDown();
+
+
 			//	switch ()
 			//	{
 			//	case
 			//	default: break;
 			//	}
-			//	keyboardOutput.KeyDown();
 		}
 
 		static void Midi()

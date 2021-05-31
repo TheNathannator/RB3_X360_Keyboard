@@ -25,8 +25,9 @@ martinjos's [rb3_driver](https://github.com/martinjos/rb3_driver) for Wii (and l
 
 Requires 
 [SharpDX.XInput](https://www.nuget.org/packages/SharpDX.XInput/), 
-[ViGEm.NET](https://www.nuget.org/packages/Nefarius.ViGEm.Client/), and 
-[DryWetMIDI](https://www.nuget.org/packages/Melanchall.DryWetMidi/) from 
+[ViGEm.NET](https://www.nuget.org/packages/Nefarius.ViGEm.Client/), 
+[DryWetMIDI](https://www.nuget.org/packages/Melanchall.DryWetMidi/), and 
+[H.InputSimulator](https://www.nuget.org/packages/H.InputSimulator/) from 
 [NuGet](https://www.nuget.org/).
 
 ## Acknowledgements
@@ -37,6 +38,8 @@ bearzly's [RockBandPiano](https://github.com/bearzly/RockBandPiano) project for 
 [ViGEm.NET](https://github.com/ViGEm/ViGEm.NET) and [ViGEmBus](https://github.com/ViGEm/ViGEmBus) for XInput device emulation
 
 [DryWetMIDI](https://github.com/melanchall/drywetmidi) for MIDI output (not used yet, but it's in the plans)
+
+[H.InputSimulator](https://github.com/HavenDV/H.InputSimulator) for keypress simulation
 
 ## License
 This project is licensed under the MIT License. See [LICENSE](https://github.com/TheNathannator/RB3-X360-Keyboard/blob/main/LICENSE) for details.
