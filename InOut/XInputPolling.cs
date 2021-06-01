@@ -1,46 +1,45 @@
 ﻿using System;
-using System.Threading;
 using SharpDX.XInput;
-using Nefarius.ViGEm.Client;
-using Nefarius.ViGEm.Client.Targets;
-using Nefarius.ViGEm.Client.Targets.Xbox360;
-using WindowsInput;
-using keyCode = WindowsInput.Native.VirtualKeyCode;
-using Melanchall.DryWetMidi.Devices;
-
 /*
 This code is not all that great lol
 It's just kinda put together in a way such that it'll at the very least work.
 I'll try and optimize and clean it up later once I learn more about C#.
 */
 
+//	planning out code that calls the input and output functions in other files
+//	public class IO
+//	{
+//		/// <summary>
+//		///  Calls the input and output code.
+//		/// </summary>
+//			
+//		public int inputType = 0;
+//
+//		static void Initialize()
+//		{
+//			InputOutput.Input.Initialize();
+//			InputOutput.Output.InitializeViGEmBus();			
+//		}
+//
+//		static void Loop()
+//		{
+//			InputOutput.Input.Poll
+//			switch (outputType)
+//			{
+//				case 1:	InputOutput.Output.ViGEmBus
+//				case 2:	InputOutput.Output.Keyboard
+//				case 3: InputOutput.Output.Midi
+//				default: break;
+//			}
+//			Thread.Sleep(1);
+//		}
+//	}
+
 namespace InOut
 {
 	/// <summary>
 	/// XInput reading code.
 	/// </summary>
-
-	//	planning out code that'll go in other files eventually
-	//	public class Main
-	//	{
-	//		static void InitializeXInput()
-	//		{
-	//			InputOutput.Input.Initialize();
-	//			InputOutput.Output.InitializeViGEmBus();			
-	//		}
-	//
-	//		static void Loop()
-	//		{
-	//			InputOutput.Input.Poll
-	//			switch (outputType)
-	//			{
-	//				case 1:	InputOutput.Output.ViGEmBus
-	//				case 2:	InputOutput.Output.Keyboard
-	//				case 3: InputOutput.Output.Midi
-	//				default: break;
-	//			}
-	//		}
-	//	}
 
 	public class Input
 	{
@@ -190,123 +189,6 @@ namespace InOut
 				// set the current state to the previous state for the next poll
 				previousState = currentState;
 			}
-			Thread.Sleep(1);
-		}
-	}
-
-	class Output
-	{
-		/// <summary>
-		///  Output code (ViGEmBus, keypresses, MIDI notes).
-		/// </summary>
-
-		static IXbox360Controller outputController;
-		static IKeyboardSimulator keyOut;
-		static ViGEmClient vigem;
-
-		/// <summary>
-		/// Initializes the ViGEmBus client.
-		/// </summary>
-		static void InitializeViGEmBus(string[] args)
-		{
-			outputController = vigem.CreateXbox360Controller();
-			outputController.Connect();
-		}
-
-		/// <summary>
-		/// Output code for ViGEmBus.
-		/// </summary>
-		public void ViGEmBus()
-		{
-			outputController.SetButtonState(Xbox360Button.A,	//	C1, C2, A = A
-				Input.key[0]  ||
-				Input.key[12] ||
-				Input.btnA);
-
-			outputController.SetButtonState(Xbox360Button.B,	//	D1, D2, B = B
-				Input.key[2]  ||
-				Input.key[14] ||
-				Input.btnB);
-
-			outputController.SetButtonState(Xbox360Button.Y,	//	E1, E2, Y = Y
-				Input.key[4]  ||
-				Input.key[16] ||
-				Input.btnY);
-
-			outputController.SetButtonState(Xbox360Button.X,	//	F1, F2, X = X
-				Input.key[5]  ||
-				Input.key[17] ||
-				Input.btnX);
-
-
-			outputController.SetButtonState(Xbox360Button.LeftShoulder, 	//	G1, G2, LB, pedal = LB
-				Input.key[7]  ||
-				Input.key[19] ||
-				Input.btnLB   ||
-				Input.pedal);
-
-			outputController.SetButtonState(Xbox360Button.RightShoulder,	//	A1, A2, RB = RB
-				Input.key[9]  ||
-				Input.key[21] ||
-				Input.btnRB);
-
-
-			outputController.SetButtonState(Xbox360Button.Start,	//	Start = Start
-				Input.btnSt);	
-
-			outputController.SetButtonState(Xbox360Button.Back, 	//	OD button, Back = Back
-				Input.overdrive ||
-				Input.btnBk);				
-
-
-			outputController.SetButtonState(Xbox360Button.Up,   	//	D-pad Up = D-pad Up
-				Input.dpadU);
-
-			outputController.SetButtonState(Xbox360Button.Down, 	//	D-pad Down = D-pad Down
-				Input.dpadD);
-
-			outputController.SetButtonState(Xbox360Button.Left, 	//	D-pad Left = D-pad Left
-				Input.dpadL);
-
-			outputController.SetButtonState(Xbox360Button.Right,	//	D-pad Right = D-pad Right
-				Input.dpadR);
-
-
-			Thread.Sleep(1);
-		}
-
-		static void Keyboard()
-		{
-			if(Input.key[0])  keyOut.KeyDown(keyCode.VK_Z); else keyOut.KeyUp(keyCode.VK_Z);	// C1  = Z
-			if(Input.key[1])  keyOut.KeyDown(keyCode.VK_S); else keyOut.KeyUp(keyCode.VK_S);	// C#1 = S
-			if(Input.key[2])  keyOut.KeyDown(keyCode.VK_X); else keyOut.KeyUp(keyCode.VK_X);	// D1  = X
-			if(Input.key[3])  keyOut.KeyDown(keyCode.VK_D); else keyOut.KeyUp(keyCode.VK_D);	// D#1 = D
-			if(Input.key[4])  keyOut.KeyDown(keyCode.VK_C); else keyOut.KeyUp(keyCode.VK_C);	// E1  = C
-			if(Input.key[5])  keyOut.KeyDown(keyCode.VK_V); else keyOut.KeyUp(keyCode.VK_V);	// F1  = V
-			if(Input.key[6])  keyOut.KeyDown(keyCode.VK_G); else keyOut.KeyUp(keyCode.VK_G);	// F#1 = G
-			if(Input.key[7])  keyOut.KeyDown(keyCode.VK_B); else keyOut.KeyUp(keyCode.VK_B);	// G1  = B
-			if(Input.key[8])  keyOut.KeyDown(keyCode.VK_H); else keyOut.KeyUp(keyCode.VK_H);	// G#1 = H
-			if(Input.key[9])  keyOut.KeyDown(keyCode.VK_N); else keyOut.KeyUp(keyCode.VK_N);	// A1  = N
-			if(Input.key[10]) keyOut.KeyDown(keyCode.VK_J); else keyOut.KeyUp(keyCode.VK_J);	// A#1 = J
-			if(Input.key[11]) keyOut.KeyDown(keyCode.VK_M); else keyOut.KeyUp(keyCode.VK_M);	// B1  = M
-			if(Input.key[12]) keyOut.KeyDown(keyCode.VK_Q); else keyOut.KeyUp(keyCode.VK_Q);	// C2  = Q
-			if(Input.key[13]) keyOut.KeyDown(keyCode.VK_2); else keyOut.KeyUp(keyCode.VK_2);	// C#2 = 2
-			if(Input.key[14]) keyOut.KeyDown(keyCode.VK_W); else keyOut.KeyUp(keyCode.VK_W);	// D2  = W
-			if(Input.key[15]) keyOut.KeyDown(keyCode.VK_3); else keyOut.KeyUp(keyCode.VK_3);	// D#2 = 3
-			if(Input.key[16]) keyOut.KeyDown(keyCode.VK_E); else keyOut.KeyUp(keyCode.VK_E);	// E2  = E
-			if(Input.key[17]) keyOut.KeyDown(keyCode.VK_R); else keyOut.KeyUp(keyCode.VK_R);	// F2  = R
-			if(Input.key[18]) keyOut.KeyDown(keyCode.VK_5); else keyOut.KeyUp(keyCode.VK_5);	// F#2 = 5
-			if(Input.key[19]) keyOut.KeyDown(keyCode.VK_T); else keyOut.KeyUp(keyCode.VK_T);	// G2  = T
-			if(Input.key[20]) keyOut.KeyDown(keyCode.VK_6); else keyOut.KeyUp(keyCode.VK_6);	// G#2 = 6
-			if(Input.key[21]) keyOut.KeyDown(keyCode.VK_Y); else keyOut.KeyUp(keyCode.VK_Y);	// A2  = Y
-			if(Input.key[22]) keyOut.KeyDown(keyCode.VK_7); else keyOut.KeyUp(keyCode.VK_7);	// A#2 = 7
-			if(Input.key[23]) keyOut.KeyDown(keyCode.VK_U); else keyOut.KeyUp(keyCode.VK_U);	// B2  = U
-			if(Input.key[24]) keyOut.KeyDown(keyCode.VK_I); else keyOut.KeyUp(keyCode.VK_I);	// C3  = I
-		}
-
-		static void Midi()
-		{
-			
 		}
 	}
 }
