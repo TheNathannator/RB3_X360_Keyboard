@@ -4,9 +4,9 @@ using SharpDX.XInput;
 using Nefarius.ViGEm.Client;
 using Nefarius.ViGEm.Client.Targets;
 using Nefarius.ViGEm.Client.Targets.Xbox360;
-using WindowsInput.Native; 
 using WindowsInput;
 using keyCode = WindowsInput.Native.VirtualKeyCode;
+using Melanchall.DryWetMidi.Devices;
 
 /*
 This code is not all that great lol
@@ -14,11 +14,34 @@ It's just kinda put together in a way such that it'll at the very least work.
 I'll try and optimize and clean it up later once I learn more about C#.
 */
 
-namespace InputOutput
+namespace InOut
 {
 	/// <summary>
 	/// XInput reading code.
 	/// </summary>
+
+	//	planning out code that'll go in other files eventually
+	//	public class Main
+	//	{
+	//		static void InitializeXInput()
+	//		{
+	//			InputOutput.Input.Initialize();
+	//			InputOutput.Output.InitializeViGEmBus();			
+	//		}
+	//
+	//		static void Loop()
+	//		{
+	//			InputOutput.Input.Poll
+	//			switch (outputType)
+	//			{
+	//				case 1:	InputOutput.Output.ViGEmBus
+	//				case 2:	InputOutput.Output.Keyboard
+	//				case 3: InputOutput.Output.Midi
+	//				default: break;
+	//			}
+	//		}
+	//	}
+
 	public class Input
 	{
 		SharpDX.XInput.Controller inputController = null;
@@ -29,11 +52,11 @@ namespace InputOutput
 		// TODO: figure out how to read the bitmasks in a better manner
 		public int[] range = new int[4];
 		public static bool[] key = new bool[25];
-		public static int[] vel = new int[5];
+		public static byte[] vel = new byte[5];
 		public static int modulator;
 		public static bool overdrive;
 		public static bool pedal;
-		public static bool btnA, btnB, btnX, btnY, btnLB, btnRB, btnLS, btnRS, btnSt, btnBk;
+		public static bool	btnA, btnB, btnX, btnY, btnLB, btnRB, btnLS, btnRS, btnSt, btnBk;
 		public static bool dpadU, dpadD, dpadL, dpadR;
 
 		/// <summary>
@@ -42,16 +65,16 @@ namespace InputOutput
 		[Flags]
 		public enum Bits
 		{
-			bit1 = 0x1,     bit2 = 0x2,     bit3 = 0x4,     bit4 = 0x8,
-			bit5 = 0x10,    bit6 = 0x20,    bit7 = 0x40,    bit8 = 0x80,
-			bit9 = 0x100,   bit10 = 0x200,  bit11 = 0x400,  bit12 = 0x800,
+			bit1  = 0x1,    bit2  = 0x2,    bit3  = 0x4,    bit4  = 0x8,
+			bit5  = 0x10,   bit6  = 0x20,   bit7  = 0x40,   bit8  = 0x80,
+			bit9  = 0x100,  bit10 = 0x200,  bit11 = 0x400,  bit12 = 0x800,
 			bit13 = 0x1000, bit14 = 0x2000, bit15 = 0x4000, bit16 = 0x8000
 		}
 	
 		/// <summary>
 		/// Initializes XInput polling.
 		/// </summary>
-		public void Initialize()
+		public void InitializeXInput()
 		{
 			var controllers = new[]
 			{
@@ -86,27 +109,36 @@ namespace InputOutput
 		/// </summary>
 		public void Poll()
 		{
-			currentState = inputController.GetState();
-			inputGamepad = currentState.Gamepad;
 
 			// TODO: figure out how to read the bitmasks in an efficient manner.
 			// I'm doing everything individually just so I have something that works.
+
+			// get the current gamepad state
+			currentState = inputController.GetState();
+			inputGamepad = currentState.Gamepad;
+
+			// check if the state's changed, to prevent unnecessary polling of inputs
 			if(currentState.PacketNumber != previousState.PacketNumber)
 			{
+				// allocate the key ranges from their respective sources
 				range[0] = inputGamepad.LeftTrigger;
 				range[1] = inputGamepad.RightTrigger;
 				range[2] = inputGamepad.LeftThumbX & 0xFF;
-				range[3] = inputGamepad.LeftThumbX & 0x8000;
+				range[3] = (inputGamepad.LeftThumbX & 0x8000);
 
-				vel[0] = inputGamepad.LeftThumbX & 0xFF00;
-				vel[1] = inputGamepad.LeftThumbY & 0xFF;
-				vel[2] = inputGamepad.LeftThumbY & 0xFF00;
-				vel[3] = inputGamepad.RightThumbX & 0xFF;
-				vel[4] = inputGamepad.RightThumbX & 0xFF00;
+				// get the velocity values for the first 5 held keys
+				vel[0] = (byte)((inputGamepad.LeftThumbX  & 0xFF00) >> 8);	// shift right 8 because it's just the top 8 that are needed here
+				vel[1] = (byte)(inputGamepad.LeftThumbY  & 0xFF);			// no shift since it's just the bottom 8 that are needed here
+				vel[2] = (byte)((inputGamepad.LeftThumbY  & 0xFF00) >> 8);
+				vel[3] = (byte)(inputGamepad.RightThumbX & 0xFF);
+				vel[4] = (byte)((inputGamepad.RightThumbX & 0xFF00) >> 8);
 
+				// get the state of the overdrive button and pedal port
 				overdrive = (inputGamepad.RightThumbY & 0xFF) == 0xFF;
 				pedal = (inputGamepad.RightThumbY & 0x8000) == 0x8000;
 
+				// convert the key ranges into key booleans for ease of use
+				// i need to learn how to use bitmasks more effectively lol
 				key[0]  = (range[0] & (int)Bits.bit1)  == (int)Bits.bit1;	// C1	= inputGamepad.LeftTrigger & 0x1
 				key[1]  = (range[0] & (int)Bits.bit2)  == (int)Bits.bit2;	// C#1	= inputGamepad.LeftTrigger & 0x2
 				key[2]  = (range[0] & (int)Bits.bit3)  == (int)Bits.bit3;	// D1	= inputGamepad.LeftTrigger & 0x4
@@ -136,6 +168,7 @@ namespace InputOutput
 
 				key[24] = (range[3] & (int)Bits.bit16) == (int)Bits.bit16;	// C2	= inputGamepad.LeftThumbX & 0x8000
 
+				// get the state of the face buttons
 				dpadU = ((int)inputGamepad.Buttons & (int)Bits.bit1)  == (int)Bits.bit1;	// XINPUT_GAMEPAD_DPAD_UP        = state & 0x0001
 				dpadD = ((int)inputGamepad.Buttons & (int)Bits.bit2)  == (int)Bits.bit2;	// XINPUT_GAMEPAD_DPAD_DOWN      = state & 0x0002
 				dpadL = ((int)inputGamepad.Buttons & (int)Bits.bit3)  == (int)Bits.bit3;	// XINPUT_GAMEPAD_DPAD_LEFT      = state & 0x0004
@@ -154,6 +187,7 @@ namespace InputOutput
 				btnX  = ((int)inputGamepad.Buttons & (int)Bits.bit15) == (int)Bits.bit15;	// XINPUT_GAMEPAD_X              = state & 0x4000
 				btnY  = ((int)inputGamepad.Buttons & (int)Bits.bit16) == (int)Bits.bit16;	// XINPUT_GAMEPAD_Y              = state & 0x8000
 
+				// set the current state to the previous state for the next poll
 				previousState = currentState;
 			}
 			Thread.Sleep(1);
@@ -225,7 +259,7 @@ namespace InputOutput
 				Input.btnBk);				
 
 
-			outputController.SetButtonState(Xbox360Button.Up,		//	D-pad Up = D-pad Up
+			outputController.SetButtonState(Xbox360Button.Up,   	//	D-pad Up = D-pad Up
 				Input.dpadU);
 
 			outputController.SetButtonState(Xbox360Button.Down, 	//	D-pad Down = D-pad Down
@@ -243,47 +277,36 @@ namespace InputOutput
 
 		static void Keyboard()
 		{
-			/*
-			C1  = Z
-			C#1 = S
-			D1  = X
-			D#1 = D
-			E1  = C
-			F1  = V
-			F#1 = G
-			G1  = B
-			G#1 = H
-			A1  = N
-			A#1 = J
-			B1  = M
-			C2  = Q
-			C#2 = 2
-			D2  = W
-			D#2 = 3
-			E2  = E
-			F2  = R
-			F#2 = 5
-			G2  = T
-			G#2 = 6
-			A2  = Y
-			A#2 = 7
-			B2  = U
-			C3  = I
-			*/
-
-			// keyOut.KeyDown();
-
-
-			//	switch ()
-			//	{
-			//	case
-			//	default: break;
-			//	}
+			if(Input.key[0])  keyOut.KeyDown(keyCode.VK_Z); else keyOut.KeyUp(keyCode.VK_Z);	// C1  = Z
+			if(Input.key[1])  keyOut.KeyDown(keyCode.VK_S); else keyOut.KeyUp(keyCode.VK_S);	// C#1 = S
+			if(Input.key[2])  keyOut.KeyDown(keyCode.VK_X); else keyOut.KeyUp(keyCode.VK_X);	// D1  = X
+			if(Input.key[3])  keyOut.KeyDown(keyCode.VK_D); else keyOut.KeyUp(keyCode.VK_D);	// D#1 = D
+			if(Input.key[4])  keyOut.KeyDown(keyCode.VK_C); else keyOut.KeyUp(keyCode.VK_C);	// E1  = C
+			if(Input.key[5])  keyOut.KeyDown(keyCode.VK_V); else keyOut.KeyUp(keyCode.VK_V);	// F1  = V
+			if(Input.key[6])  keyOut.KeyDown(keyCode.VK_G); else keyOut.KeyUp(keyCode.VK_G);	// F#1 = G
+			if(Input.key[7])  keyOut.KeyDown(keyCode.VK_B); else keyOut.KeyUp(keyCode.VK_B);	// G1  = B
+			if(Input.key[8])  keyOut.KeyDown(keyCode.VK_H); else keyOut.KeyUp(keyCode.VK_H);	// G#1 = H
+			if(Input.key[9])  keyOut.KeyDown(keyCode.VK_N); else keyOut.KeyUp(keyCode.VK_N);	// A1  = N
+			if(Input.key[10]) keyOut.KeyDown(keyCode.VK_J); else keyOut.KeyUp(keyCode.VK_J);	// A#1 = J
+			if(Input.key[11]) keyOut.KeyDown(keyCode.VK_M); else keyOut.KeyUp(keyCode.VK_M);	// B1  = M
+			if(Input.key[12]) keyOut.KeyDown(keyCode.VK_Q); else keyOut.KeyUp(keyCode.VK_Q);	// C2  = Q
+			if(Input.key[13]) keyOut.KeyDown(keyCode.VK_2); else keyOut.KeyUp(keyCode.VK_2);	// C#2 = 2
+			if(Input.key[14]) keyOut.KeyDown(keyCode.VK_W); else keyOut.KeyUp(keyCode.VK_W);	// D2  = W
+			if(Input.key[15]) keyOut.KeyDown(keyCode.VK_3); else keyOut.KeyUp(keyCode.VK_3);	// D#2 = 3
+			if(Input.key[16]) keyOut.KeyDown(keyCode.VK_E); else keyOut.KeyUp(keyCode.VK_E);	// E2  = E
+			if(Input.key[17]) keyOut.KeyDown(keyCode.VK_R); else keyOut.KeyUp(keyCode.VK_R);	// F2  = R
+			if(Input.key[18]) keyOut.KeyDown(keyCode.VK_5); else keyOut.KeyUp(keyCode.VK_5);	// F#2 = 5
+			if(Input.key[19]) keyOut.KeyDown(keyCode.VK_T); else keyOut.KeyUp(keyCode.VK_T);	// G2  = T
+			if(Input.key[20]) keyOut.KeyDown(keyCode.VK_6); else keyOut.KeyUp(keyCode.VK_6);	// G#2 = 6
+			if(Input.key[21]) keyOut.KeyDown(keyCode.VK_Y); else keyOut.KeyUp(keyCode.VK_Y);	// A2  = Y
+			if(Input.key[22]) keyOut.KeyDown(keyCode.VK_7); else keyOut.KeyUp(keyCode.VK_7);	// A#2 = 7
+			if(Input.key[23]) keyOut.KeyDown(keyCode.VK_U); else keyOut.KeyUp(keyCode.VK_U);	// B2  = U
+			if(Input.key[24]) keyOut.KeyDown(keyCode.VK_I); else keyOut.KeyUp(keyCode.VK_I);	// C3  = I
 		}
 
 		static void Midi()
 		{
-		
+			
 		}
 	}
 }
