@@ -26,6 +26,9 @@ namespace InOut
 		/// </summary>
 		public void ViGEmBus()
 		{
+			// TODO: Just sending inputs based on the current state is naive.
+			// I need to keep track of both the previous state and the current state,
+			// and only send inputs when the input being checked for actually changes.
 			outputController.SetButtonState(Xbox360Button.A,	//	C1, C2, A = A
 				Input.key[0]  ||
 				Input.key[12] ||
@@ -59,25 +62,16 @@ namespace InOut
 				Input.btnRB);
 
 
-			outputController.SetButtonState(Xbox360Button.Start,	//	Start = Start
-				Input.btnSt);	
+			if(Input.overdrive) outputController.SetAxisValue(Xbox360Axis.RightThumbY, 32767);
+			else outputController.SetAxisValue(Xbox360Axis.RightThumbY, 0);
 
-			outputController.SetButtonState(Xbox360Button.Back, 	//	OD button, Back = Back
-				Input.overdrive ||
-				Input.btnBk);				
+			outputController.SetButtonState(Xbox360Button.Up,    Input.dpadU);	//	D-pad Up = D-pad Up
+			outputController.SetButtonState(Xbox360Button.Down,  Input.dpadD);	//	D-pad Down = D-pad Down
+			outputController.SetButtonState(Xbox360Button.Left,  Input.dpadL);	//	D-pad Left = D-pad Left
+			outputController.SetButtonState(Xbox360Button.Right, Input.dpadR);	//	D-pad Right = D-pad Right
 
-
-			outputController.SetButtonState(Xbox360Button.Up,   	//	D-pad Up = D-pad Up
-				Input.dpadU);
-
-			outputController.SetButtonState(Xbox360Button.Down, 	//	D-pad Down = D-pad Down
-				Input.dpadD);
-
-			outputController.SetButtonState(Xbox360Button.Left, 	//	D-pad Left = D-pad Left
-				Input.dpadL);
-
-			outputController.SetButtonState(Xbox360Button.Right,	//	D-pad Right = D-pad Right
-				Input.dpadR);
+			outputController.SetButtonState(Xbox360Button.Start, Input.btnSt);	//	Start = Start
+			outputController.SetButtonState(Xbox360Button.Back,  Input.btnBk);	//	OD button, Back = Back
 		}
 	}
 }

@@ -7,28 +7,26 @@ I'll try and optimize and clean it up later once I learn more about C#.
 */
 
 //	planning out code that calls the input and output functions in other files
-//	public class IO
+//	/// <summary>
+//	///  Calls the input and output code.
+//	/// </summary>
+//	public class h
 //	{
-//		/// <summary>
-//		///  Calls the input and output code.
-//		/// </summary>
-//			
-//		public int inputType = 0;
-//
 //		static void Initialize()
 //		{
 //			InputOutput.Input.Initialize();
 //			InputOutput.Output.InitializeViGEmBus();			
 //		}
 //
+//		public int outputType = 0;
 //		static void Loop()
 //		{
 //			InputOutput.Input.Poll
 //			switch (outputType)
 //			{
-//				case 1:	InputOutput.Output.ViGEmBus
-//				case 2:	InputOutput.Output.Keyboard
-//				case 3: InputOutput.Output.Midi
+//				case 1:	InputOutput.Output.ViGEmBus();
+//				case 2:	InputOutput.Output.Keyboard();
+//				case 3: InputOutput.Output.Midi();
 //				default: break;
 //			}
 //			Thread.Sleep(1);
@@ -51,6 +49,11 @@ namespace InOut
 		// TODO: figure out how to read the bitmasks in a better manner
 		public int[] range = new int[4];
 		public static bool[] key = new bool[25];
+		//	Indexing:
+		//	C1 = 0,  Db1 = 1,  D1 = 2,  Eb1 = 3,  E1 = 4,
+		//	F1 = 5,  Gb1 = 6,  G1 = 7,  Ab1 = 8,  A1 = 9,  Bb1 = 10, B1 = 11,
+		//	C2 = 12, Db2 = 13, D2 = 14, Eb2 = 15, E2 = 16,
+		//	F2 = 17, Gb2 = 18, G2 = 19, Ab2 = 20, A2 = 21, Bb2 = 22, B2 = 23, C3 = 24
 		public static byte[] vel = new byte[5];
 		public static int modulator;
 		public static bool overdrive;
@@ -112,31 +115,37 @@ namespace InOut
 			// TODO: figure out how to read the bitmasks in an efficient manner.
 			// I'm doing everything individually just so I have something that works.
 
-			// get the current gamepad state
+			// TODO: Track which notes are the first 5 so I can do MIDI output properly
+
+			// TODO: Just sending inputs based on the current state is naive.
+			// I need to keep track of both the previous state and the current state,
+			// and only send inputs when the input being checked for actually changes.
+
+			// Get the current gamepad state.
 			currentState = inputController.GetState();
 			inputGamepad = currentState.Gamepad;
 
-			// check if the state's changed, to prevent unnecessary polling of inputs
+			// Check if the state's changed, to prevent unnecessary polling of inputs.
 			if(currentState.PacketNumber != previousState.PacketNumber)
 			{
-				// allocate the key ranges from their respective sources
+				// Allocate the key ranges from their respective sources.
 				range[0] = inputGamepad.LeftTrigger;
 				range[1] = inputGamepad.RightTrigger;
 				range[2] = inputGamepad.LeftThumbX & 0xFF;
 				range[3] = (inputGamepad.LeftThumbX & 0x8000);
 
-				// get the velocity values for the first 5 held keys
+				// Get the velocity values for the first 5 held keys.
 				vel[0] = (byte)((inputGamepad.LeftThumbX  & 0xFF00) >> 8);	// shift right 8 because it's just the top 8 that are needed here
-				vel[1] = (byte)(inputGamepad.LeftThumbY  & 0xFF);			// no shift since it's just the bottom 8 that are needed here
+				vel[1] = (byte)( inputGamepad.LeftThumbY  & 0xFF);			// no shift since it's just the bottom 8 that are needed here
 				vel[2] = (byte)((inputGamepad.LeftThumbY  & 0xFF00) >> 8);
-				vel[3] = (byte)(inputGamepad.RightThumbX & 0xFF);
+				vel[3] = (byte)( inputGamepad.RightThumbX & 0xFF);
 				vel[4] = (byte)((inputGamepad.RightThumbX & 0xFF00) >> 8);
 
-				// get the state of the overdrive button and pedal port
+				// Get the state of the overdrive button and pedal port.
 				overdrive = (inputGamepad.RightThumbY & 0xFF) == 0xFF;
 				pedal = (inputGamepad.RightThumbY & 0x8000) == 0x8000;
 
-				// convert the key ranges into key booleans for ease of use
+				// Convert the key ranges into key booleans for ease of use.
 				// i need to learn how to use bitmasks more effectively lol
 				key[0]  = (range[0] & (int)Bits.bit1)  == (int)Bits.bit1;	// C1	= inputGamepad.LeftTrigger & 0x1
 				key[1]  = (range[0] & (int)Bits.bit2)  == (int)Bits.bit2;	// C#1	= inputGamepad.LeftTrigger & 0x2
@@ -167,7 +176,7 @@ namespace InOut
 
 				key[24] = (range[3] & (int)Bits.bit16) == (int)Bits.bit16;	// C2	= inputGamepad.LeftThumbX & 0x8000
 
-				// get the state of the face buttons
+				// Get the state of the face buttons.
 				dpadU = ((int)inputGamepad.Buttons & (int)Bits.bit1)  == (int)Bits.bit1;	// XINPUT_GAMEPAD_DPAD_UP        = state & 0x0001
 				dpadD = ((int)inputGamepad.Buttons & (int)Bits.bit2)  == (int)Bits.bit2;	// XINPUT_GAMEPAD_DPAD_DOWN      = state & 0x0002
 				dpadL = ((int)inputGamepad.Buttons & (int)Bits.bit3)  == (int)Bits.bit3;	// XINPUT_GAMEPAD_DPAD_LEFT      = state & 0x0004
@@ -186,7 +195,7 @@ namespace InOut
 				btnX  = ((int)inputGamepad.Buttons & (int)Bits.bit15) == (int)Bits.bit15;	// XINPUT_GAMEPAD_X              = state & 0x4000
 				btnY  = ((int)inputGamepad.Buttons & (int)Bits.bit16) == (int)Bits.bit16;	// XINPUT_GAMEPAD_Y              = state & 0x8000
 
-				// set the current state to the previous state for the next poll
+				// Set the current state to the previous state for the next poll.
 				previousState = currentState;
 			}
 		}

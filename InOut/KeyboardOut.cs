@@ -11,6 +11,15 @@ namespace InOut
 		static IKeyboardSimulator keyOut;
 		static void KeysOut()
 		{
+			// The keys that coorespond to the keyboard keys are arranged roughly like a keyboard.
+			//  2 3   5 6 7
+			// Q W E R T Y U I
+			//  S D   G H J
+			// Z X C V B N M
+
+			// TODO: Just sending inputs based on the current state is naive.
+			// I need to keep track of both the previous state and the current state,
+			// and only send inputs when the input being checked for actually changes.
 			if(Input.key[0])  keyOut.KeyDown(keyCode.VK_Z); else keyOut.KeyUp(keyCode.VK_Z);	// C1  = Z
 			if(Input.key[1])  keyOut.KeyDown(keyCode.VK_S); else keyOut.KeyUp(keyCode.VK_S);	// C#1 = S
 			if(Input.key[2])  keyOut.KeyDown(keyCode.VK_X); else keyOut.KeyUp(keyCode.VK_X);	// D1  = X
@@ -36,6 +45,16 @@ namespace InOut
 			if(Input.key[22]) keyOut.KeyDown(keyCode.VK_7); else keyOut.KeyUp(keyCode.VK_7);	// A#2 = 7
 			if(Input.key[23]) keyOut.KeyDown(keyCode.VK_U); else keyOut.KeyUp(keyCode.VK_U);	// B2  = U
 			if(Input.key[24]) keyOut.KeyDown(keyCode.VK_I); else keyOut.KeyUp(keyCode.VK_I);	// C3  = I
+
+			if(Input.overdrive) keyOut.KeyDown(keyCode.VK_O); else keyOut.KeyUp(keyCode.VK_O);	// Overdrive = O
+
+			if(Input.btnSt) keyOut.KeyDown(keyCode.RETURN); else keyOut.KeyUp(keyCode.RETURN);	// Start = Enter/Return
+			if(Input.btnBk) keyOut.KeyDown(keyCode.ESCAPE); else keyOut.KeyUp(keyCode.ESCAPE);	// Back  = Escape
+
+			if(Input.dpadU) keyOut.KeyDown(keyCode.UP);    else keyOut.KeyUp(keyCode.UP);   	// D-pad Up    = Up Arrow
+			if(Input.dpadD) keyOut.KeyDown(keyCode.DOWN);  else keyOut.KeyUp(keyCode.DOWN); 	// D-pad Down  = Down Arrow
+			if(Input.dpadL) keyOut.KeyDown(keyCode.LEFT);  else keyOut.KeyUp(keyCode.LEFT); 	// D-pad Left  = Left Arrow
+			if(Input.dpadR) keyOut.KeyDown(keyCode.RIGHT); else keyOut.KeyUp(keyCode.RIGHT);	// D-pad Right = Right Arrow
 		}
 	}
 }
