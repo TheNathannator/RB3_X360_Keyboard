@@ -13,6 +13,9 @@ namespace InOut
 	{
 		// TODO: I need to track the first 5 notes before I can be able to do MIDI output properly, otherwise notes won't have velocity.
 		// For now, they'll just output at velocity 100.
+
+		InputState prevState;
+		InputState currentState;
 		
 		public static byte[] midiNum = new byte[25];
 		//	Indexing:
@@ -33,12 +36,13 @@ namespace InOut
 			}
 		}
 
-		public void Output()
+		public void OctaveSwitch()
 		{
 			// Octave selector
 			switch(octave)
 			{
 				case 1:
+				{
 					midiNum[0]  = 0;  midiNum[1]  = 1;  midiNum[2]  = 2;  midiNum[3]  = 3;  midiNum[4] = 4;
 					// C1 = 0,        Db1 = 1,          D1 = 2,           Eb1 = 3,          E1 = 4,
 					midiNum[5]  = 5;  midiNum[6]  = 6;  midiNum[7]  = 7;  midiNum[8]  = 8;  midiNum[9] = 9;   midiNum[10] = 10; midiNum[11] = 11;
@@ -50,8 +54,10 @@ namespace InOut
 					midiNum[24] = 24;
 					// C3 = 24
 					break;
+				}
 
 				case 2:
+				{
 					midiNum[0]  = 12; midiNum[1]  = 13; midiNum[2]  = 14; midiNum[3]  = 15; midiNum[4]  = 16;
 					// C1 = 12,       Db1 = 13,         D1 = 14,          Eb1 = 15,         E1 = 16,
 					midiNum[5]  = 17; midiNum[6]  = 18; midiNum[7]  = 19; midiNum[8]  = 20; midiNum[9]  = 21; midiNum[10] = 22; midiNum[11] = 23;
@@ -63,8 +69,10 @@ namespace InOut
 					midiNum[24] = 36;
 					// C3 = 36
 					break;
+				}
 
 				case 3:
+				{
 					midiNum[0]  = 24; midiNum[1]  = 25; midiNum[2]  = 26; midiNum[3]  = 27; midiNum[4]  = 28;
 					// C1 = 24,       Db1 = 25,         D1 = 26,          Eb1 = 27,         E1 = 28,
 					midiNum[5]  = 29; midiNum[6]  = 30; midiNum[7]  = 31; midiNum[8]  = 32; midiNum[9]  = 33; midiNum[10] = 34; midiNum[11] = 35;
@@ -76,8 +84,10 @@ namespace InOut
 					midiNum[24] = 48;
 					// C3 = 48
 					break;
+				}
 
 				case 4:
+				{
 					midiNum[0]  = 36; midiNum[1]  = 37; midiNum[2]  = 38; midiNum[3]  = 39; midiNum[4]  = 40;
 					// C1 = 36,       Db1 = 37,         D1 = 38,          Eb1 = 39,         E1 = 40,
 					midiNum[5]  = 41; midiNum[6]  = 42; midiNum[7]  = 43; midiNum[8]  = 44; midiNum[9]  = 45; midiNum[10] = 46; midiNum[11] = 47;
@@ -89,8 +99,10 @@ namespace InOut
 					midiNum[24] = 60;
 					// C3 = 60
 					break;
+				}
 
 				case 5:		// Default range.
+				{
 					midiNum[0]  = 48; midiNum[1]  = 49; midiNum[2]  = 50; midiNum[3]  = 51; midiNum[4]  = 52;
 					// C1 = 48,       Db1 = 49,         D1 = 50,          Eb1 = 51,         E1 = 52,
 					midiNum[5]  = 53; midiNum[6]  = 54; midiNum[7]  = 55; midiNum[8]  = 56; midiNum[9]  = 57; midiNum[10] = 58; midiNum[11] = 59;
@@ -102,8 +114,10 @@ namespace InOut
 					midiNum[24] = 72;
 					// C3 = 72
 					break;
+				}
 
 				case 6:
+				{
 					midiNum[0]  = 60; midiNum[1]  = 61; midiNum[2]  = 62; midiNum[3]  = 63; midiNum[4]  = 64;
 					// C1 = 60,       Db1 = 61,         D1 = 62,          Eb1 = 63,         E1 = 64,
 					midiNum[5]  = 65; midiNum[6]  = 66; midiNum[7]  = 67; midiNum[8]  = 68; midiNum[9]  = 69; midiNum[10] = 70; midiNum[11] = 71;
@@ -115,8 +129,10 @@ namespace InOut
 					midiNum[24] = 84;
 					// C3 = 84
 					break;
+				}
 
 				case 7:
+				{
 					midiNum[0]  = 72; midiNum[1]  = 73; midiNum[2]  = 74; midiNum[3]  = 75; midiNum[4]  = 76;
 					// C1 = 72,       Db1 = 73,         D1 = 74,          Eb1 = 75,         E1 = 76,
 					midiNum[5]  = 77; midiNum[6]  = 78; midiNum[7]  = 79; midiNum[8]  = 80; midiNum[9]  = 81; midiNum[10] = 82; midiNum[11] = 83;
@@ -128,8 +144,10 @@ namespace InOut
 					midiNum[24] = 96;
 					// C3 = 96
 					break;
+				}
 
 				case 8:
+				{
 					midiNum[0]  = 84;  midiNum[1]  = 85;  midiNum[2]  = 86;  midiNum[3]  = 87;  midiNum[4]  = 88;
 					// C1 = 84,        Db1 = 85,          D1 = 86,           Eb1 = 87,          E1 = 88,
 					midiNum[5]  = 89;  midiNum[6]  = 90;  midiNum[7]  = 91;  midiNum[8]  = 92;  midiNum[9]  = 93;  midiNum[10] = 94;  midiNum[11] = 95;
@@ -141,8 +159,10 @@ namespace InOut
 					midiNum[24] = 108;
 					// C3 = 108
 					break;
+				}
 
 				case 9:
+				{
 					midiNum[0]  = 96;  midiNum[1]  = 97;  midiNum[2]  = 98;  midiNum[3]  = 99;  midiNum[4]  = 100;
 					// C1 = 96,        Db1 = 97,          D1 = 98,           Eb1 = 99,          E1 = 100,
 					midiNum[5]  = 101; midiNum[6]  = 102; midiNum[7]  = 103; midiNum[8]  = 104; midiNum[9]  = 105; midiNum[10] = 106; midiNum[11] = 107;
@@ -154,8 +174,10 @@ namespace InOut
 					midiNum[24] = 120;
 					// C3 = 120
 					break;
+				}
 
 				default:	// Defaults to case 5
+				{
 					midiNum[0]  = 48; midiNum[1]  = 49; midiNum[2]  = 50; midiNum[3]  = 51; midiNum[4]  = 52;
 					// C1 = 48,       Db1 = 49,         D1 = 50,          Eb1 = 51,         E1 = 52,
 					midiNum[5]  = 53; midiNum[6]  = 54; midiNum[7]  = 55; midiNum[8]  = 56; midiNum[9]  = 57; midiNum[10] = 58; midiNum[11] = 59;
@@ -167,88 +189,97 @@ namespace InOut
 					midiNum[24] = 72;
 					// C3 = 72
 					break;
+				}
 			}
+		}
 
-			// TODO: Just sending inputs based on the current state is naive.
-			// I need to keep track of both the previous state and the current state,
-			// and only send inputs when the input being checked for actually changes.
+		// TODO: Just sending inputs based on the current state is naive and probably won't work correctly.
+		// I need to keep track of both the previous state and the current state,
+		// and only send inputs when the input being checked for actually changes.
+		public void Output()
+		{
 			using (var outputDevice = OutputDevice.GetByName("Whatever the output device is. this is incomplete."))
 			{
-				if(Input.key[0])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[0],  (sevenbit)100));	// C1  = 0, 12, 24, 36, 48, 60, 72, 84, 96
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[0],  (sevenbit)0));
+				if(currentState.key[0])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[0],  (sevenbit)100));	// C1  = 0, 12, 24, 36, 48, 60, 72, 84, 96
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[0],  (sevenbit)0));
 
-				if(Input.key[1])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[1],  (sevenbit)100));	// C#1 = 1, 13, 25, 37, 49, 61, 73, 85, 97
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[1],  (sevenbit)0));
+				if(currentState.key[1])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[1],  (sevenbit)100));	// C#1 = 1, 13, 25, 37, 49, 61, 73, 85, 97
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[1],  (sevenbit)0));
 
-				if(Input.key[2])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[2],  (sevenbit)100));	// D1  = 2, 14, 26, 38, 50, 62, 74, 86, 98
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[2],  (sevenbit)0));
+				if(currentState.key[2])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[2],  (sevenbit)100));	// D1  = 2, 14, 26, 38, 50, 62, 74, 86, 98
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[2],  (sevenbit)0));
 
-				if(Input.key[3])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[3],  (sevenbit)100));	// D#1 = 3, 15, 27, 39, 51, 63, 75, 87, 99
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[3],  (sevenbit)0));
+				if(currentState.key[3])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[3],  (sevenbit)100));	// D#1 = 3, 15, 27, 39, 51, 63, 75, 87, 99
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[3],  (sevenbit)0));
 
-				if(Input.key[4])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[4],  (sevenbit)100));	// E1  = 4, 16, 28, 40, 52, 64, 76, 88, 100
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[4],  (sevenbit)0));
+				if(currentState.key[4])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[4],  (sevenbit)100));	// E1  = 4, 16, 28, 40, 52, 64, 76, 88, 100
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[4],  (sevenbit)0));
 
-				if(Input.key[5])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[5],  (sevenbit)100));	// F1  = 5, 17, 29, 41, 53, 65, 77, 89, 101
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[5],  (sevenbit)0));
+				if(currentState.key[5])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[5],  (sevenbit)100));	// F1  = 5, 17, 29, 41, 53, 65, 77, 89, 101
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[5],  (sevenbit)0));
 
-				if(Input.key[6])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[6],  (sevenbit)100));	// F#1 = 6, 18, 30, 42, 54, 66, 78, 90, 102
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[6],  (sevenbit)0));
+				if(currentState.key[6])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[6],  (sevenbit)100));	// F#1 = 6, 18, 30, 42, 54, 66, 78, 90, 102
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[6],  (sevenbit)0));
 
-				if(Input.key[7])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[7],  (sevenbit)100));	// G1  = 7, 19, 31, 43, 55, 67, 79, 91, 103
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[7],  (sevenbit)0));
+				if(currentState.key[7])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[7],  (sevenbit)100));	// G1  = 7, 19, 31, 43, 55, 67, 79, 91, 103
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[7],  (sevenbit)0));
 
-				if(Input.key[8])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[8],  (sevenbit)100));	// G#1 = 8, 20, 32, 44, 56, 68, 80, 92, 104
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[8],  (sevenbit)0));
+				if(currentState.key[8])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[8],  (sevenbit)100));	// G#1 = 8, 20, 32, 44, 56, 68, 80, 92, 104
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[8],  (sevenbit)0));
 
-				if(Input.key[9])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[9],  (sevenbit)100));	// A1  = 9, 21, 33, 45, 57, 69, 81, 93, 105
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[9],  (sevenbit)0));
+				if(currentState.key[9])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[9],  (sevenbit)100));	// A1  = 9, 21, 33, 45, 57, 69, 81, 93, 105
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[9],  (sevenbit)0));
 
-				if(Input.key[10]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[10], (sevenbit)100));	// A#1 = 10, 22, 34, 46, 58, 70, 82, 94, 106
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[10], (sevenbit)0));
+				if(currentState.key[10]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[10], (sevenbit)100));	// A#1 = 10, 22, 34, 46, 58, 70, 82, 94, 106
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[10], (sevenbit)0));
 
-				if(Input.key[11]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[11], (sevenbit)100));	// B1  = 11, 23, 35, 47, 59, 71, 83, 95, 107
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[11], (sevenbit)0));
+				if(currentState.key[11]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[11], (sevenbit)100));	// B1  = 11, 23, 35, 47, 59, 71, 83, 95, 107
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[11], (sevenbit)0));
 
-				if(Input.key[12]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[12], (sevenbit)100));	// C2  = 12, 24, 36, 48, 60, 72, 84, 96, 108
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[12], (sevenbit)0));
+				if(currentState.key[12]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[12], (sevenbit)100));	// C2  = 12, 24, 36, 48, 60, 72, 84, 96, 108
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[12], (sevenbit)0));
 
-				if(Input.key[13]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[13], (sevenbit)100));	// C#2 = 13, 25, 37, 49, 61, 73, 85, 97, 109
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[13], (sevenbit)0));
+				if(currentState.key[13]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[13], (sevenbit)100));	// C#2 = 13, 25, 37, 49, 61, 73, 85, 97, 109
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[13], (sevenbit)0));
 				
-				if(Input.key[14]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[14], (sevenbit)100));	// D2  = 14, 26, 38, 50, 62, 74, 86, 98, 110
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[14], (sevenbit)0));
+				if(currentState.key[14]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[14], (sevenbit)100));	// D2  = 14, 26, 38, 50, 62, 74, 86, 98, 110
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[14], (sevenbit)0));
 
-				if(Input.key[15]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[15], (sevenbit)100));	// D#2 = 15, 27, 39, 51, 63, 75, 87, 99, 111
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[15], (sevenbit)0));
+				if(currentState.key[15]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[15], (sevenbit)100));	// D#2 = 15, 27, 39, 51, 63, 75, 87, 99, 111
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[15], (sevenbit)0));
 
-				if(Input.key[16]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[16], (sevenbit)100));	// E2  = 16, 28, 40, 52, 64, 76, 88, 100, 112
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[16], (sevenbit)0));
+				if(currentState.key[16]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[16], (sevenbit)100));	// E2  = 16, 28, 40, 52, 64, 76, 88, 100, 112
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[16], (sevenbit)0));
 
-				if(Input.key[17]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[17], (sevenbit)100));	// F2  = 17, 29, 41, 53, 65, 77, 89, 101, 113
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[17], (sevenbit)0));
+				if(currentState.key[17]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[17], (sevenbit)100));	// F2  = 17, 29, 41, 53, 65, 77, 89, 101, 113
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[17], (sevenbit)0));
 
-				if(Input.key[18]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[18], (sevenbit)100));	// F#2 = 18, 30, 42, 54, 66, 78, 90, 102, 114
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[18], (sevenbit)0));
+				if(currentState.key[18]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[18], (sevenbit)100));	// F#2 = 18, 30, 42, 54, 66, 78, 90, 102, 114
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[18], (sevenbit)0));
 
-				if(Input.key[19]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[19], (sevenbit)100));	// G2  = 19, 31, 43, 55, 67, 79, 91, 103, 115
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[19], (sevenbit)0));
+				if(currentState.key[19]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[19], (sevenbit)100));	// G2  = 19, 31, 43, 55, 67, 79, 91, 103, 115
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[19], (sevenbit)0));
 
-				if(Input.key[20]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[20], (sevenbit)100));	// G#2 = 20, 32, 44, 56, 68, 80, 92, 104, 116
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[20], (sevenbit)0));
+				if(currentState.key[20]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[20], (sevenbit)100));	// G#2 = 20, 32, 44, 56, 68, 80, 92, 104, 116
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[20], (sevenbit)0));
 
-				if(Input.key[21]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[21], (sevenbit)100));	// A2  = 21, 33, 45, 57, 69, 81, 93, 105, 117
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[21], (sevenbit)0));
+				if(currentState.key[21]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[21], (sevenbit)100));	// A2  = 21, 33, 45, 57, 69, 81, 93, 105, 117
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[21], (sevenbit)0));
 
-				if(Input.key[22]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[22], (sevenbit)100));	// A#2 = 22, 34, 46, 58, 70, 82, 94, 106, 118
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[22], (sevenbit)0));
+				if(currentState.key[22]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[22], (sevenbit)100));	// A#2 = 22, 34, 46, 58, 70, 82, 94, 106, 118
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[22], (sevenbit)0));
 
-				if(Input.key[23]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[23], (sevenbit)100));	// B2  = 23, 35, 47, 59, 71, 83, 95, 107, 119
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[23], (sevenbit)0));
+				if(currentState.key[23]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[23], (sevenbit)100));	// B2  = 23, 35, 47, 59, 71, 83, 95, 107, 119
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[23], (sevenbit)0));
 
-				if(Input.key[24]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[24], (sevenbit)100));	// C3  = 24, 36, 48, 60, 72, 84, 96, 108, 120
-				else 			  outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[24], (sevenbit)0));
+				if(currentState.key[24]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[24], (sevenbit)100));	// C3  = 24, 36, 48, 60, 72, 84, 96, 108, 120
+				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[24], (sevenbit)0));
 			}
+		}
+
+		public void MidiSet()
+		{
+			
 		}
 	}
 }
