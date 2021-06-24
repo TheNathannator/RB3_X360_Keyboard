@@ -1,4 +1,6 @@
 using System;
+using System.Threading;
+using System.Collections.Generic;
 using Melanchall.DryWetMidi.Devices;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Common;
@@ -9,39 +11,72 @@ namespace InOut
 	/// <summary>
 	///  MIDI output code.
 	/// </summary>
-	public class MIDI
+	public class Midi
 	{
 		// TODO: I need to track the first 5 notes before I can be able to do MIDI output properly, otherwise notes won't have velocity.
 		// For now, they'll just output at velocity 100.
 
 		InputState prevState;
 		InputState currentState;
+		OutputDevice outputMidi;
 		
+		/// <summary>
+		/// Array of MIDI notes that correspond to each key on the keyboard.
+		/// </summary>
+		/// <remarks>
+		/// <para>Indexing:</para>
+		/// <para>C1 = 0,  Db1 = 1,  D1 = 2,  Eb1 = 3,  E1 = 4,</para>
+		/// <para>F1 = 5,  Gb1 = 6,  G1 = 7,  Ab1 = 8,  A1 = 9,  Bb1 = 10, B1 = 11,</para>
+		/// <para>C2 = 12, Db2 = 13, D2 = 14, Eb2 = 15, E2 = 16,</para>
+		/// <para>F2 = 17, Gb2 = 18, G2 = 19, Ab2 = 20, A2 = 21, Bb2 = 22, B2 = 23, C3 = 24</para>
+		/// </remarks>
 		public static byte[] midiNum = new byte[25];
-		//	Indexing:
-		//	C1 = 0,  Db1 = 1,  D1 = 2,  Eb1 = 3,  E1 = 4,
-		//	F1 = 5,  Gb1 = 6,  G1 = 7,  Ab1 = 8,  A1 = 9,  Bb1 = 10, B1 = 11,
-		//	C2 = 12, Db2 = 13, D2 = 14, Eb2 = 15, E2 = 16,
-		//	F2 = 17, Gb2 = 18, G2 = 19, Ab2 = 20, A2 = 21, Bb2 = 22, B2 = 23,
-		//	C3 = 24
-
+		/// <summary>
+		/// Int representing the current octave offset.
+		/// </summary>
 		public static int octave = 5;
+		/// <summary>
+		/// Int representing the current program number.
+		/// </summary>
+		public static int program = 1;
+		/// <summary>
+		/// Bool representing drum mode.
+		/// </summary>
+		public static bool drumMode = false;
+		/// <summary>
+		/// Int representing the current pedal mode.
+		/// </summary>
+		/// <remarks>
+		/// <para>0 = expression, 1 = channel volume, 2 = foot controller.</para>
+		/// </remarks>
+		public static int pedalMode = 0;
+		
 
 		public void Initialize()
 		{
 			// unfinished, need to be able to select the device to use.
-			foreach (var outputDevice in OutputDevice.GetAll())
+
+			List<string> devices = new List<string>();
+			foreach (var device in OutputDevice.GetAll())
 			{
-			    Console.WriteLine(outputDevice.Name);
+				string name = device.Name.ToString();
+				devices.Add(name);
 			}
+
+			// device selection goes here
+
+			outputMidi.PrepareForEventsSending();
 		}
 
+		/// <summary>
+		/// Sets the array of MIDI notes for each key.
+		/// </summary>
 		public void OctaveSwitch()
 		{
 			// Octave selector
 			switch(octave)
 			{
-				case 1:
+				case 0:
 				{
 					midiNum[0]  = 0;  midiNum[1]  = 1;  midiNum[2]  = 2;  midiNum[3]  = 3;  midiNum[4] = 4;
 					// C1 = 0,        Db1 = 1,          D1 = 2,           Eb1 = 3,          E1 = 4,
@@ -56,7 +91,7 @@ namespace InOut
 					break;
 				}
 
-				case 2:
+				case 1:
 				{
 					midiNum[0]  = 12; midiNum[1]  = 13; midiNum[2]  = 14; midiNum[3]  = 15; midiNum[4]  = 16;
 					// C1 = 12,       Db1 = 13,         D1 = 14,          Eb1 = 15,         E1 = 16,
@@ -71,7 +106,7 @@ namespace InOut
 					break;
 				}
 
-				case 3:
+				case 2:
 				{
 					midiNum[0]  = 24; midiNum[1]  = 25; midiNum[2]  = 26; midiNum[3]  = 27; midiNum[4]  = 28;
 					// C1 = 24,       Db1 = 25,         D1 = 26,          Eb1 = 27,         E1 = 28,
@@ -86,7 +121,7 @@ namespace InOut
 					break;
 				}
 
-				case 4:
+				case 3:
 				{
 					midiNum[0]  = 36; midiNum[1]  = 37; midiNum[2]  = 38; midiNum[3]  = 39; midiNum[4]  = 40;
 					// C1 = 36,       Db1 = 37,         D1 = 38,          Eb1 = 39,         E1 = 40,
@@ -101,7 +136,7 @@ namespace InOut
 					break;
 				}
 
-				case 5:		// Default range.
+				case 4:		// Default range.
 				{
 					midiNum[0]  = 48; midiNum[1]  = 49; midiNum[2]  = 50; midiNum[3]  = 51; midiNum[4]  = 52;
 					// C1 = 48,       Db1 = 49,         D1 = 50,          Eb1 = 51,         E1 = 52,
@@ -116,7 +151,7 @@ namespace InOut
 					break;
 				}
 
-				case 6:
+				case 5:
 				{
 					midiNum[0]  = 60; midiNum[1]  = 61; midiNum[2]  = 62; midiNum[3]  = 63; midiNum[4]  = 64;
 					// C1 = 60,       Db1 = 61,         D1 = 62,          Eb1 = 63,         E1 = 64,
@@ -131,7 +166,7 @@ namespace InOut
 					break;
 				}
 
-				case 7:
+				case 6:
 				{
 					midiNum[0]  = 72; midiNum[1]  = 73; midiNum[2]  = 74; midiNum[3]  = 75; midiNum[4]  = 76;
 					// C1 = 72,       Db1 = 73,         D1 = 74,          Eb1 = 75,         E1 = 76,
@@ -146,7 +181,7 @@ namespace InOut
 					break;
 				}
 
-				case 8:
+				case 7:
 				{
 					midiNum[0]  = 84;  midiNum[1]  = 85;  midiNum[2]  = 86;  midiNum[3]  = 87;  midiNum[4]  = 88;
 					// C1 = 84,        Db1 = 85,          D1 = 86,           Eb1 = 87,          E1 = 88,
@@ -161,7 +196,7 @@ namespace InOut
 					break;
 				}
 
-				case 9:
+				case 8:
 				{
 					midiNum[0]  = 96;  midiNum[1]  = 97;  midiNum[2]  = 98;  midiNum[3]  = 99;  midiNum[4]  = 100;
 					// C1 = 96,        Db1 = 97,          D1 = 98,           Eb1 = 99,          E1 = 100,
@@ -191,95 +226,181 @@ namespace InOut
 					break;
 				}
 			}
-		}
 
-		// TODO: Just sending inputs based on the current state is naive and probably won't work correctly.
-		// I need to keep track of both the previous state and the current state,
-		// and only send inputs when the input being checked for actually changes.
-		public void Output()
-		{
-			using (var outputDevice = OutputDevice.GetByName("Whatever the output device is. this is incomplete."))
+			if(drumMode)
 			{
-				if(currentState.key[0])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[0],  (sevenbit)100));	// C1  = 0, 12, 24, 36, 48, 60, 72, 84, 96
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[0],  (sevenbit)0));
-
-				if(currentState.key[1])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[1],  (sevenbit)100));	// C#1 = 1, 13, 25, 37, 49, 61, 73, 85, 97
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[1],  (sevenbit)0));
-
-				if(currentState.key[2])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[2],  (sevenbit)100));	// D1  = 2, 14, 26, 38, 50, 62, 74, 86, 98
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[2],  (sevenbit)0));
-
-				if(currentState.key[3])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[3],  (sevenbit)100));	// D#1 = 3, 15, 27, 39, 51, 63, 75, 87, 99
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[3],  (sevenbit)0));
-
-				if(currentState.key[4])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[4],  (sevenbit)100));	// E1  = 4, 16, 28, 40, 52, 64, 76, 88, 100
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[4],  (sevenbit)0));
-
-				if(currentState.key[5])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[5],  (sevenbit)100));	// F1  = 5, 17, 29, 41, 53, 65, 77, 89, 101
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[5],  (sevenbit)0));
-
-				if(currentState.key[6])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[6],  (sevenbit)100));	// F#1 = 6, 18, 30, 42, 54, 66, 78, 90, 102
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[6],  (sevenbit)0));
-
-				if(currentState.key[7])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[7],  (sevenbit)100));	// G1  = 7, 19, 31, 43, 55, 67, 79, 91, 103
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[7],  (sevenbit)0));
-
-				if(currentState.key[8])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[8],  (sevenbit)100));	// G#1 = 8, 20, 32, 44, 56, 68, 80, 92, 104
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[8],  (sevenbit)0));
-
-				if(currentState.key[9])  outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[9],  (sevenbit)100));	// A1  = 9, 21, 33, 45, 57, 69, 81, 93, 105
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[9],  (sevenbit)0));
-
-				if(currentState.key[10]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[10], (sevenbit)100));	// A#1 = 10, 22, 34, 46, 58, 70, 82, 94, 106
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[10], (sevenbit)0));
-
-				if(currentState.key[11]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[11], (sevenbit)100));	// B1  = 11, 23, 35, 47, 59, 71, 83, 95, 107
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[11], (sevenbit)0));
-
-				if(currentState.key[12]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[12], (sevenbit)100));	// C2  = 12, 24, 36, 48, 60, 72, 84, 96, 108
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[12], (sevenbit)0));
-
-				if(currentState.key[13]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[13], (sevenbit)100));	// C#2 = 13, 25, 37, 49, 61, 73, 85, 97, 109
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[13], (sevenbit)0));
-				
-				if(currentState.key[14]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[14], (sevenbit)100));	// D2  = 14, 26, 38, 50, 62, 74, 86, 98, 110
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[14], (sevenbit)0));
-
-				if(currentState.key[15]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[15], (sevenbit)100));	// D#2 = 15, 27, 39, 51, 63, 75, 87, 99, 111
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[15], (sevenbit)0));
-
-				if(currentState.key[16]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[16], (sevenbit)100));	// E2  = 16, 28, 40, 52, 64, 76, 88, 100, 112
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[16], (sevenbit)0));
-
-				if(currentState.key[17]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[17], (sevenbit)100));	// F2  = 17, 29, 41, 53, 65, 77, 89, 101, 113
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[17], (sevenbit)0));
-
-				if(currentState.key[18]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[18], (sevenbit)100));	// F#2 = 18, 30, 42, 54, 66, 78, 90, 102, 114
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[18], (sevenbit)0));
-
-				if(currentState.key[19]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[19], (sevenbit)100));	// G2  = 19, 31, 43, 55, 67, 79, 91, 103, 115
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[19], (sevenbit)0));
-
-				if(currentState.key[20]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[20], (sevenbit)100));	// G#2 = 20, 32, 44, 56, 68, 80, 92, 104, 116
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[20], (sevenbit)0));
-
-				if(currentState.key[21]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[21], (sevenbit)100));	// A2  = 21, 33, 45, 57, 69, 81, 93, 105, 117
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[21], (sevenbit)0));
-
-				if(currentState.key[22]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[22], (sevenbit)100));	// A#2 = 22, 34, 46, 58, 70, 82, 94, 106, 118
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[22], (sevenbit)0));
-
-				if(currentState.key[23]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[23], (sevenbit)100));	// B2  = 23, 35, 47, 59, 71, 83, 95, 107, 119
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[23], (sevenbit)0));
-
-				if(currentState.key[24]) outputDevice.SendEvent(new NoteOnEvent ((sevenbit)midiNum[24], (sevenbit)100));	// C3  = 24, 36, 48, 60, 72, 84, 96, 108, 120
-				else                     outputDevice.SendEvent(new NoteOffEvent((sevenbit)midiNum[24], (sevenbit)0));
+				midiNum[0] = 35;        midiNum[1] = 36; midiNum[2] = 38; midiNum[3] = 40; midiNum[4] = 41;
+				// C1 = 35,             Db1 = 36,        D1 = 38,         Eb1 = 40,        E1 = 41,
+				// Acoustic Bass Drum,  Bass Drum 1,     Acoustic Snare,  Electric Snare,  Low Floor Tom,
+				midiNum[5] = 47;        midiNum[6] = 50; midiNum[7] = 42; midiNum[8] = 46; midiNum[9] = 49; midiNum[10] = 51; midiNum[11] = 53;
+				// F1 = 47,             Gb1 = 50,        G1 = 42,         Ab1 = 46,        A1 = 49,         Bb1 = 51,         B1 = 53,
+				// Low Mid Tom,         High Tom,        Closed Hi Hat,   Open Hi Hat,     Crash Cymbal 1,  Ride Cymbal 1,    Ride Bell
 			}
 		}
 
-		public void MidiSet()
+		/// <summary>
+		/// Output to a MIDI device.
+		/// </summary>
+		public void Output()
 		{
-			
+			/*
+			Overview:
+				Back + Guide + Start = Panic (stop all notes)
+
+				Back button = Stop message
+				Guide button = Continue message
+				Start button = Start message
+
+				D-pad up = Drum mapping toggle
+
+				D-pad left = set pedal to expression (default)
+				D-pad down = set pedal to channel volume
+				D-pad left = set pedal to foot controller
+
+				Y = Program increment
+				A = Program decrement
+				A + Y = Program reset
+
+				B = Octave increment
+				X = Octave decrement
+				B + X = Octave reset
+
+				// Touch strip = modulation (can't do because can't see it via XInput data)
+				// Touch + OD button = pitch wheel
+
+				Note output
+
+				Panic handler function
+			*/
+
+			// Stop all MIDI notes and wait 1 second before resuming.
+			if(currentState.btnBk && currentState.btnGuide && currentState.btnSt)
+			{
+				Panic();
+			}
+
+
+			// Sends a Stop message.
+			if(currentState.btnBk != prevState.btnBk)
+			{
+				if(currentState.btnBk) outputMidi.SendEvent(new StopEvent());
+			}
+
+			// Sends a Continue message.
+			if(currentState.btnGuide != prevState.btnGuide)
+			{
+				if(currentState.btnGuide) outputMidi.SendEvent(new ContinueEvent());
+			}
+
+			// Sends a Start message.
+			if(currentState.btnSt != prevState.btnSt)
+			{
+				if(currentState.btnSt) outputMidi.SendEvent(new StartEvent());
+			}
+
+
+			// Toggle drum mode for the bottom octave.
+			if(currentState.dpadU != prevState.dpadU)
+			{
+				if(currentState.dpadU)
+				{
+					drumMode = !drumMode;
+					OctaveSwitch();
+				}
+			}
+
+
+			// Set the analog pedal mode to expression (default).
+			if(currentState.dpadL != prevState.dpadL)
+			{
+				if(currentState.dpadL) pedalMode = 0;	
+			}
+
+			// Set the analog pedal mode to channel volume.
+			if(currentState.dpadD != prevState.dpadD)
+			{
+				if(currentState.dpadD) pedalMode = 1;	
+			}
+
+			// Set the analog pedal mode to foot controller.
+			if(currentState.dpadR != prevState.dpadR)
+			{
+				if(currentState.dpadR) pedalMode = 2;	
+			}
+
+
+			// Reset the program number to the default of 1.
+			if(currentState.btnA && currentState.btnY)
+			{
+				program = 1;
+			}
+			else
+			{
+				// Decrement the program number.
+				if(currentState.btnA)	
+				{
+					program -= 1;
+					Math.Clamp(program, 1, 128);
+				}
+
+				// Increment the program number.
+				if(currentState.btnY)	
+				{
+					program += 1;
+					Math.Clamp(program, 1, 128);
+				}
+			}
+
+			if((currentState.btnB != prevState.btnB) || (currentState.btnX != prevState.btnX))
+			{
+				// Reset the octave number to the default of 4.
+				if(currentState.btnB && currentState.btnX)
+				{
+					octave = 4;
+				}
+				else
+				{
+					// Decrement the octave number.
+					if(currentState.btnX)
+					{
+						octave -= 1;
+						Math.Clamp(octave, 0, 8);
+						OctaveSwitch();
+					}
+
+					// Increment the octave number.
+					if(currentState.btnB)
+					{
+						octave += 1;
+						Math.Clamp(octave, 0, 8);
+						OctaveSwitch();
+					}
+				}
+			}
+
+			//
+			// Touch strip code goes here
+			//
+
+			// Loop through the current and previous state of the key array to check if the state has changed.
+			// Only send a new event if there's a change in the state of the input.
+			for(int i = 0; i < 25; i++)
+			{
+				if(currentState.key[i] != prevState.key[i])
+				{
+					if(currentState.key[i]) outputMidi.SendEvent(new NoteOnEvent ((sevenbit)midiNum[i], (sevenbit)currentState.velocity[i]));
+					else outputMidi.SendEvent(new NoteOffEvent((sevenbit)midiNum[i], (sevenbit)0));
+				}
+			}
+		}
+
+		/// <summary>
+		/// Disable all outputs and wait 1 second before resuming.
+		/// </summary>
+		public void Panic()
+		{
+			outputMidi.TurnAllNotesOff();
+			Thread.Sleep(1000);
 		}
 	}
 }

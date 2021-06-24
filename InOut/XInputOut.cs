@@ -1,3 +1,4 @@
+using System.Threading;
 using Nefarius.ViGEm.Client;
 using Nefarius.ViGEm.Client.Targets;
 using Nefarius.ViGEm.Client.Targets.Xbox360;
@@ -5,100 +6,121 @@ using Nefarius.ViGEm.Client.Targets.Xbox360;
 namespace InOut
 {
 	/// <summary>
-	///  ViGEm output code.
+	///  ViGEm output360 code.
 	/// </summary>
 	public class ViGEm
 	{
-		static IXbox360Controller outputController;
-		static ViGEmClient vigem;
+		static IXbox360Controller output360;
+		static ViGEmClient client;
 		InputState prevState;
 		InputState currentState;
+		public bool drumMode;
 
 		/// <summary>
-		/// Initializes the ViGEmBus client.
+		/// Initialize the ViGEmBus client.
 		/// </summary>
-		static void Initialize(string[] args)
+		static void Initialize()
 		{
-			outputController = vigem.CreateXbox360Controller();
-			outputController.Connect();
+			output360 = client.CreateXbox360Controller();
+			output360.Connect();
 		}
 
 		/// <summary>
-		/// Output code for ViGEmBus.
+		/// output360 to a ViGEmBus controller device.
 		/// </summary>
 		public void ViGEmBus()
 		{
-			outputController.SetButtonState(Xbox360Button.A,	//	C1, C2, A = A
+			output360.SetButtonState(Xbox360Button.A,	//	C1, C2, A = A
 				currentState.key[0]  ||
 				currentState.key[12] ||
 				currentState.btnA);
 
-			outputController.SetButtonState(Xbox360Button.B,	//	D1, D2, B = B
+			output360.SetButtonState(Xbox360Button.B,	//	D1, D2, B = B
 				currentState.key[2]  ||
 				currentState.key[14] ||
 				currentState.btnB);
 
-			outputController.SetButtonState(Xbox360Button.Y,	//	E1, E2, Y = Y
+			output360.SetButtonState(Xbox360Button.Y,	//	E1, E2, Y = Y
 				currentState.key[4]  ||
 				currentState.key[16] ||
 				currentState.btnY);
 
-			outputController.SetButtonState(Xbox360Button.X,	//	F1, F2, X = X
+			output360.SetButtonState(Xbox360Button.X,	//	F1, F2, X = X
 				currentState.key[5]  ||
 				currentState.key[17] ||
 				currentState.btnX);
 
+			if(drumMode)
+			{
+				output360.SetButtonState(Xbox360Button.LeftShoulder, 	//	G1, G2, LB = LB
+					currentState.key[7]  ||
+					currentState.key[19] ||
+					currentState.pedal);
+			}
+			else
+			{
+				output360.SetButtonState(Xbox360Button.LeftShoulder, 	//	G1, G2, LB, pedal = LB
+					currentState.key[7]  ||
+					currentState.key[19]);
+			}
 
-			outputController.SetButtonState(Xbox360Button.LeftShoulder, 	//	G1, G2, LB, pedal = LB
-				currentState.key[7]  ||
-				currentState.key[19] ||
-				currentState.btnLB   ||
-				currentState.pedal);
-
-			outputController.SetButtonState(Xbox360Button.RightShoulder,	//	A1, A2, RB = RB
+			output360.SetButtonState(Xbox360Button.RightShoulder,	//	A1, A2, RB = RB
 				currentState.key[9]  ||
-				currentState.key[21] ||
-				currentState.btnRB);
+				currentState.key[21]);
 
+			output360.SetButtonState(Xbox360Button.Up,    currentState.dpadU);	//	D-pad Up = D-pad Up
+			output360.SetButtonState(Xbox360Button.Down,  currentState.dpadD);	//	D-pad Down = D-pad Down
+			output360.SetButtonState(Xbox360Button.Left,  currentState.dpadL);	//	D-pad Left = D-pad Left
+			output360.SetButtonState(Xbox360Button.Right, currentState.dpadR);	//	D-pad Right = D-pad Right
 
-			if(currentState.overdrive) outputController.SetAxisValue(Xbox360Axis.RightThumbY, 32767);
-			else outputController.SetAxisValue(Xbox360Axis.RightThumbY, 0);
-
-			outputController.SetButtonState(Xbox360Button.Up,    currentState.dpadU);	//	D-pad Up = D-pad Up
-			outputController.SetButtonState(Xbox360Button.Down,  currentState.dpadD);	//	D-pad Down = D-pad Down
-			outputController.SetButtonState(Xbox360Button.Left,  currentState.dpadL);	//	D-pad Left = D-pad Left
-			outputController.SetButtonState(Xbox360Button.Right, currentState.dpadR);	//	D-pad Right = D-pad Right
-
-			outputController.SetButtonState(Xbox360Button.Start, currentState.btnSt);	//	Start = Start
-			outputController.SetButtonState(Xbox360Button.Back,  currentState.btnBk);	//	OD button, Back = Back
+			output360.SetButtonState(Xbox360Button.Start, currentState.btnSt);	//	Start = Start
+			if(drumMode)
+			{
+				output360.SetButtonState(Xbox360Button.Back,	//	OD button, Back = Back
+					currentState.btnBk ||
+					currentState.overdrive);
+			}
+			else
+			{
+				output360.SetButtonState(Xbox360Button.Back,	//	OD button, Back, pedal = Back
+					currentState.btnBk     ||
+					currentState.overdrive ||
+					currentState.pedal);
+			}
 		}
 
-		public void Reset()
+		/// <summary>
+		/// Disable all outputs and wait 1 second before resuming.
+		/// </summary>
+		public void Panic()
 		{
-			// Zeroes out all the inputs.
-			outputController.SetButtonState(Xbox360Button.A, false);
-			outputController.SetButtonState(Xbox360Button.B, false);
-			outputController.SetButtonState(Xbox360Button.Y, false);
-			outputController.SetButtonState(Xbox360Button.X, false);
+			output360.SetButtonState(Xbox360Button.A, false);
+			output360.SetButtonState(Xbox360Button.B, false);
+			output360.SetButtonState(Xbox360Button.Y, false);
+			output360.SetButtonState(Xbox360Button.X, false);
 
-			outputController.SetButtonState(Xbox360Button.LeftShoulder, false);
-			outputController.SetButtonState(Xbox360Button.RightShoulder, false);
+			output360.SetButtonState(Xbox360Button.LeftShoulder,  false);
+			output360.SetButtonState(Xbox360Button.RightShoulder, false);
+			output360.SetButtonState(Xbox360Button.LeftThumb,     false);
+			output360.SetButtonState(Xbox360Button.RightThumb,    false);
 
-			outputController.SetButtonState(Xbox360Button.Up,    false);
-			outputController.SetButtonState(Xbox360Button.Down,  false);
-			outputController.SetButtonState(Xbox360Button.Left,  false);
-			outputController.SetButtonState(Xbox360Button.Right, false);
+			output360.SetButtonState(Xbox360Button.Up,    false);
+			output360.SetButtonState(Xbox360Button.Down,  false);
+			output360.SetButtonState(Xbox360Button.Left,  false);
+			output360.SetButtonState(Xbox360Button.Right, false);
 
-			outputController.SetButtonState(Xbox360Button.Start, false);
-			outputController.SetButtonState(Xbox360Button.Back,  false);
+			output360.SetButtonState(Xbox360Button.Start, false);
+			output360.SetButtonState(Xbox360Button.Back,  false);
 
-			outputController.SetAxisValue(Xbox360Axis.LeftThumbX,  0);
-			outputController.SetAxisValue(Xbox360Axis.LeftThumbY,  0);
-			outputController.SetAxisValue(Xbox360Axis.RightThumbX, 0);
-			outputController.SetAxisValue(Xbox360Axis.RightThumbY, 0);
+			output360.SetAxisValue(Xbox360Axis.LeftThumbX,  0);
+			output360.SetAxisValue(Xbox360Axis.LeftThumbY,  0);
+			output360.SetAxisValue(Xbox360Axis.RightThumbX, 0);
+			output360.SetAxisValue(Xbox360Axis.RightThumbY, 0);
 
-			outputController.SetSliderValue(Xbox360Slider.LeftTrigger,  0);
-			outputController.SetSliderValue(Xbox360Slider.RightTrigger, 0);
+			output360.SetSliderValue(Xbox360Slider.LeftTrigger,  0);
+			output360.SetSliderValue(Xbox360Slider.RightTrigger, 0);
+
+			Thread.Sleep(1000);
 		}
 	}
 }
