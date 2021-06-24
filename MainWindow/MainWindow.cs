@@ -16,5 +16,15 @@ namespace Program
         {
             InitializeComponent();
         }
+
+        private void drumModeCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radio_playerIndex1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
