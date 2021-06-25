@@ -53,7 +53,7 @@ namespace Program
             // 
             label_OctaveSwitcher.AutoSize = true;
             label_OctaveSwitcher.Enabled = false;
-            label_OctaveSwitcher.Location = new System.Drawing.Point(149, 29);
+            label_OctaveSwitcher.Location = new System.Drawing.Point(141, 14);
             label_OctaveSwitcher.Name = "label_OctaveSwitcher";
             label_OctaveSwitcher.Size = new System.Drawing.Size(44, 15);
             label_OctaveSwitcher.TabIndex = 10;
@@ -62,7 +62,7 @@ namespace Program
             // label_ProgramSelector
             // 
             label_ProgramSelector.AutoSize = true;
-            label_ProgramSelector.Location = new System.Drawing.Point(149, 58);
+            label_ProgramSelector.Location = new System.Drawing.Point(141, 43);
             label_ProgramSelector.Name = "label_ProgramSelector";
             label_ProgramSelector.Size = new System.Drawing.Size(53, 15);
             label_ProgramSelector.TabIndex = 11;
@@ -81,7 +81,12 @@ namespace Program
             // 
             // numUpDown_OctaveSwitcher
             // 
-            this.numUpDown_OctaveSwitcher.Location = new System.Drawing.Point(108, 27);
+            this.numUpDown_OctaveSwitcher.Location = new System.Drawing.Point(100, 12);
+            this.numUpDown_OctaveSwitcher.Maximum = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
             this.numUpDown_OctaveSwitcher.Name = "numUpDown_OctaveSwitcher";
             this.numUpDown_OctaveSwitcher.Size = new System.Drawing.Size(35, 23);
             this.numUpDown_OctaveSwitcher.TabIndex = 1;
@@ -90,16 +95,31 @@ namespace Program
             // 
             // numUpDown_ProgramSelector
             // 
-            this.numUpDown_ProgramSelector.Location = new System.Drawing.Point(108, 56);
+            this.numUpDown_ProgramSelector.Location = new System.Drawing.Point(100, 41);
+            this.numUpDown_ProgramSelector.Maximum = new decimal(new int[] {
+            128,
+            0,
+            0,
+            0});
+            this.numUpDown_ProgramSelector.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numUpDown_ProgramSelector.Name = "numUpDown_ProgramSelector";
             this.numUpDown_ProgramSelector.Size = new System.Drawing.Size(35, 23);
             this.numUpDown_ProgramSelector.TabIndex = 2;
             this.numUpDown_ProgramSelector.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numUpDown_ProgramSelector.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // radio_pedal_channelVolume
             // 
             this.radio_pedal_channelVolume.AutoSize = true;
-            this.radio_pedal_channelVolume.Location = new System.Drawing.Point(223, 37);
+            this.radio_pedal_channelVolume.Location = new System.Drawing.Point(223, 36);
             this.radio_pedal_channelVolume.Name = "radio_pedal_channelVolume";
             this.radio_pedal_channelVolume.Size = new System.Drawing.Size(112, 19);
             this.radio_pedal_channelVolume.TabIndex = 3;
@@ -110,7 +130,7 @@ namespace Program
             // radio_pedal_footController
             // 
             this.radio_pedal_footController.AutoSize = true;
-            this.radio_pedal_footController.Location = new System.Drawing.Point(223, 62);
+            this.radio_pedal_footController.Location = new System.Drawing.Point(223, 61);
             this.radio_pedal_footController.Name = "radio_pedal_footController";
             this.radio_pedal_footController.Size = new System.Drawing.Size(105, 19);
             this.radio_pedal_footController.TabIndex = 4;
@@ -133,7 +153,7 @@ namespace Program
             // 
             this.radio_playerIndex1.AutoSize = true;
             this.radio_playerIndex1.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.radio_playerIndex1.Location = new System.Drawing.Point(12, 30);
+            this.radio_playerIndex1.Location = new System.Drawing.Point(12, 12);
             this.radio_playerIndex1.Name = "radio_playerIndex1";
             this.radio_playerIndex1.Size = new System.Drawing.Size(31, 19);
             this.radio_playerIndex1.TabIndex = 6;
@@ -145,7 +165,7 @@ namespace Program
             // radio_playerIndex2
             // 
             this.radio_playerIndex2.AutoSize = true;
-            this.radio_playerIndex2.Location = new System.Drawing.Point(49, 30);
+            this.radio_playerIndex2.Location = new System.Drawing.Point(49, 12);
             this.radio_playerIndex2.Name = "radio_playerIndex2";
             this.radio_playerIndex2.Size = new System.Drawing.Size(31, 19);
             this.radio_playerIndex2.TabIndex = 7;
@@ -157,7 +177,7 @@ namespace Program
             // 
             this.radio_playerIndex3.AutoSize = true;
             this.radio_playerIndex3.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.radio_playerIndex3.Location = new System.Drawing.Point(12, 56);
+            this.radio_playerIndex3.Location = new System.Drawing.Point(12, 32);
             this.radio_playerIndex3.Name = "radio_playerIndex3";
             this.radio_playerIndex3.Size = new System.Drawing.Size(31, 19);
             this.radio_playerIndex3.TabIndex = 8;
@@ -168,7 +188,7 @@ namespace Program
             // radio_playerIndex4
             // 
             this.radio_playerIndex4.AutoSize = true;
-            this.radio_playerIndex4.Location = new System.Drawing.Point(49, 56);
+            this.radio_playerIndex4.Location = new System.Drawing.Point(49, 32);
             this.radio_playerIndex4.Name = "radio_playerIndex4";
             this.radio_playerIndex4.Size = new System.Drawing.Size(31, 19);
             this.radio_playerIndex4.TabIndex = 9;
@@ -178,7 +198,7 @@ namespace Program
             // 
             // button_Start
             // 
-            this.button_Start.Location = new System.Drawing.Point(125, 275);
+            this.button_Start.Location = new System.Drawing.Point(488, 17);
             this.button_Start.Name = "button_Start";
             this.button_Start.Size = new System.Drawing.Size(102, 44);
             this.button_Start.TabIndex = 12;
@@ -189,7 +209,7 @@ namespace Program
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(660, 361);
             this.Controls.Add(this.button_Start);
             this.Controls.Add(label_ProgramSelector);
             this.Controls.Add(label_OctaveSwitcher);
@@ -203,6 +223,7 @@ namespace Program
             this.Controls.Add(this.numUpDown_ProgramSelector);
             this.Controls.Add(this.numUpDown_OctaveSwitcher);
             this.Controls.Add(this.radio_pedal_expression);
+            this.MinimumSize = new System.Drawing.Size(640, 400);
             this.Name = "MainWindow";
             this.Text = "MainWindow";
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_OctaveSwitcher)).EndInit();
