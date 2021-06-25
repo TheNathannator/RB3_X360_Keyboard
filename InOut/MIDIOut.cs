@@ -65,6 +65,7 @@ namespace InOut
 
 			// device selection goes here
 
+			OctaveSwitch();
 			outputMidi.PrepareForEventsSending();
 		}
 
