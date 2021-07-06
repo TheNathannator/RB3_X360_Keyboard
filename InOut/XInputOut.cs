@@ -6,30 +6,33 @@ using Nefarius.ViGEm.Client.Targets.Xbox360;
 namespace InOut
 {
 	/// <summary>
-	///  ViGEm output360 code.
+	///  ViGEm output code.
 	/// </summary>
 	public class ViGEm
 	{
-		static IXbox360Controller output360;
+		/// <summary>
+		/// Represents the ViGEmBus client.
+		/// </summary>
 		static ViGEmClient client;
-		InputState prevState;
-		InputState currentState;
-		public bool drumMode;
+
 
 		/// <summary>
 		/// Initialize the ViGEmBus client.
 		/// </summary>
-		static void Initialize()
+		public IXbox360Controller Initialize()
 		{
-			output360 = client.CreateXbox360Controller();
+			var output360 = client.CreateXbox360Controller();
 			output360.Connect();
+			return output360;
 		}
 
 		/// <summary>
-		/// output360 to a ViGEmBus controller device.
+		/// Output to a ViGEmBus controller device.
 		/// </summary>
-		public void ViGEmBus()
+		public void Output(IXbox360Controller output360, InputState currentState)
 		{
+			if(currentState.btnBk && currentState.btnGuide && currentState.btnSt) Panic(output360);
+			
 			output360.SetButtonState(Xbox360Button.A,	//	C1, C2, A = A
 				currentState.key[0]  ||
 				currentState.key[12] ||
@@ -50,19 +53,54 @@ namespace InOut
 				currentState.key[17] ||
 				currentState.btnX);
 
-			if(drumMode)
-			{
-				output360.SetButtonState(Xbox360Button.LeftShoulder, 	//	G1, G2, LB = LB
-					currentState.key[7]  ||
-					currentState.key[19] ||
-					currentState.pedal);
-			}
-			else
-			{
-				output360.SetButtonState(Xbox360Button.LeftShoulder, 	//	G1, G2, LB, pedal = LB
-					currentState.key[7]  ||
-					currentState.key[19]);
-			}
+			output360.SetButtonState(Xbox360Button.LeftShoulder, 	//	G1, G2 = LB
+				currentState.key[7]  ||
+				currentState.key[19]);
+			
+			output360.SetButtonState(Xbox360Button.RightShoulder,	//	A1, A2 = RB
+				currentState.key[9]  ||
+				currentState.key[21]);
+
+			output360.SetButtonState(Xbox360Button.Up,    currentState.dpadU);	//	D-pad Up = D-pad Up
+			output360.SetButtonState(Xbox360Button.Down,  currentState.dpadD);	//	D-pad Down = D-pad Down
+			output360.SetButtonState(Xbox360Button.Left,  currentState.dpadL);	//	D-pad Left = D-pad Left
+			output360.SetButtonState(Xbox360Button.Right, currentState.dpadR);	//	D-pad Right = D-pad Right
+
+			output360.SetButtonState(Xbox360Button.Start, currentState.btnSt);	//	Start = Start
+			output360.SetButtonState(Xbox360Button.Back,	//	OD button, Back, pedal = Back
+				currentState.btnBk     ||
+				currentState.overdrive ||
+				currentState.pedal);
+		}
+
+		public void DrumModeOutput(IXbox360Controller output360, InputState currentState)
+		{
+			if(currentState.btnBk && currentState.btnGuide && currentState.btnSt) Panic(output360);
+			
+			output360.SetButtonState(Xbox360Button.A,	//	C1, C2, A = A
+				currentState.key[0]  ||
+				currentState.key[12] ||
+				currentState.btnA);
+
+			output360.SetButtonState(Xbox360Button.B,	//	D1, D2, B = B
+				currentState.key[2]  ||
+				currentState.key[14] ||
+				currentState.btnB);
+
+			output360.SetButtonState(Xbox360Button.Y,	//	E1, E2, Y = Y
+				currentState.key[4]  ||
+				currentState.key[16] ||
+				currentState.btnY);
+
+			output360.SetButtonState(Xbox360Button.X,	//	F1, F2, X = X
+				currentState.key[5]  ||
+				currentState.key[17] ||
+				currentState.btnX);
+
+			output360.SetButtonState(Xbox360Button.LeftShoulder, 	//	G1, G2, pedal = LB
+				currentState.key[7]  ||
+				currentState.key[19] ||
+				currentState.pedal);
 
 			output360.SetButtonState(Xbox360Button.RightShoulder,	//	A1, A2, RB = RB
 				currentState.key[9]  ||
@@ -74,25 +112,15 @@ namespace InOut
 			output360.SetButtonState(Xbox360Button.Right, currentState.dpadR);	//	D-pad Right = D-pad Right
 
 			output360.SetButtonState(Xbox360Button.Start, currentState.btnSt);	//	Start = Start
-			if(drumMode)
-			{
-				output360.SetButtonState(Xbox360Button.Back,	//	OD button, Back = Back
-					currentState.btnBk ||
-					currentState.overdrive);
-			}
-			else
-			{
-				output360.SetButtonState(Xbox360Button.Back,	//	OD button, Back, pedal = Back
-					currentState.btnBk     ||
-					currentState.overdrive ||
-					currentState.pedal);
-			}
+			output360.SetButtonState(Xbox360Button.Back,	//	OD button, Back = Back
+				currentState.btnBk ||
+				currentState.overdrive);
 		}
 
 		/// <summary>
 		/// Disable all outputs and wait 1 second before resuming.
 		/// </summary>
-		public void Panic()
+		public void Panic(IXbox360Controller output360)
 		{
 			output360.SetButtonState(Xbox360Button.A, false);
 			output360.SetButtonState(Xbox360Button.B, false);

@@ -8,7 +8,7 @@ namespace InOut
 		/// <summary>
 		/// Array of the four ranges the keyboard splits its key bitmask into.
 		/// </summary>
-		public int[] range = new int[4];
+		public byte[] range = new byte[4];
 
 		/// <summary>
 		/// Array of the keyboard's bitmask.

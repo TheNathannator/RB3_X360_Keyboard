@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="keyLeftPressed_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\keys\keyLeftPressed_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="keyMiddleLeftPressed_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\keys\keyMiddleLeftPressed_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="keyRightPressed_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\keys\keyRightPressed_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="keyEnd_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\keys\keyEnd_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="keyCenter_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\keys\keyCenter_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="keyRight_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\keys\keyRight_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="yellowLabel_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\keys\yellowLabel_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="keyLeft_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\keys\keyLeft_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="keyMiddleLeft_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\keys\keyMiddleLeft_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="keyEndPressed_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\keys\keyEndPressed_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="keyMiddleRightPressed_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\keys\keyMiddleRightPressed_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="greenLabel_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\keys\greenLabel_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="keyBlack_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\keys\keyBlack_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="blueLabel_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\keys\blueLabel_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="keyBlackPressed_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\keys\keyBlackPressed_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="orangeLabel_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\keys\orangeLabel_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="keyMiddleRight_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\keys\keyMiddleRight_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="redLabel_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\keys\redLabel_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="keyCenterPressed_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\keys\keyCenterPressed_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="a_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\a_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="aPressed_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\aPressed_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="b_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\b_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="back_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\back_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="backPressed_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\backPressed_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bPressed_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\bPressed_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dpad_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\dpad_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dpadDown_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\dpadDown_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dpadDownLeft_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\dpadDownLeft_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dpadDownLeftRight_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\dpadDownLeftRight_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dpadDownLeftUp_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\dpadDownLeftUp_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dpadDownRight_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\dpadDownRight_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dpadLeft_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\dpadLeft_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dpadLeftRight_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\dpadLeftRight_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dpadRight_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\dpadRight_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dpadUp_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\dpadUp_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dpadUpDown_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\dpadUpDown_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dpadUpDownLeftRight_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\dpadUpDownLeftRight_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dpadUpLeft_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\dpadUpLeft_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dpadUpLeftRight_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\dpadUpLeftRight_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dpadUpRight_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\dpadUpRight_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dpadUpRightDown_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\dpadUpRightDown_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="guide_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\guide_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="guideLightsOff_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\guideLightsOff_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="guidePlayer1_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\guidePlayer1_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="guidePlayer2_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\guidePlayer2_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="guidePlayer3_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\guidePlayer3_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="guidePlayer4_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\guidePlayer4_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="guidePressed_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\guidePressed_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="guidePressedLightsOff_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\guidePressedLightsOff_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="guidePressedPlayer1_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\guidePressedPlayer1_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="guidePressedPlayer2_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\guidePressedPlayer2_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="guidePressedPlayer3_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\guidePressedPlayer3_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="guidePressedPlayer4_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\guidePressedPlayer4_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="overdrive_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\overdrive_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="overdrivePressed_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\overdrivePressed_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="start_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\start_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="startPressed_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\startPressed_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="touchstrip_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\touchstrip_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="touchstripPosition_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\touchstripPosition_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="x_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\x_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="xPressed_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\xPressed_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="y_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\y_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="yPressed_cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\layers\buttons\yPressed_cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+</root>

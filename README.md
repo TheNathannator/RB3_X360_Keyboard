@@ -1,4 +1,4 @@
-# RB3-X360-Keyboard
+# RB3 X360 Keyboard
 ## About
 This project aims to allow you to use the Rock Band 3 Xbox 360 keyboard with other programs while it's connected to an Xbox 360 wireless receiver, via either an emulated Xbox 360 controller, keypresses or MIDI inputs.
 
