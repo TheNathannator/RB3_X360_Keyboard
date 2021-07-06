@@ -182,10 +182,10 @@ namespace InOut
 				stateCurrent.btnX  = ((int)inputGamepad.Buttons & Bits[14]) == Bits[14];	// XINPUT_GAMEPAD_X = state.Buttons & 0x4000
 				stateCurrent.btnY  = ((int)inputGamepad.Buttons & Bits[15]) == Bits[15];	// XINPUT_GAMEPAD_Y = state.Buttons & 0x8000
 
-				stateCurrent.dpadU = ((int)inputGamepad.Buttons & Bits[1])  == Bits[1]; 	// XINPUT_GAMEPAD_DPAD_UP    = state.Buttons & 0x0001
-				stateCurrent.dpadD = ((int)inputGamepad.Buttons & Bits[2])  == Bits[2]; 	// XINPUT_GAMEPAD_DPAD_DOWN  = state.Buttons & 0x0002
-				stateCurrent.dpadL = ((int)inputGamepad.Buttons & Bits[3])  == Bits[3]; 	// XINPUT_GAMEPAD_DPAD_LEFT  = state.Buttons & 0x0004
-				stateCurrent.dpadR = ((int)inputGamepad.Buttons & Bits[4])  == Bits[4]; 	// XINPUT_GAMEPAD_DPAD_RIGHT = state.Buttons & 0x0008
+				stateCurrent.dpadU = ((int)inputGamepad.Buttons & Bits[0]) == Bits[0]; 	// XINPUT_GAMEPAD_DPAD_UP    = state.Buttons & 0x0001
+				stateCurrent.dpadD = ((int)inputGamepad.Buttons & Bits[1]) == Bits[1]; 	// XINPUT_GAMEPAD_DPAD_DOWN  = state.Buttons & 0x0002
+				stateCurrent.dpadL = ((int)inputGamepad.Buttons & Bits[2]) == Bits[2]; 	// XINPUT_GAMEPAD_DPAD_LEFT  = state.Buttons & 0x0004
+				stateCurrent.dpadR = ((int)inputGamepad.Buttons & Bits[3]) == Bits[3]; 	// XINPUT_GAMEPAD_DPAD_RIGHT = state.Buttons & 0x0008
 
 				stateCurrent.btnSt = ((int)inputGamepad.Buttons & Bits[5])  == Bits[5]; 	// XINPUT_GAMEPAD_START = state.Buttons & 0x0010
 				stateCurrent.btnBk = ((int)inputGamepad.Buttons & Bits[6])  == Bits[6]; 	// XINPUT_GAMEPAD_BACK  = state.Buttons & 0x0020
