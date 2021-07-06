@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using SharpDX.XInput;
 
@@ -177,10 +177,10 @@ namespace InOut
 				stateCurrent.pedal     = (inputGamepad.RightThumbY & 0x8000) == 0x8000;
 
 				// Get the state of the face buttons.
-				stateCurrent.btnA  = ((int)inputGamepad.Buttons & Bits[13]) == Bits[13];	// XINPUT_GAMEPAD_A = state.Buttons & 0x1000
-				stateCurrent.btnB  = ((int)inputGamepad.Buttons & Bits[14]) == Bits[14];	// XINPUT_GAMEPAD_B = state.Buttons & 0x2000
-				stateCurrent.btnX  = ((int)inputGamepad.Buttons & Bits[15]) == Bits[15];	// XINPUT_GAMEPAD_X = state.Buttons & 0x4000
-				stateCurrent.btnY  = ((int)inputGamepad.Buttons & Bits[16]) == Bits[16];	// XINPUT_GAMEPAD_Y = state.Buttons & 0x8000
+				stateCurrent.btnA  = ((int)inputGamepad.Buttons & Bits[12]) == Bits[12];	// XINPUT_GAMEPAD_A = state.Buttons & 0x1000
+				stateCurrent.btnB  = ((int)inputGamepad.Buttons & Bits[13]) == Bits[13];	// XINPUT_GAMEPAD_B = state.Buttons & 0x2000
+				stateCurrent.btnX  = ((int)inputGamepad.Buttons & Bits[14]) == Bits[14];	// XINPUT_GAMEPAD_X = state.Buttons & 0x4000
+				stateCurrent.btnY  = ((int)inputGamepad.Buttons & Bits[15]) == Bits[15];	// XINPUT_GAMEPAD_Y = state.Buttons & 0x8000
 
 				stateCurrent.dpadU = ((int)inputGamepad.Buttons & Bits[1])  == Bits[1]; 	// XINPUT_GAMEPAD_DPAD_UP    = state.Buttons & 0x0001
 				stateCurrent.dpadD = ((int)inputGamepad.Buttons & Bits[2])  == Bits[2]; 	// XINPUT_GAMEPAD_DPAD_DOWN  = state.Buttons & 0x0002
