@@ -9,6 +9,7 @@ namespace InOut
 	/// </summary>
 	public class Keyboard
 	{
+		InputSimulator simulator = new InputSimulator();
 		IKeyboardSimulator outputKey;
 
 		/// <summary>
@@ -29,7 +30,13 @@ namespace InOut
 			keyCode.VK_I
 		};
 
-		public void Output(InputState currentState, InputState prevState)
+		public IKeyboardSimulator Initialize()
+		{
+			outputKey = simulator.Keyboard;
+			return outputKey;
+		}
+
+		public void Output(IKeyboardSimulator outputKey, InputState currentState, InputState prevState)
 		{
 			// The keys that correspond to the RB keyboard keys are arranged roughly like the RB keyboard.
 			//  2 3   5 6 7
@@ -148,8 +155,6 @@ namespace InOut
 			outputKey.KeyUp(keyCode.DOWN);   	// D-pad Down  = Down Arrow
 			outputKey.KeyUp(keyCode.LEFT);   	// D-pad Left  = Left Arrow
 			outputKey.KeyUp(keyCode.RIGHT);  	// D-pad Right = Right Arrow
-
-			Thread.Sleep(1000);
 		}
 	}
 }

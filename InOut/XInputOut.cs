@@ -11,22 +11,6 @@ namespace InOut
 	public class ViGEm
 	{
 		/// <summary>
-		/// Represents the ViGEmBus client.
-		/// </summary>
-		static ViGEmClient client;
-
-
-		/// <summary>
-		/// Initialize the ViGEmBus client.
-		/// </summary>
-		public IXbox360Controller Initialize()
-		{
-			var output360 = client.CreateXbox360Controller();
-			output360.Connect();
-			return output360;
-		}
-
-		/// <summary>
 		/// Output to a ViGEmBus controller device.
 		/// </summary>
 		public void Output(IXbox360Controller output360, InputState currentState)
@@ -147,8 +131,6 @@ namespace InOut
 
 			output360.SetSliderValue(Xbox360Slider.LeftTrigger,  0);
 			output360.SetSliderValue(Xbox360Slider.RightTrigger, 0);
-
-			Thread.Sleep(1000);
 		}
 	}
 }

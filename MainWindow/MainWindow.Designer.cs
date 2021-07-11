@@ -1,4 +1,6 @@
 ﻿using System.Windows.Forms;
+using System.Drawing;
+using image = RB3_X360_Keyboard.Properties.Resources;
 
 namespace Program
 {
@@ -15,7 +17,7 @@ namespace Program
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if(disposing && (components != null))
             {
                 components.Dispose();
             }
@@ -30,8 +32,7 @@ namespace Program
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.Label label_Setting_Octave;
-            System.Windows.Forms.Label label_Setting_Program;
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.GroupBox group_PedalMode;
             System.Windows.Forms.GroupBox group_Settings;
             System.Windows.Forms.GroupBox group_OutputType;
@@ -52,6 +53,8 @@ namespace Program
             System.Windows.Forms.Label label_OctaveDecrement;
             System.Windows.Forms.Label label_ProgramDecrement;
             System.Windows.Forms.GroupBox group_Start;
+            this.label_Setting_Octave = new System.Windows.Forms.Label();
+            this.label_Setting_Program = new System.Windows.Forms.Label();
             this.radio_Pedal_Expression = new System.Windows.Forms.RadioButton();
             this.radio_Pedal_ChannelVolume = new System.Windows.Forms.RadioButton();
             this.radio_Pedal_FootController = new System.Windows.Forms.RadioButton();
@@ -87,6 +90,7 @@ namespace Program
             this.image_KeyE1 = new System.Windows.Forms.Label();
             this.image_KeyD1 = new System.Windows.Forms.Label();
             this.image_KeyC1 = new System.Windows.Forms.Label();
+            this.label_guideConnectionStatus = new System.Windows.Forms.Label();
             this.image_MidiLight4 = new System.Windows.Forms.Label();
             this.image_MidiLight3 = new System.Windows.Forms.Label();
             this.image_MidiLight2 = new System.Windows.Forms.Label();
@@ -102,8 +106,7 @@ namespace Program
             this.image_XButton = new System.Windows.Forms.Label();
             this.image_AButton = new System.Windows.Forms.Label();
             this.button_Start = new System.Windows.Forms.Button();
-            label_Setting_Octave = new System.Windows.Forms.Label();
-            label_Setting_Program = new System.Windows.Forms.Label();
+            this.timer_IOLoop = new System.Windows.Forms.Timer(this.components);
             group_PedalMode = new System.Windows.Forms.GroupBox();
             group_Settings = new System.Windows.Forms.GroupBox();
             group_OutputType = new System.Windows.Forms.GroupBox();
@@ -135,21 +138,23 @@ namespace Program
             // 
             // label_Setting_Octave
             // 
-            label_Setting_Octave.AutoSize = true;
-            label_Setting_Octave.Location = new System.Drawing.Point(6, 19);
-            label_Setting_Octave.Name = "label_Setting_Octave";
-            label_Setting_Octave.Size = new System.Drawing.Size(44, 15);
-            label_Setting_Octave.TabIndex = 0;
-            label_Setting_Octave.Text = "Octave";
+            this.label_Setting_Octave.AutoSize = true;
+            this.label_Setting_Octave.Enabled = false;
+            this.label_Setting_Octave.Location = new System.Drawing.Point(6, 19);
+            this.label_Setting_Octave.Name = "label_Setting_Octave";
+            this.label_Setting_Octave.Size = new System.Drawing.Size(44, 15);
+            this.label_Setting_Octave.TabIndex = 0;
+            this.label_Setting_Octave.Text = "Octave";
             // 
             // label_Setting_Program
             // 
-            label_Setting_Program.AutoSize = true;
-            label_Setting_Program.Location = new System.Drawing.Point(56, 19);
-            label_Setting_Program.Name = "label_Setting_Program";
-            label_Setting_Program.Size = new System.Drawing.Size(53, 15);
-            label_Setting_Program.TabIndex = 2;
-            label_Setting_Program.Text = "Program";
+            this.label_Setting_Program.AutoSize = true;
+            this.label_Setting_Program.Enabled = false;
+            this.label_Setting_Program.Location = new System.Drawing.Point(56, 19);
+            this.label_Setting_Program.Name = "label_Setting_Program";
+            this.label_Setting_Program.Size = new System.Drawing.Size(53, 15);
+            this.label_Setting_Program.TabIndex = 2;
+            this.label_Setting_Program.Text = "Program";
             // 
             // group_PedalMode
             // 
@@ -205,8 +210,8 @@ namespace Program
             // 
             group_Settings.Controls.Add(this.numUpDown_Setting_Octave);
             group_Settings.Controls.Add(this.numUpDown_Setting_Program);
-            group_Settings.Controls.Add(label_Setting_Octave);
-            group_Settings.Controls.Add(label_Setting_Program);
+            group_Settings.Controls.Add(this.label_Setting_Octave);
+            group_Settings.Controls.Add(this.label_Setting_Program);
             group_Settings.Controls.Add(this.checkbox_Setting_DrumMode);
             group_Settings.Location = new System.Drawing.Point(138, 12);
             group_Settings.Name = "group_Settings";
@@ -294,17 +299,12 @@ namespace Program
             this.dropdown_Output_MidiDevice.FormattingEnabled = true;
             this.dropdown_Output_MidiDevice.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.dropdown_Output_MidiDevice.IntegralHeight = false;
-            this.dropdown_Output_MidiDevice.Items.AddRange(new object[] {
-            "Device",
-            "device1",
-            "device2"});
             this.dropdown_Output_MidiDevice.Location = new System.Drawing.Point(56, 62);
             this.dropdown_Output_MidiDevice.MaxDropDownItems = 100;
             this.dropdown_Output_MidiDevice.Name = "dropdown_Output_MidiDevice";
             this.dropdown_Output_MidiDevice.Size = new System.Drawing.Size(154, 23);
             this.dropdown_Output_MidiDevice.TabIndex = 3;
             this.dropdown_Output_MidiDevice.DropDown += new System.EventHandler(this.dropdown_OutputMidi_Device_Open);
-            this.dropdown_Output_MidiDevice.SelectionChangeCommitted += new System.EventHandler(this.dropdown_OutputMidi_Device_Changed);
             // 
             // radio_Output_Xbox360
             // 
@@ -455,7 +455,7 @@ namespace Program
             this.image_KeyBb2.AutoSize = true;
             this.image_KeyBb2.Font = new System.Drawing.Font("Lato", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.image_KeyBb2.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.image_KeyBb2.Image = global::RB3_X360_Keyboard.Properties.Resources.keyBlack_cropped;
+            this.image_KeyBb2.Image = ((System.Drawing.Image)(resources.GetObject("image_KeyBb2.Image")));
             this.image_KeyBb2.Location = new System.Drawing.Point(684, 31);
             this.image_KeyBb2.MaximumSize = new System.Drawing.Size(30, 196);
             this.image_KeyBb2.MinimumSize = new System.Drawing.Size(30, 196);
@@ -470,7 +470,7 @@ namespace Program
             this.image_KeyAb2.AutoSize = true;
             this.image_KeyAb2.Font = new System.Drawing.Font("Lato", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.image_KeyAb2.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.image_KeyAb2.Image = global::RB3_X360_Keyboard.Properties.Resources.keyBlack_cropped;
+            this.image_KeyAb2.Image = ((System.Drawing.Image)(resources.GetObject("image_KeyAb2.Image")));
             this.image_KeyAb2.Location = new System.Drawing.Point(625, 31);
             this.image_KeyAb2.MaximumSize = new System.Drawing.Size(30, 196);
             this.image_KeyAb2.MinimumSize = new System.Drawing.Size(30, 196);
@@ -485,7 +485,7 @@ namespace Program
             this.image_KeyGb2.AutoSize = true;
             this.image_KeyGb2.Font = new System.Drawing.Font("Lato", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.image_KeyGb2.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.image_KeyGb2.Image = global::RB3_X360_Keyboard.Properties.Resources.keyBlack_cropped;
+            this.image_KeyGb2.Image = ((System.Drawing.Image)(resources.GetObject("image_KeyGb2.Image")));
             this.image_KeyGb2.Location = new System.Drawing.Point(567, 31);
             this.image_KeyGb2.MaximumSize = new System.Drawing.Size(30, 196);
             this.image_KeyGb2.MinimumSize = new System.Drawing.Size(30, 196);
@@ -500,7 +500,7 @@ namespace Program
             this.image_KeyEb2.AutoSize = true;
             this.image_KeyEb2.Font = new System.Drawing.Font("Lato", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.image_KeyEb2.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.image_KeyEb2.Image = global::RB3_X360_Keyboard.Properties.Resources.keyBlack_cropped;
+            this.image_KeyEb2.Image = ((System.Drawing.Image)(resources.GetObject("image_KeyEb2.Image")));
             this.image_KeyEb2.Location = new System.Drawing.Point(472, 31);
             this.image_KeyEb2.MaximumSize = new System.Drawing.Size(30, 196);
             this.image_KeyEb2.MinimumSize = new System.Drawing.Size(30, 196);
@@ -515,7 +515,7 @@ namespace Program
             this.image_KeyDb2.AutoSize = true;
             this.image_KeyDb2.Font = new System.Drawing.Font("Lato", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.image_KeyDb2.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.image_KeyDb2.Image = global::RB3_X360_Keyboard.Properties.Resources.keyBlack_cropped;
+            this.image_KeyDb2.Image = ((System.Drawing.Image)(resources.GetObject("image_KeyDb2.Image")));
             this.image_KeyDb2.Location = new System.Drawing.Point(408, 31);
             this.image_KeyDb2.MaximumSize = new System.Drawing.Size(30, 196);
             this.image_KeyDb2.MinimumSize = new System.Drawing.Size(30, 196);
@@ -529,7 +529,7 @@ namespace Program
             // 
             this.image_KeyB2.AutoSize = true;
             this.image_KeyB2.Font = new System.Drawing.Font("Lato", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.image_KeyB2.Image = global::RB3_X360_Keyboard.Properties.Resources.keyRight_cropped;
+            this.image_KeyB2.Image = ((System.Drawing.Image)(resources.GetObject("image_KeyB2.Image")));
             this.image_KeyB2.Location = new System.Drawing.Point(695, 31);
             this.image_KeyB2.MaximumSize = new System.Drawing.Size(50, 308);
             this.image_KeyB2.MinimumSize = new System.Drawing.Size(50, 308);
@@ -543,7 +543,7 @@ namespace Program
             // 
             this.image_KeyA2.AutoSize = true;
             this.image_KeyA2.Font = new System.Drawing.Font("Lato", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.image_KeyA2.Image = global::RB3_X360_Keyboard.Properties.Resources.keyMiddleRight_cropped;
+            this.image_KeyA2.Image = ((System.Drawing.Image)(resources.GetObject("image_KeyA2.Image")));
             this.image_KeyA2.Location = new System.Drawing.Point(642, 31);
             this.image_KeyA2.MaximumSize = new System.Drawing.Size(50, 308);
             this.image_KeyA2.MinimumSize = new System.Drawing.Size(50, 308);
@@ -557,7 +557,7 @@ namespace Program
             // 
             this.image_KeyG2.AutoSize = true;
             this.image_KeyG2.Font = new System.Drawing.Font("Lato", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.image_KeyG2.Image = global::RB3_X360_Keyboard.Properties.Resources.keyMiddleLeft_cropped;
+            this.image_KeyG2.Image = ((System.Drawing.Image)(resources.GetObject("image_KeyG2.Image")));
             this.image_KeyG2.Location = new System.Drawing.Point(589, 31);
             this.image_KeyG2.MaximumSize = new System.Drawing.Size(50, 308);
             this.image_KeyG2.MinimumSize = new System.Drawing.Size(50, 308);
@@ -585,7 +585,7 @@ namespace Program
             // 
             this.image_KeyE2.AutoSize = true;
             this.image_KeyE2.Font = new System.Drawing.Font("Lato", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.image_KeyE2.Image = global::RB3_X360_Keyboard.Properties.Resources.keyRight_cropped;
+            this.image_KeyE2.Image = ((System.Drawing.Image)(resources.GetObject("image_KeyE2.Image")));
             this.image_KeyE2.Location = new System.Drawing.Point(483, 31);
             this.image_KeyE2.MaximumSize = new System.Drawing.Size(50, 308);
             this.image_KeyE2.MinimumSize = new System.Drawing.Size(50, 308);
@@ -599,7 +599,7 @@ namespace Program
             // 
             this.image_KeyD2.AutoSize = true;
             this.image_KeyD2.Font = new System.Drawing.Font("Lato", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.image_KeyD2.Image = global::RB3_X360_Keyboard.Properties.Resources.keyCenter_cropped;
+            this.image_KeyD2.Image = ((System.Drawing.Image)(resources.GetObject("image_KeyD2.Image")));
             this.image_KeyD2.Location = new System.Drawing.Point(430, 31);
             this.image_KeyD2.MaximumSize = new System.Drawing.Size(50, 308);
             this.image_KeyD2.MinimumSize = new System.Drawing.Size(50, 308);
@@ -628,7 +628,7 @@ namespace Program
             this.image_KeyBb1.AutoSize = true;
             this.image_KeyBb1.Font = new System.Drawing.Font("Lato", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.image_KeyBb1.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.image_KeyBb1.Image = global::RB3_X360_Keyboard.Properties.Resources.keyBlack_cropped;
+            this.image_KeyBb1.Image = ((System.Drawing.Image)(resources.GetObject("image_KeyBb1.Image")));
             this.image_KeyBb1.Location = new System.Drawing.Point(313, 31);
             this.image_KeyBb1.MaximumSize = new System.Drawing.Size(30, 196);
             this.image_KeyBb1.MinimumSize = new System.Drawing.Size(30, 196);
@@ -643,7 +643,7 @@ namespace Program
             this.image_KeyAb1.AutoSize = true;
             this.image_KeyAb1.Font = new System.Drawing.Font("Lato", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.image_KeyAb1.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.image_KeyAb1.Image = global::RB3_X360_Keyboard.Properties.Resources.keyBlack_cropped;
+            this.image_KeyAb1.Image = ((System.Drawing.Image)(resources.GetObject("image_KeyAb1.Image")));
             this.image_KeyAb1.Location = new System.Drawing.Point(254, 31);
             this.image_KeyAb1.MaximumSize = new System.Drawing.Size(30, 196);
             this.image_KeyAb1.MinimumSize = new System.Drawing.Size(30, 196);
@@ -658,7 +658,7 @@ namespace Program
             this.image_KeyGb1.AutoSize = true;
             this.image_KeyGb1.Font = new System.Drawing.Font("Lato", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.image_KeyGb1.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.image_KeyGb1.Image = global::RB3_X360_Keyboard.Properties.Resources.keyBlack_cropped;
+            this.image_KeyGb1.Image = ((System.Drawing.Image)(resources.GetObject("image_KeyGb1.Image")));
             this.image_KeyGb1.Location = new System.Drawing.Point(196, 31);
             this.image_KeyGb1.MaximumSize = new System.Drawing.Size(30, 196);
             this.image_KeyGb1.MinimumSize = new System.Drawing.Size(30, 196);
@@ -673,7 +673,7 @@ namespace Program
             this.image_KeyEb1.AutoSize = true;
             this.image_KeyEb1.Font = new System.Drawing.Font("Lato", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.image_KeyEb1.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.image_KeyEb1.Image = global::RB3_X360_Keyboard.Properties.Resources.keyBlack_cropped;
+            this.image_KeyEb1.Image = ((System.Drawing.Image)(resources.GetObject("image_KeyEb1.Image")));
             this.image_KeyEb1.Location = new System.Drawing.Point(101, 31);
             this.image_KeyEb1.MaximumSize = new System.Drawing.Size(30, 196);
             this.image_KeyEb1.MinimumSize = new System.Drawing.Size(30, 196);
@@ -688,7 +688,7 @@ namespace Program
             this.image_KeyDb1.AutoSize = true;
             this.image_KeyDb1.Font = new System.Drawing.Font("Lato", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.image_KeyDb1.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.image_KeyDb1.Image = global::RB3_X360_Keyboard.Properties.Resources.keyBlack_cropped;
+            this.image_KeyDb1.Image = ((System.Drawing.Image)(resources.GetObject("image_KeyDb1.Image")));
             this.image_KeyDb1.Location = new System.Drawing.Point(37, 31);
             this.image_KeyDb1.MaximumSize = new System.Drawing.Size(30, 196);
             this.image_KeyDb1.MinimumSize = new System.Drawing.Size(30, 196);
@@ -702,7 +702,7 @@ namespace Program
             // 
             this.image_KeyB1.AutoSize = true;
             this.image_KeyB1.Font = new System.Drawing.Font("Lato", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.image_KeyB1.Image = global::RB3_X360_Keyboard.Properties.Resources.keyRight_cropped;
+            this.image_KeyB1.Image = ((System.Drawing.Image)(resources.GetObject("image_KeyB1.Image")));
             this.image_KeyB1.Location = new System.Drawing.Point(324, 31);
             this.image_KeyB1.MaximumSize = new System.Drawing.Size(50, 308);
             this.image_KeyB1.MinimumSize = new System.Drawing.Size(50, 308);
@@ -716,7 +716,7 @@ namespace Program
             // 
             this.image_KeyA1.AutoSize = true;
             this.image_KeyA1.Font = new System.Drawing.Font("Lato", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.image_KeyA1.Image = global::RB3_X360_Keyboard.Properties.Resources.keyMiddleRight_cropped;
+            this.image_KeyA1.Image = ((System.Drawing.Image)(resources.GetObject("image_KeyA1.Image")));
             this.image_KeyA1.Location = new System.Drawing.Point(271, 31);
             this.image_KeyA1.MaximumSize = new System.Drawing.Size(50, 308);
             this.image_KeyA1.MinimumSize = new System.Drawing.Size(50, 308);
@@ -730,7 +730,7 @@ namespace Program
             // 
             this.image_KeyG1.AutoSize = true;
             this.image_KeyG1.Font = new System.Drawing.Font("Lato", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.image_KeyG1.Image = global::RB3_X360_Keyboard.Properties.Resources.keyMiddleLeft_cropped;
+            this.image_KeyG1.Image = ((System.Drawing.Image)(resources.GetObject("image_KeyG1.Image")));
             this.image_KeyG1.Location = new System.Drawing.Point(218, 31);
             this.image_KeyG1.MaximumSize = new System.Drawing.Size(50, 308);
             this.image_KeyG1.MinimumSize = new System.Drawing.Size(50, 308);
@@ -758,7 +758,7 @@ namespace Program
             // 
             this.image_KeyE1.AutoSize = true;
             this.image_KeyE1.Font = new System.Drawing.Font("Lato", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.image_KeyE1.Image = global::RB3_X360_Keyboard.Properties.Resources.keyRight_cropped;
+            this.image_KeyE1.Image = ((System.Drawing.Image)(resources.GetObject("image_KeyE1.Image")));
             this.image_KeyE1.Location = new System.Drawing.Point(112, 31);
             this.image_KeyE1.MaximumSize = new System.Drawing.Size(50, 308);
             this.image_KeyE1.MinimumSize = new System.Drawing.Size(50, 308);
@@ -772,7 +772,7 @@ namespace Program
             // 
             this.image_KeyD1.AutoSize = true;
             this.image_KeyD1.Font = new System.Drawing.Font("Lato", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.image_KeyD1.Image = global::RB3_X360_Keyboard.Properties.Resources.keyCenter_cropped;
+            this.image_KeyD1.Image = ((System.Drawing.Image)(resources.GetObject("image_KeyD1.Image")));
             this.image_KeyD1.Location = new System.Drawing.Point(59, 31);
             this.image_KeyD1.MaximumSize = new System.Drawing.Size(50, 308);
             this.image_KeyD1.MinimumSize = new System.Drawing.Size(50, 308);
@@ -798,6 +798,7 @@ namespace Program
             // 
             // group_ButtonInputs
             // 
+            group_ButtonInputs.Controls.Add(this.label_guideConnectionStatus);
             group_ButtonInputs.Controls.Add(this.image_MidiLight4);
             group_ButtonInputs.Controls.Add(this.image_MidiLight3);
             group_ButtonInputs.Controls.Add(this.image_MidiLight2);
@@ -826,6 +827,16 @@ namespace Program
             group_ButtonInputs.TabIndex = 4;
             group_ButtonInputs.TabStop = false;
             group_ButtonInputs.Text = "Button Inputs";
+            // 
+            // label_guideConnectionStatus
+            // 
+            this.label_guideConnectionStatus.AutoSize = true;
+            this.label_guideConnectionStatus.Location = new System.Drawing.Point(440, 16);
+            this.label_guideConnectionStatus.Name = "label_guideConnectionStatus";
+            this.label_guideConnectionStatus.Size = new System.Drawing.Size(82, 30);
+            this.label_guideConnectionStatus.TabIndex = 22;
+            this.label_guideConnectionStatus.Text = "No controllers\r\nconnected";
+            this.label_guideConnectionStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // image_MidiLight4
             // 
@@ -1084,6 +1095,12 @@ namespace Program
             this.button_Start.UseVisualStyleBackColor = true;
             this.button_Start.Click += new System.EventHandler(this.button_Start_Click);
             // 
+            // timer_IOLoop
+            // 
+            this.timer_IOLoop.Enabled = true;
+            this.timer_IOLoop.Interval = 1;
+            this.timer_IOLoop.Tick += new System.EventHandler(this.timer_IOLoop_Tick);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1115,7 +1132,6 @@ namespace Program
             this.ResumeLayout(false);
 
         }
-
         #endregion
 
         private RadioButton radio_Pedal_Expression;
@@ -1123,18 +1139,12 @@ namespace Program
         private NumericUpDown numUpDown_Setting_Program;
         private RadioButton radio_Pedal_FootController;
         private CheckBox checkbox_Setting_DrumMode;
-        private Label label_Setting_Octave;
-        private Label label_Setting_Program;
         private Button button_Start;
-        private GroupBox group_PedalMode;
         private RadioButton radio_Pedal_ChannelVolume;
-        private GroupBox group_Settings;
-        private GroupBox group_OutputType;
         private RadioButton radio_Output_Xbox360;
         private RadioButton radio_Output_Keyboard;
         private RadioButton radio_Output_Midi;
         private Label image_KeyC1;
-        private GroupBox group_KeyboardInputs;
         private Label image_KeyD1;
         private Label image_KeyE1;
         private Label image_KeyDb1;
@@ -1159,11 +1169,6 @@ namespace Program
         private Label image_KeyE2;
         private Label image_KeyD2;
         private Label image_KeyC2;
-        private Label image_OrangeRange;
-        private Label image_GreenRange;
-        private Label image_BlueRange;
-        private Label image_YellowRange;
-        private Label image_RedRange;
         private ComboBox dropdown_Output_MidiDevice;
         private Label image_AButton;
         private Label image_XButton;
@@ -1175,20 +1180,14 @@ namespace Program
         private Label image_Dpad;
         private Label image_Touchstrip;
         private Label image_OverdriveButton;
-        private GroupBox group_ButtonInputs;
-        private Label label_ProgramIncrement;
-        private Label label_OctaveIncrement;
-        private Label label_OctaveDecrement;
-        private Label label_ProgramDecrement;
-        private Label label_Dpad_DrumMode;
-        private Label label_Dpad_Expression;
-        private GroupBox group_Start;
-        private Label label_Dpad_FootController;
-        private Label label_Dpad_ChannelVolume;
         private Label image_MidiLight4;
         private Label image_MidiLight3;
         private Label image_MidiLight2;
         private Label image_MidiLight1;
+        private Label label_guideConnectionStatus;
+        private Timer timer_IOLoop;
+        private Label label_Setting_Octave;
+        private Label label_Setting_Program;
     }
 }
 

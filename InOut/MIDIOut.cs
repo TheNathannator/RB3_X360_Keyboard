@@ -37,7 +37,7 @@ namespace InOut
 			// Stop all MIDI notes and wait 1 second before resuming.
 			if(currentState.btnBk && currentState.btnGuide && currentState.btnSt)
 			{
-				Panic(outputMidi);
+				outputMidi.TurnAllNotesOff();
 			}
 
 			SetOctave(octave, drumMode);
@@ -98,15 +98,6 @@ namespace InOut
 				midiNum[5] = 47;        midiNum[6] = 50; midiNum[7] = 42; midiNum[8] = 46; midiNum[9] = 49; midiNum[10] = 51; midiNum[11] = 53;
 				// Low Mid Tom,         High Tom,        Closed Hi Hat,   Open Hi Hat,     Crash Cymbal 1,  Ride Cymbal 1,    Ride Bell
 			}
-		}
-
-		/// <summary>
-		/// Disable all outputs and wait 1 second before resuming.
-		/// </summary>
-		public void Panic(OutputDevice outputMidi)
-		{
-			outputMidi.TurnAllNotesOff();
-			Thread.Sleep(1000);
 		}
 	}
 }
