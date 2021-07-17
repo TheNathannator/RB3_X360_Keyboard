@@ -133,6 +133,11 @@ namespace Program
 			// Only allow Xbox 360 controller output if ViGEmBus is found.
 			vigem = ViGEmCheck();
 			radio_Output_Xbox360.Enabled = vigem;
+			if(!vigem)
+			{
+				radio_Output_Xbox360.Text = "ViGEmBus not found";
+			}
+			
 #if DEBUG
 			// Only show the debug button and group if current mode is Debug.
 			group_Debug.Visible = true;
@@ -158,7 +163,6 @@ namespace Program
 			}
 			catch (VigemBusNotFoundException)
 			{
-				MessageBox.Show("ViGEmBus was not found on the system./r/nXbox 360 controller output functionality will be unavailable until you install it.", "ViGEmBus not found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return false;
 			}
 		}
