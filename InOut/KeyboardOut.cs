@@ -1,25 +1,23 @@
-using System.Threading;
+using System.Diagnostics;
 using WindowsInput;
 using keyCode = WindowsInput.Native.VirtualKeyCode;
 
 namespace InOut
 {
 	/// <summary>
-	///  Keyboard output code.
+	/// Keyboard output code.
 	/// </summary>
 	public class Keyboard
 	{
-		InputSimulator simulator = new InputSimulator();
-		IKeyboardSimulator outputKey;
-
 		/// <summary>
-		/// Array containing the virtual keycodes to be used.
+		/// The virtual keycodes to be used.
 		/// </summary>
 		/// <remarks>
 		/// <para>C1 = VK_Z, Db1 = VK_S, D1 = VK_X, Eb1 = VK_D, E1 = VK_C,</para>
 		/// <para>F1 = VK_V, Gb1 = VK_G, G1 = VK_B, Ab1 = VK_H, A1 = VK_N, Bb1 = VK_J, B1 = VK_M,</para>
 		/// <para>C2 = VK_Q, Db2 = VK_2, D2 = VK_W, Eb2 = VK_3, E2 = VK_E,</para>
-		/// <para>F2 = VK_R, Gb2 = VK_5, G2 = VK_T, Ab2 = VK_6, A2 = VK_Y, Bb2 = VK_7, B2 = VK_U, C3 = VK_I</para>
+		/// <para>F2 = VK_R, Gb2 = VK_5, G2 = VK_T, Ab2 = VK_6, A2 = VK_Y, Bb2 = VK_7, B2 = VK_U,</para>
+		/// <para>C3 = VK_I</para>
 		/// </remarks>
 		keyCode[] keys = 
 		{
@@ -30,117 +28,86 @@ namespace InOut
 			keyCode.VK_I
 		};
 
-		public IKeyboardSimulator Initialize()
+		/// <summary>
+		/// Outputs keypresses.
+		/// </summary>	
+		public void Output(IKeyboardSimulator outputKey, ref InputState stateCurrent, ref InputState statePrevious)
 		{
-			outputKey = simulator.Keyboard;
-			return outputKey;
-		}
-
-		public void Output(IKeyboardSimulator outputKey, InputState currentState, InputState prevState)
-		{
-			// The keys that correspond to the RB keyboard keys are arranged roughly like the RB keyboard.
+			// The keys that correspond to the RB keyboard keys are arranged roughly like an actual MIDI keyboard, but split into 2 halves on top of each other.
 			//  2 3   5 6 7
 			// Q W E R T Y U I
 			//  S D   G H J
 			// Z X C V B N M
 
-			if(currentState.btnBk && currentState.btnGuide && currentState.btnSt) Panic();
+			if(stateCurrent.btnBk && stateCurrent.btnGuide && stateCurrent.btnSt) Panic(outputKey);
 
-			// Loop through the current and previous state of the key array to check if the state has changed.
-			// Only change the keypress state if there's a change in the state of the input.
+			// Sends keypresses.
 			for(int i = 0; i < 25; i++)
 			{
-				if(currentState.key[i] != prevState.key[i])
+				if(stateCurrent.key[i] != statePrevious.key[i])
 				{
-					if(currentState.key[i]) outputKey.KeyDown(keys[i]);
+					if(stateCurrent.key[i]) outputKey.KeyDown(keys[i]);
 					else outputKey.KeyUp(keys[i]);
 				}
 			}
 
 			// Overdrive = O
-			if(currentState.overdrive != prevState.overdrive)	
+			if(stateCurrent.overdrive != statePrevious.overdrive)	
 			{
-				if(currentState.overdrive) outputKey.KeyDown(keyCode.VK_O);
+				if(stateCurrent.overdrive) outputKey.KeyDown(keyCode.VK_O);
 				else outputKey.KeyUp(keyCode.VK_O);
 			}
 
 			// Pedal = P
-			if(currentState.pedal != prevState.pedal)	
+			if(stateCurrent.pedalDigital != statePrevious.pedalDigital)	
 			{
-				if(currentState.pedal) outputKey.KeyDown(keyCode.VK_P);
+				if(stateCurrent.pedalDigital) outputKey.KeyDown(keyCode.VK_P);
 				else outputKey.KeyUp(keyCode.VK_P);
 			}
 
 			// Start = Enter/Return
-			if(currentState.btnSt != prevState.btnSt)	
+			if(stateCurrent.btnSt != statePrevious.btnSt)	
 			{
-				if(currentState.btnSt) outputKey.KeyDown(keyCode.RETURN);
+				if(stateCurrent.btnSt) outputKey.KeyDown(keyCode.RETURN);
 				else outputKey.KeyUp(keyCode.RETURN);
 			}
 
 			// Back = Escape
-			if(currentState.btnBk != prevState.btnBk)	
+			if(stateCurrent.btnBk != statePrevious.btnBk)	
 			{
-				if(currentState.btnBk) outputKey.KeyDown(keyCode.ESCAPE);
+				if(stateCurrent.btnBk) outputKey.KeyDown(keyCode.ESCAPE);
 				else outputKey.KeyUp(keyCode.ESCAPE);
 			}
 
 			// D-pad Up = Up Arrow
-			if(currentState.dpadU != prevState.dpadU)
+			if(stateCurrent.dpadU != statePrevious.dpadU)
 			{
-				if(currentState.dpadU) outputKey.KeyDown(keyCode.UP); else outputKey.KeyUp(keyCode.UP);
+				if(stateCurrent.dpadU) outputKey.KeyDown(keyCode.UP); else outputKey.KeyUp(keyCode.UP);
 			}
 
 			// D-pad Down = Down Arrow
-			if(currentState.dpadD != prevState.dpadD)
+			if(stateCurrent.dpadD != statePrevious.dpadD)
 			{
-				if(currentState.dpadD) outputKey.KeyDown(keyCode.DOWN); else outputKey.KeyUp(keyCode.DOWN);
+				if(stateCurrent.dpadD) outputKey.KeyDown(keyCode.DOWN); else outputKey.KeyUp(keyCode.DOWN);
 			}
 
 			// D-pad Left = Left Arrow
-			if(currentState.dpadL != prevState.dpadL)
+			if(stateCurrent.dpadL != statePrevious.dpadL)
 			{
-				if(currentState.dpadL) outputKey.KeyDown(keyCode.LEFT); else outputKey.KeyUp(keyCode.LEFT);
+				if(stateCurrent.dpadL) outputKey.KeyDown(keyCode.LEFT); else outputKey.KeyUp(keyCode.LEFT);
 			}
 
 			// D-pad Right = Right Arrow
-			if(currentState.dpadR != prevState.dpadR)
+			if(stateCurrent.dpadR != statePrevious.dpadR)
 			{
-				if(currentState.dpadR) outputKey.KeyDown(keyCode.RIGHT); else outputKey.KeyUp(keyCode.RIGHT);
+				if(stateCurrent.dpadR) outputKey.KeyDown(keyCode.RIGHT); else outputKey.KeyUp(keyCode.RIGHT);
 			}
-
-			// old code
-			//	if(currentState.key[0])  outputKey.KeyDown(keyCode.VK_Z); else outputKey.KeyUp(keyCode.VK_Z);	// C1  = Z
-			//	if(currentState.key[1])  outputKey.KeyDown(keyCode.VK_S); else outputKey.KeyUp(keyCode.VK_S);	// C#1 = S
-			//	if(currentState.key[2])  outputKey.KeyDown(keyCode.VK_X); else outputKey.KeyUp(keyCode.VK_X);	// D1  = X
-			//	if(currentState.key[3])  outputKey.KeyDown(keyCode.VK_D); else outputKey.KeyUp(keyCode.VK_D);	// D#1 = D
-			//	if(currentState.key[4])  outputKey.KeyDown(keyCode.VK_C); else outputKey.KeyUp(keyCode.VK_C);	// E1  = C
-			//	if(currentState.key[5])  outputKey.KeyDown(keyCode.VK_V); else outputKey.KeyUp(keyCode.VK_V);	// F1  = V
-			//	if(currentState.key[6])  outputKey.KeyDown(keyCode.VK_G); else outputKey.KeyUp(keyCode.VK_G);	// F#1 = G
-			//	if(currentState.key[7])  outputKey.KeyDown(keyCode.VK_B); else outputKey.KeyUp(keyCode.VK_B);	// G1  = B
-			//	if(currentState.key[8])  outputKey.KeyDown(keyCode.VK_H); else outputKey.KeyUp(keyCode.VK_H);	// G#1 = H
-			//	if(currentState.key[9])  outputKey.KeyDown(keyCode.VK_N); else outputKey.KeyUp(keyCode.VK_N);	// A1  = N
-			//	if(currentState.key[10]) outputKey.KeyDown(keyCode.VK_J); else outputKey.KeyUp(keyCode.VK_J);	// A#1 = J
-			//	if(currentState.key[11]) outputKey.KeyDown(keyCode.VK_M); else outputKey.KeyUp(keyCode.VK_M);	// B1  = M
-			//	if(currentState.key[12]) outputKey.KeyDown(keyCode.VK_Q); else outputKey.KeyUp(keyCode.VK_Q);	// C2  = Q
-			//	if(currentState.key[13]) outputKey.KeyDown(keyCode.VK_2); else outputKey.KeyUp(keyCode.VK_2);	// C#2 = 2
-			//	if(currentState.key[14]) outputKey.KeyDown(keyCode.VK_W); else outputKey.KeyUp(keyCode.VK_W);	// D2  = W
-			//	if(currentState.key[15]) outputKey.KeyDown(keyCode.VK_3); else outputKey.KeyUp(keyCode.VK_3);	// D#2 = 3
-			//	if(currentState.key[16]) outputKey.KeyDown(keyCode.VK_E); else outputKey.KeyUp(keyCode.VK_E);	// E2  = E
-			//	if(currentState.key[17]) outputKey.KeyDown(keyCode.VK_R); else outputKey.KeyUp(keyCode.VK_R);	// F2  = R
-			//	if(currentState.key[18]) outputKey.KeyDown(keyCode.VK_5); else outputKey.KeyUp(keyCode.VK_5);	// F#2 = 5
-			//	if(currentState.key[19]) outputKey.KeyDown(keyCode.VK_T); else outputKey.KeyUp(keyCode.VK_T);	// G2  = T
-			//	if(currentState.key[20]) outputKey.KeyDown(keyCode.VK_6); else outputKey.KeyUp(keyCode.VK_6);	// G#2 = 6
-			//	if(currentState.key[21]) outputKey.KeyDown(keyCode.VK_Y); else outputKey.KeyUp(keyCode.VK_Y);	// A2  = Y
-			//	if(currentState.key[22]) outputKey.KeyDown(keyCode.VK_7); else outputKey.KeyUp(keyCode.VK_7);	// A#2 = 7
-			//	if(currentState.key[23]) outputKey.KeyDown(keyCode.VK_U); else outputKey.KeyUp(keyCode.VK_U);	// B2  = U
-			//	if(currentState.key[24]) outputKey.KeyDown(keyCode.VK_I); else outputKey.KeyUp(keyCode.VK_I);	// C3  = I
 		}
 
 		/// <summary>
-		/// Disable all outputs and wait 1 second before resuming.
+		/// Zeroes out all outputs.
 		/// </summary>
-		public void Panic()	
+		public void Panic(IKeyboardSimulator outputKey)	
 		{
 			for(int i = 0; i < 25; i++)
 			{

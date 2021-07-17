@@ -18,6 +18,9 @@ namespace Program
 			InitializeComponent();
 		}
 
+		/// <summary>
+		/// Updates the window values.
+		/// </summary>
 		public void UpdateWindow(ref InputState stateCurrent)
 		{
 			if(stateCurrent.key[0]) text_Key0.Text = "1";

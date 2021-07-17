@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using SharpDX.XInput;
 using Nefarius.ViGEm.Client;
@@ -16,7 +9,6 @@ using Nefarius.ViGEm.Client.Exceptions;
 using Melanchall.DryWetMidi.Devices;
 using WindowsInput;
 using InOut;
-using image = RB3_X360_Keyboard.Properties.Resources;
 
 // TODO (Big task): Maybe support connecting more than one keyboard at a time.
 
@@ -31,11 +23,11 @@ namespace Program
 		/// <summary>
 		/// Represents the current input state.
 		/// </summary>
-		public InputState stateCurrent = new InputState();
+		public InputState stateCurrent = new InputState(true);
 		/// <summary>
 		/// Represents the previous input state.
 		/// </summary>
-		public InputState statePrevious = new InputState();
+		public InputState statePrevious = new InputState(true);
 
 
 		/// <summary>
@@ -53,7 +45,11 @@ namespace Program
 		/// <summary>
 		/// Represents the keyboard simulator.
 		/// </summary>
-		public IKeyboardSimulator outputKey;
+		InputSimulator simulator = new InputSimulator();
+		/// <summary>
+		/// Represents the keyboard simulator service.
+		/// </summary>
+		IKeyboardSimulator outputKey;
 
 
 		/// <summary>
@@ -84,7 +80,7 @@ namespace Program
 		/// <remarks>
 		/// 1 = expression, 2 = channel volume, 3 = foot controller.
 		/// </remarks>
-		public int pedalMode = 0;
+		public int pedalMode = 1;
 		/// <summary>
 		/// The current octave offset.
 		/// </summary>
@@ -92,7 +88,7 @@ namespace Program
 		/// <summary>
 		/// The current program number.
 		/// </summary>
-		public int program = 1;
+		public byte program = 1;
 		/// <summary>
 		/// The player index of the connected controller.
 		/// </summary>
@@ -119,15 +115,39 @@ namespace Program
 		/// </remarks>
 		int outputMode = 2;
 
+		/// <summary>
+		/// Timer for MIDI light animations.
+		/// </summary>
+		System.Timers.Timer animationTimer;
+
+		/// <summary>
+		/// Window that shows some debug information.
+		/// </summary>
+		DebugWindow debug = new DebugWindow();
+
 
 		public MainWindow()
 		{
 			InitializeComponent();
 
+			// Only allow Xbox 360 controller output if ViGEmBus is found.
 			vigem = ViGEmCheck();
 			radio_Output_Xbox360.Enabled = vigem;
+#if DEBUG
+			// Only show the debug button and group if current mode is Debug.
+			group_Debug.Visible = true;
+			button_Debug.Visible = true;
+#endif
+
+			// Initialize the animation timer.
+			animationTimer = new System.Timers.Timer(100);
+			animationTimer.Elapsed += animationTimer_Elapsed;
+			animationTimer.AutoReset = true;
 		}
 
+		/// <summary>
+		/// Checks if ViGEmBus is installed.
+		/// </summary>
 		private bool ViGEmCheck()
 		{
 			try
@@ -143,8 +163,31 @@ namespace Program
 			}
 		}
 
+		/// <summary>
+		/// Handles things that needs to be taken care of when the app closes.
+		/// </summary>
 		private void appClosing(object sender, FormClosingEventArgs e)
 		{
+			if(outputStarted)
+			{
+				switch(outputMode)
+				{
+					case 1:
+						xinput.Panic(output360);
+						output360.Disconnect();
+						client.Dispose();
+						break;
+					case 2:
+						key.Panic(outputKey);
+						break;
+					case 3:
+						outputMidi.TurnAllNotesOff();
+						outputMidi.Dispose();
+						break;
+				}
+				return;
+			}
+
 			try{output360.Disconnect();}
 			catch{}
 			
@@ -158,24 +201,34 @@ namespace Program
 			catch{}
 		}
 
+		/// <summary>
+		/// Functionality loop.
+		/// </summary>
 		private void timer_IOLoop_Tick(object sender, EventArgs e)
-        {
+		{
 			if(controllerConnected)
 			{
 				Input();
-				UpdateWindow();
+				UpdateValues();
+				UpdateImages();
 				if(outputStarted) Output();
+#if DEBUG
+				if(debug.Visible) debug.UpdateWindow(ref stateCurrent);
+#endif
 			}
 			else Initialize();
-        }
+		}
 
+		/// <summary>
+		/// Changes the pedal mode.
+		/// </summary>
 		private void radio_PedalMode_Change(object sender, EventArgs e)
 		{
 			RadioButton rb = sender as RadioButton;
 
 			if(rb.Checked)
 			{
-				switch (rb.Name)
+				switch (rb.Text)
 				{
 					default:
 					case "Expression":
@@ -191,26 +244,39 @@ namespace Program
 			}
 		}
 
+		/// <summary>
+		/// Changes the output type.
+		/// </summary>
 		private void radio_OutputType_Change(object sender, EventArgs e)
 		{
 			RadioButton rb = sender as RadioButton;
 			
-			switch (rb.Text)
+			dropdown_Output_MidiDevice.Items.Clear();
+
+			if(rb.Checked)
 			{
-				case "Xbox 360 Controller":
-					if(rb.Checked) outputMode = 1;
-					break;
-				case "Keyboard":
-					if(rb.Checked) outputMode = 2;
-					break;
-				case "MIDI":
-					if(rb.Checked) outputMode = 3;
-					break;
-				default: break;
+				switch (rb.Text)
+				{
+					case "Xbox 360 Controller":
+						if(rb.Checked) outputMode = 1;
+						dropdown_Output_MidiDevice.Enabled = false;
+						break;
+					default:
+					case "Keyboard":
+						if(rb.Checked) outputMode = 2;
+						dropdown_Output_MidiDevice.Enabled = false;
+						break;
+					case "MIDI":
+						if(rb.Checked) outputMode = 3;
+						dropdown_Output_MidiDevice.Enabled = true;
+						break;
+				}
 			}
-			
 		}
 
+		/// <summary>
+		/// Changes the octave setting.
+		/// </summary>
 		private void numUpDown_SettingOctave_Change(object sender, EventArgs e)
 		{
 			NumericUpDown ud = sender as NumericUpDown;
@@ -218,18 +284,27 @@ namespace Program
 			octave = (int)ud.Value;
 		}
 
+		/// <summary>
+		/// Changes the program number.
+		/// </summary>
 		private void numUpDown_SettingProgram_Change(object sender, EventArgs e)
 		{
 			NumericUpDown ud = sender as NumericUpDown;
 
-			program = (int)ud.Value;
+			program = (byte)ud.Value;
 		}
 
+		/// <summary>
+		/// Toggles drum mode.
+		/// </summary>
 		private void checkbox_SettingDrumMode_Changed(object sender, EventArgs e)
 		{
 			drumMode = !drumMode;
 		}
 
+		/// <summary>
+		/// Populates the MIDI device list.
+		/// </summary>
 		private void dropdown_OutputMidi_Device_Open(object sender, EventArgs e)
 		{
 			ComboBox cb = sender as ComboBox;
@@ -244,6 +319,9 @@ namespace Program
 			}
 		}
 
+		/// <summary>
+		/// Starts output functionality.
+		/// </summary>
 		private void button_Start_Click(object sender, EventArgs e)
 		{
 			Button b = sender as Button;
@@ -259,13 +337,97 @@ namespace Program
 						return;
 					}
 
-					radio_Output_Xbox360.Enabled = false;
-					radio_Output_Keyboard.Enabled = false;
-					radio_Output_Midi.Enabled = false;
-					dropdown_Output_MidiDevice.Enabled = false;
-					image_MidiLight1.BackColor = Color.Red;
+					switch(outputMode)
+					{
+						default:
+							break;
+						case 1:
+						{
+							client = new ViGEmClient();
+							output360 = client.CreateXbox360Controller();
+							try{output360.Connect();}
+							catch(VigemNoFreeSlotException)
+							{
+								MessageBox.Show("No available XInput slots to start the virtual controller on./r/nPlease disconnect an Xbox 360/Xbox One controller.", "No Free XInput Slots", MessageBoxButtons.OK);
+								return;
+							}
 
-					OutputPrep(true);
+							// Disable all settings except for Drum Mode
+							radio_Pedal_Expression.Enabled = false;
+							radio_Pedal_ChannelVolume.Enabled = false;
+							radio_Pedal_FootController.Enabled = false;
+
+							numUpDown_Setting_Octave.Enabled = false;
+							numUpDown_Setting_Program.Enabled = false;
+							checkbox_Setting_DrumMode.Enabled = true;
+							label_Setting_Octave.Enabled = false;
+							label_Setting_Program.Enabled = false;
+
+							radio_Output_Xbox360.Enabled = false;
+							radio_Output_Keyboard.Enabled = false;
+							radio_Output_Midi.Enabled = false;
+							dropdown_Output_MidiDevice.Enabled = false;
+
+							break;
+						}
+						case 2:
+						{
+							outputKey = simulator.Keyboard;
+
+							// Disable all settings and output type selection
+							radio_Pedal_Expression.Enabled = false;
+							radio_Pedal_ChannelVolume.Enabled = false;
+							radio_Pedal_FootController.Enabled = false;
+
+							numUpDown_Setting_Octave.Enabled = false;
+							numUpDown_Setting_Program.Enabled = false;
+							checkbox_Setting_DrumMode.Enabled = false;
+							label_Setting_Octave.Enabled = false;
+							label_Setting_Program.Enabled = false;
+
+							radio_Output_Xbox360.Enabled = false;
+							radio_Output_Keyboard.Enabled = false;
+							radio_Output_Midi.Enabled = false;
+							dropdown_Output_MidiDevice.Enabled = false;
+
+							break;
+						}
+						case 3:
+						{
+							try{dropdown_Output_MidiDevice.SelectedItem.ToString();}
+							catch(NullReferenceException)
+							{
+								MessageBox.Show("Please select a MIDI device to output to.", "No Device Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+								return;
+							}
+							string name = dropdown_Output_MidiDevice.SelectedItem.ToString();
+							if(name == "No Device")
+							{
+								MessageBox.Show("Please select a MIDI device to output to.", "No Device Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+								return;
+							}
+							outputMidi = OutputDevice.GetByName(name);
+							outputMidi.PrepareForEventsSending();
+
+							// Enable all settings, disable output type selection
+							radio_Pedal_Expression.Enabled = true;
+							radio_Pedal_ChannelVolume.Enabled = true;
+							radio_Pedal_FootController.Enabled = true;
+
+							numUpDown_Setting_Octave.Enabled = true;
+							numUpDown_Setting_Program.Enabled = true;
+							checkbox_Setting_DrumMode.Enabled = true;
+							label_Setting_Octave.Enabled = true;
+							label_Setting_Program.Enabled = true;
+
+							radio_Output_Xbox360.Enabled = false;
+							radio_Output_Keyboard.Enabled = false;
+							radio_Output_Midi.Enabled = false;
+							dropdown_Output_MidiDevice.Enabled = false;
+							
+							break;
+						}
+					}
 					outputStarted = true;
 					b.Text = "Stop";
 					return;
@@ -281,22 +443,25 @@ namespace Program
 					numUpDown_Setting_Octave.Enabled = false;
 					numUpDown_Setting_Program.Enabled = false;
 					checkbox_Setting_DrumMode.Enabled = false;
+					label_Setting_Octave.Enabled = false;
+					label_Setting_Program.Enabled = false;
 
 					radio_Output_Xbox360.Enabled = vigem;
 					radio_Output_Keyboard.Enabled = true;
 					radio_Output_Midi.Enabled = true;
-
-					image_MidiLight1.BackColor = Color.Black;
+					dropdown_Output_MidiDevice.Enabled = true;
 
 					switch(outputMode)
 					{
 						default:
 							break;
 						case 1:
+							xinput.Panic(output360);
 							output360.Disconnect();
 							client.Dispose();
 							break;
 						case 2:
+							key.Panic(outputKey);
 							break;
 						case 3:
 							outputMidi.TurnAllNotesOff();
@@ -310,387 +475,16 @@ namespace Program
 			}
 		}
 
-		public void OutputPrep(bool type)
+		/// <summary>
+		/// Opens the debug window.
+		/// </summary>
+		private void button_Debug_Click(object sender, EventArgs e)
 		{
-			switch(outputMode)
+			if(debug.IsDisposed)
 			{
-				default:
-					break;
-				case 1:
-				{
-					client = new ViGEmClient();
-					output360 = client.CreateXbox360Controller();
-					try{output360.Connect();}
-					catch(VigemNoFreeSlotException)
-					{
-						MessageBox.Show("No available XInput slots to start the virtual controller on./r/nPlease disconnect an Xbox 360/Xbox One controller.", "No Free XInput Slots", MessageBoxButtons.OK);
-					}
-
-					// Disable all settings except for Drum Mode
-					radio_Pedal_Expression.Enabled = false;
-					radio_Pedal_ChannelVolume.Enabled = false;
-					radio_Pedal_FootController.Enabled = false;
-
-					label_Setting_Octave.Enabled = false;
-					label_Setting_Program.Enabled = false;
-					numUpDown_Setting_Octave.Enabled = false;
-					numUpDown_Setting_Program.Enabled = false;
-					checkbox_Setting_DrumMode.Enabled = true;
-
-					break;
-				}
-				case 2:
-				{
-					// Disable all settings and output type selection
-					radio_Pedal_Expression.Enabled = false;
-					radio_Pedal_ChannelVolume.Enabled = false;
-					radio_Pedal_FootController.Enabled = false;
-
-					label_Setting_Octave.Enabled = false;
-					label_Setting_Program.Enabled = false;
-					numUpDown_Setting_Octave.Enabled = false;
-					numUpDown_Setting_Program.Enabled = false;
-					checkbox_Setting_DrumMode.Enabled = false;
-
-					break;
-				}
-				case 3:
-				{
-					string name = dropdown_Output_MidiDevice.SelectedItem.ToString();
-					if(name == "No Device")
-					{
-						MessageBox.Show("Please select a MIDI device to output to.", "No Device Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-						break;
-					}
-					outputMidi = OutputDevice.GetByName(name);
-					outputMidi.PrepareForEventsSending();
-
-					// Enable all settings, disable output type selection
-					radio_Pedal_Expression.Enabled = true;
-					radio_Pedal_ChannelVolume.Enabled = true;
-					radio_Pedal_FootController.Enabled = true;
-
-					numUpDown_Setting_Octave.Enabled = true;
-					numUpDown_Setting_Program.Enabled = true;
-					checkbox_Setting_DrumMode.Enabled = true;
-					break;
-				}
+				debug = new DebugWindow();
 			}
+			debug.Show();
 		}
-
-		void UpdateWindow()
-		{
-			#region Images
-			// Update the state of the button/key images based on the current state of each button.
-			// Buttons
-			if(stateCurrent.btnA) image_AButton.Image = (Image)image.aPressed_cropped;
-			else image_AButton.Image = (Image)image.a_cropped;
-
-			if(stateCurrent.btnB) image_BButton.Image = (Image)image.bPressed_cropped;
-			else image_BButton.Image = (Image)image.b_cropped;
-
-			if(stateCurrent.btnX) image_XButton.Image = (Image)image.xPressed_cropped;
-			else image_XButton.Image = (Image)image.x_cropped;
-
-			if(stateCurrent.btnY) image_YButton.Image = (Image)image.yPressed_cropped;
-			else image_YButton.Image = (Image)image.y_cropped;
-
-			if(stateCurrent.btnSt) image_StartButton.Image = (Image)image.startPressed_cropped;
-			else image_StartButton.Image = (Image)image.start_cropped;
-
-			if(stateCurrent.btnBk) image_BackButton.Image = (Image)image.backPressed_cropped;
-			else image_BackButton.Image = (Image)image.back_cropped;
-
-			if(stateCurrent.overdrive) image_OverdriveButton.Image = (Image)image.overdrivePressed_cropped;
-			else image_OverdriveButton.Image = (Image)image.overdrive_cropped;
-
-			// D-pad
-			switch(stateCurrent.dpadU, stateCurrent.dpadD, stateCurrent.dpadL, stateCurrent.dpadR)
-			{
-				// Not pressed
-				default:
-				case (false, false, false, false):
-					image_Dpad.Image = (Image)image.dpad_cropped;
-					break;
-
-				// Up
-				case (true, false, false, false):
-					image_Dpad.Image = (Image)image.dpadUp_cropped;
-					break;
-				// Down
-				case (false, true, false, false):
-					image_Dpad.Image = (Image)image.dpadDown_cropped;
-					break;
-				// Left
-				case (false, false, true, false):
-					image_Dpad.Image = (Image)image.dpadLeft_cropped;
-					break;
-				// Right
-				case (false, false, false, true):
-					image_Dpad.Image = (Image)image.dpadRight_cropped;
-					break;
-				
-				// Up + Down (impossible under normal circumstances)
-				case (true, true, false, false):
-					image_Dpad.Image = (Image)image.dpadUpDown_cropped;
-					break;
-				// Up + Left
-				case (true, false, true, false):
-					image_Dpad.Image = (Image)image.dpadUpLeft_cropped;
-					break;
-				// Up + Right
-				case (true, false, false, true):
-					image_Dpad.Image = (Image)image.dpadUpRight_cropped;
-					break;
-				// Down + Left
-				case (false, true, true, false):
-					image_Dpad.Image = (Image)image.dpadDownLeft_cropped;
-					break;
-				// Down + Right
-				case (false, true, false, true):
-					image_Dpad.Image = (Image)image.dpadDownRight_cropped;
-					break;
-				// Left + Right (impossible under normal circumstances)
-				case (false, false, true, true):
-					image_Dpad.Image = (Image)image.dpadDownRight_cropped;
-					break;
-
-				// Up + Down + Left (impossible under normal circumstances)
-				case (true, true, true, false):
-					image_Dpad.Image = (Image)image.dpadDownLeftUp_cropped;
-					break;
-				// Up + Down + Right (impossible under normal circumstances)
-				case (true, true, false, true):
-					image_Dpad.Image = (Image)image.dpadUpRightDown_cropped;
-					break;
-				// Up + Left + Right (impossible under normal circumstances)
-				case (true, false, true, true):
-					image_Dpad.Image = (Image)image.dpadUpLeftRight_cropped;
-					break;
-				// Down + Left + Right (impossible under normal circumstances)
-				case (false, true, true, true):
-					image_Dpad.Image = (Image)image.dpadDownLeftRight_cropped;
-					break;
-
-				// Up + Down + Left + Right (impossible under normal circumstances)
-				case (true, true, true, true):
-					image_Dpad.Image = (Image)image.dpadUpDownLeftRight_cropped;
-					break;
-			}
-
-			// Guide button
-			label_guideConnectionStatus.Visible = !controllerConnected;
-			switch (playerIndex)
-			{
-				default:
-				case -1:
-					if(stateCurrent.btnGuide) image_GuideButton.Image = (Image)image.guidePressedLightsOff_cropped;
-					else image_GuideButton.Image = (Image)image.guideLightsOff_cropped;
-					break;
-				case 0:
-					if(stateCurrent.btnGuide) image_GuideButton.Image = (Image)image.guidePressedPlayer1_cropped;
-					else image_GuideButton.Image = (Image)image.guidePlayer1_cropped;
-					break;
-				case 1:
-					if(stateCurrent.btnGuide) image_GuideButton.Image = (Image)image.guidePressedPlayer2_cropped;
-					else image_GuideButton.Image = (Image)image.guidePlayer2_cropped;
-					break;
-				case 2:
-					if(stateCurrent.btnGuide) image_GuideButton.Image = (Image)image.guidePressedPlayer3_cropped;
-					else image_GuideButton.Image = (Image)image.guidePlayer3_cropped;
-					break;
-				case 3:
-					if(stateCurrent.btnGuide) image_GuideButton.Image = (Image)image.guidePressedPlayer4_cropped;
-					else image_GuideButton.Image = (Image)image.guidePlayer4_cropped;
-					break;
-			}
-
-			// Keys
-			if(stateCurrent.key[0]) image_KeyC1.Image = (Image)image.keyLeftPressed_cropped.Clone();
-			else image_KeyC1.Image = (Image)image.keyLeft_cropped.Clone();
-
-			if(stateCurrent.key[1]) image_KeyDb1.Image = (Image)image.keyBlackPressed_cropped.Clone();
-			else image_KeyDb1.Image = (Image)image.keyBlack_cropped.Clone();
-			
-			if(stateCurrent.key[2]) image_KeyD1.Image = (Image)image.keyCenterPressed_cropped.Clone();
-			else image_KeyD1.Image = (Image)image.keyCenter_cropped.Clone();
-
-			if(stateCurrent.key[3]) image_KeyEb1.Image = (Image)image.keyBlackPressed_cropped.Clone();
-			else image_KeyEb1.Image = (Image)image.keyBlack_cropped.Clone();
-
-			if(stateCurrent.key[4]) image_KeyE1.Image = (Image)image.keyRightPressed_cropped.Clone();
-			else image_KeyE1.Image = (Image)image.keyRight_cropped.Clone();
-
-			if(stateCurrent.key[5]) image_KeyF1.Image = (Image)image.keyLeftPressed_cropped.Clone();
-			else image_KeyF1.Image = (Image)image.keyLeft_cropped.Clone();
-
-			if(stateCurrent.key[6]) image_KeyGb1.Image = (Image)image.keyBlackPressed_cropped.Clone();
-			else image_KeyGb1.Image = (Image)image.keyBlack_cropped.Clone();
-
-			if(stateCurrent.key[7]) image_KeyG1.Image = (Image)image.keyMiddleLeftPressed_cropped.Clone();
-			else image_KeyG1.Image = (Image)image.keyMiddleLeft_cropped.Clone();
-
-			if(stateCurrent.key[8]) image_KeyAb1.Image = (Image)image.keyBlackPressed_cropped.Clone();
-			else image_KeyAb1.Image = (Image)image.keyBlack_cropped.Clone();
-
-			if(stateCurrent.key[9]) image_KeyA1.Image = (Image)image.keyMiddleRightPressed_cropped.Clone();
-			else image_KeyA1.Image = (Image)image.keyMiddleRight_cropped.Clone();
-
-			if(stateCurrent.key[10]) image_KeyBb1.Image = (Image)image.keyBlackPressed_cropped.Clone();
-			else image_KeyBb1.Image = (Image)image.keyBlack_cropped.Clone();
-
-			if(stateCurrent.key[11]) image_KeyB1.Image = (Image)image.keyRightPressed_cropped.Clone();
-			else image_KeyB1.Image = (Image)image.keyRight_cropped.Clone();
-
-			if(stateCurrent.key[12]) image_KeyC2.Image = (Image)image.keyLeftPressed_cropped.Clone();
-			else image_KeyC2.Image = (Image)image.keyLeft_cropped.Clone();
-
-			if(stateCurrent.key[13]) image_KeyDb2.Image = (Image)image.keyBlackPressed_cropped.Clone();
-			else image_KeyDb2.Image = (Image)image.keyBlack_cropped.Clone();
-			
-			if(stateCurrent.key[14]) image_KeyD2.Image = (Image)image.keyCenterPressed_cropped.Clone();
-			else image_KeyD2.Image = (Image)image.keyCenter_cropped.Clone();
-
-			if(stateCurrent.key[15]) image_KeyEb2.Image = (Image)image.keyBlackPressed_cropped.Clone();
-			else image_KeyEb2.Image = (Image)image.keyBlack_cropped.Clone();
-
-			if(stateCurrent.key[16]) image_KeyE2.Image = (Image)image.keyRightPressed_cropped.Clone();
-			else image_KeyE2.Image = (Image)image.keyRight_cropped.Clone();
-
-			if(stateCurrent.key[17]) image_KeyF2.Image = (Image)image.keyLeftPressed_cropped.Clone();
-			else image_KeyF2.Image = (Image)image.keyLeft_cropped.Clone();
-
-			if(stateCurrent.key[18]) image_KeyGb2.Image = (Image)image.keyBlackPressed_cropped.Clone();
-			else image_KeyGb2.Image = (Image)image.keyBlack_cropped.Clone();
-
-			if(stateCurrent.key[19]) image_KeyG2.Image = (Image)image.keyMiddleLeftPressed_cropped.Clone();
-			else image_KeyG2.Image = (Image)image.keyMiddleLeft_cropped.Clone();
-
-			if(stateCurrent.key[20]) image_KeyAb2.Image = (Image)image.keyBlackPressed_cropped.Clone();
-			else image_KeyAb2.Image = (Image)image.keyBlack_cropped.Clone();
-
-			if(stateCurrent.key[21]) image_KeyA2.Image = (Image)image.keyMiddleRightPressed_cropped.Clone();
-			else image_KeyA2.Image = (Image)image.keyMiddleRight_cropped.Clone();
-
-			if(stateCurrent.key[22]) image_KeyBb2.Image = (Image)image.keyBlackPressed_cropped.Clone();
-			else image_KeyBb2.Image = (Image)image.keyBlack_cropped.Clone();
-
-			if(stateCurrent.key[23]) image_KeyB2.Image = (Image)image.keyRightPressed_cropped.Clone();
-			else image_KeyB2.Image = (Image)image.keyRight_cropped.Clone();
-
-			if(stateCurrent.key[24]) image_KeyC3.Image = (Image)image.keyEndPressed_cropped;
-			else image_KeyC3.Image = (Image)image.keyEnd_cropped;
-			#endregion
-		
-			#region Values
-			// Toggle drum mode.
-			if(checkbox_Setting_DrumMode.Enabled)
-			{
-				if(stateCurrent.dpadU != statePrevious.dpadU)
-				{
-					if(stateCurrent.dpadU) drumMode = !drumMode;
-					checkbox_Setting_DrumMode.Checked = drumMode;
-
-					if(drumMode) image_MidiLight4.BackColor = Color.Red;
-					else image_MidiLight4.BackColor = Color.Black;
-				}
-			}
-
-			// Set the analog pedal mode.
-			if(radio_Pedal_Expression.Enabled)
-			{
-				if(stateCurrent.dpadL != statePrevious.dpadL)
-				{
-					if(stateCurrent.dpadL)
-					{
-						pedalMode = 1;
-						radio_Pedal_Expression.Checked = true;
-						image_MidiLight2.BackColor = Color.Black;
-						image_MidiLight3.BackColor = Color.Black;
-					}
-				}
-			}
-			if(radio_Pedal_ChannelVolume.Enabled)
-			{
-				if(stateCurrent.dpadD != statePrevious.dpadD)
-				{
-					if(stateCurrent.dpadD)
-					{
-						pedalMode = 2;
-						radio_Pedal_ChannelVolume.Checked = true;
-						image_MidiLight2.BackColor = Color.Black;
-						image_MidiLight3.BackColor = Color.Red;
-					}
-				}
-			}
-			if(radio_Pedal_FootController.Enabled)
-			{
-				if(stateCurrent.dpadR != statePrevious.dpadR)
-				{
-					if(stateCurrent.dpadR)
-					{
-						pedalMode = 3;
-						radio_Pedal_FootController.Checked = true;
-						image_MidiLight2.BackColor = Color.Red;
-						image_MidiLight3.BackColor = Color.Black;
-					}
-				}
-			}
-
-			// Switch the program number.
-			if(numUpDown_Setting_Program.Enabled)
-			{
-				if((stateCurrent.btnA != statePrevious.btnA) || (stateCurrent.btnY != statePrevious.btnY))
-				{
-					if(stateCurrent.btnA && stateCurrent.btnY)
-					{
-						program = 1;
-					}
-					else
-					{
-						if(stateCurrent.btnA)	
-						{
-							program -= 1;
-						}
-
-						if(stateCurrent.btnY)	
-						{
-							program += 1;
-						}
-					}
-
-					Math.Clamp(program, 1, 128);
-					numUpDown_Setting_Program.Value = program;
-				}
-			}
-
-			// Switch the octave number.
-			if(numUpDown_Setting_Octave.Enabled)
-			{
-				if((stateCurrent.btnB != statePrevious.btnB) || (stateCurrent.btnX != statePrevious.btnX))
-				{
-					if(stateCurrent.btnB && stateCurrent.btnX)
-					{
-						octave = 4;
-					}
-					else
-					{
-						if(stateCurrent.btnX)
-						{
-							octave -= 1;
-						}
-
-						if(stateCurrent.btnB)
-						{
-							octave += 1;
-						}
-					}
-
-					Math.Clamp(octave, 0, 8);
-					numUpDown_Setting_Octave.Value = octave;
-				}
-			}
-			#endregion
-		}
-    }
+	}
 }

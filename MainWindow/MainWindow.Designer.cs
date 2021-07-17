@@ -53,13 +53,13 @@ namespace Program
             System.Windows.Forms.Label label_OctaveDecrement;
             System.Windows.Forms.Label label_ProgramDecrement;
             System.Windows.Forms.GroupBox group_Start;
-            this.label_Setting_Octave = new System.Windows.Forms.Label();
-            this.label_Setting_Program = new System.Windows.Forms.Label();
             this.radio_Pedal_Expression = new System.Windows.Forms.RadioButton();
             this.radio_Pedal_ChannelVolume = new System.Windows.Forms.RadioButton();
             this.radio_Pedal_FootController = new System.Windows.Forms.RadioButton();
             this.numUpDown_Setting_Octave = new System.Windows.Forms.NumericUpDown();
             this.numUpDown_Setting_Program = new System.Windows.Forms.NumericUpDown();
+            this.label_Setting_Octave = new System.Windows.Forms.Label();
+            this.label_Setting_Program = new System.Windows.Forms.Label();
             this.checkbox_Setting_DrumMode = new System.Windows.Forms.CheckBox();
             this.dropdown_Output_MidiDevice = new System.Windows.Forms.ComboBox();
             this.radio_Output_Xbox360 = new System.Windows.Forms.RadioButton();
@@ -90,6 +90,7 @@ namespace Program
             this.image_KeyE1 = new System.Windows.Forms.Label();
             this.image_KeyD1 = new System.Windows.Forms.Label();
             this.image_KeyC1 = new System.Windows.Forms.Label();
+            this.image_Pedal = new System.Windows.Forms.Label();
             this.label_guideConnectionStatus = new System.Windows.Forms.Label();
             this.image_MidiLight4 = new System.Windows.Forms.Label();
             this.image_MidiLight3 = new System.Windows.Forms.Label();
@@ -106,6 +107,8 @@ namespace Program
             this.image_XButton = new System.Windows.Forms.Label();
             this.image_AButton = new System.Windows.Forms.Label();
             this.button_Start = new System.Windows.Forms.Button();
+            this.group_Debug = new System.Windows.Forms.GroupBox();
+            this.button_Debug = new System.Windows.Forms.Button();
             this.timer_IOLoop = new System.Windows.Forms.Timer(this.components);
             group_PedalMode = new System.Windows.Forms.GroupBox();
             group_Settings = new System.Windows.Forms.GroupBox();
@@ -134,27 +137,8 @@ namespace Program
             group_KeyboardInputs.SuspendLayout();
             group_ButtonInputs.SuspendLayout();
             group_Start.SuspendLayout();
+            this.group_Debug.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // label_Setting_Octave
-            // 
-            this.label_Setting_Octave.AutoSize = true;
-            this.label_Setting_Octave.Enabled = false;
-            this.label_Setting_Octave.Location = new System.Drawing.Point(6, 19);
-            this.label_Setting_Octave.Name = "label_Setting_Octave";
-            this.label_Setting_Octave.Size = new System.Drawing.Size(44, 15);
-            this.label_Setting_Octave.TabIndex = 0;
-            this.label_Setting_Octave.Text = "Octave";
-            // 
-            // label_Setting_Program
-            // 
-            this.label_Setting_Program.AutoSize = true;
-            this.label_Setting_Program.Enabled = false;
-            this.label_Setting_Program.Location = new System.Drawing.Point(56, 19);
-            this.label_Setting_Program.Name = "label_Setting_Program";
-            this.label_Setting_Program.Size = new System.Drawing.Size(53, 15);
-            this.label_Setting_Program.TabIndex = 2;
-            this.label_Setting_Program.Text = "Program";
             // 
             // group_PedalMode
             // 
@@ -230,7 +214,7 @@ namespace Program
             0,
             0});
             this.numUpDown_Setting_Octave.Name = "numUpDown_Setting_Octave";
-            this.numUpDown_Setting_Octave.Size = new System.Drawing.Size(35, 23);
+            this.numUpDown_Setting_Octave.Size = new System.Drawing.Size(36, 23);
             this.numUpDown_Setting_Octave.TabIndex = 1;
             this.numUpDown_Setting_Octave.Tag = "";
             this.numUpDown_Setting_Octave.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -244,7 +228,7 @@ namespace Program
             // numUpDown_Setting_Program
             // 
             this.numUpDown_Setting_Program.Enabled = false;
-            this.numUpDown_Setting_Program.Location = new System.Drawing.Point(64, 37);
+            this.numUpDown_Setting_Program.Location = new System.Drawing.Point(60, 37);
             this.numUpDown_Setting_Program.Maximum = new decimal(new int[] {
             128,
             0,
@@ -256,7 +240,7 @@ namespace Program
             0,
             0});
             this.numUpDown_Setting_Program.Name = "numUpDown_Setting_Program";
-            this.numUpDown_Setting_Program.Size = new System.Drawing.Size(35, 23);
+            this.numUpDown_Setting_Program.Size = new System.Drawing.Size(45, 23);
             this.numUpDown_Setting_Program.TabIndex = 3;
             this.numUpDown_Setting_Program.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numUpDown_Setting_Program.Value = new decimal(new int[] {
@@ -265,6 +249,26 @@ namespace Program
             0,
             0});
             this.numUpDown_Setting_Program.ValueChanged += new System.EventHandler(this.numUpDown_SettingProgram_Change);
+            // 
+            // label_Setting_Octave
+            // 
+            this.label_Setting_Octave.AutoSize = true;
+            this.label_Setting_Octave.Enabled = false;
+            this.label_Setting_Octave.Location = new System.Drawing.Point(6, 19);
+            this.label_Setting_Octave.Name = "label_Setting_Octave";
+            this.label_Setting_Octave.Size = new System.Drawing.Size(44, 15);
+            this.label_Setting_Octave.TabIndex = 0;
+            this.label_Setting_Octave.Text = "Octave";
+            // 
+            // label_Setting_Program
+            // 
+            this.label_Setting_Program.AutoSize = true;
+            this.label_Setting_Program.Enabled = false;
+            this.label_Setting_Program.Location = new System.Drawing.Point(56, 19);
+            this.label_Setting_Program.Name = "label_Setting_Program";
+            this.label_Setting_Program.Size = new System.Drawing.Size(53, 15);
+            this.label_Setting_Program.TabIndex = 2;
+            this.label_Setting_Program.Text = "Program";
             // 
             // checkbox_Setting_DrumMode
             // 
@@ -798,6 +802,7 @@ namespace Program
             // 
             // group_ButtonInputs
             // 
+            group_ButtonInputs.Controls.Add(this.image_Pedal);
             group_ButtonInputs.Controls.Add(this.label_guideConnectionStatus);
             group_ButtonInputs.Controls.Add(this.image_MidiLight4);
             group_ButtonInputs.Controls.Add(this.image_MidiLight3);
@@ -827,6 +832,17 @@ namespace Program
             group_ButtonInputs.TabIndex = 4;
             group_ButtonInputs.TabStop = false;
             group_ButtonInputs.Text = "Button Inputs";
+            // 
+            // image_Pedal
+            // 
+            this.image_Pedal.AutoSize = true;
+            this.image_Pedal.Image = global::RB3_X360_Keyboard.Properties.Resources.pedal_small;
+            this.image_Pedal.Location = new System.Drawing.Point(33, 22);
+            this.image_Pedal.MaximumSize = new System.Drawing.Size(130, 51);
+            this.image_Pedal.MinimumSize = new System.Drawing.Size(130, 51);
+            this.image_Pedal.Name = "image_Pedal";
+            this.image_Pedal.Size = new System.Drawing.Size(130, 51);
+            this.image_Pedal.TabIndex = 23;
             // 
             // label_guideConnectionStatus
             // 
@@ -969,7 +985,7 @@ namespace Program
             // 
             this.image_OverdriveButton.AutoSize = true;
             this.image_OverdriveButton.Image = global::RB3_X360_Keyboard.Properties.Resources.overdrive_cropped;
-            this.image_OverdriveButton.Location = new System.Drawing.Point(139, 58);
+            this.image_OverdriveButton.Location = new System.Drawing.Point(139, 80);
             this.image_OverdriveButton.MaximumSize = new System.Drawing.Size(44, 40);
             this.image_OverdriveButton.MinimumSize = new System.Drawing.Size(44, 40);
             this.image_OverdriveButton.Name = "image_OverdriveButton";
@@ -980,7 +996,7 @@ namespace Program
             // 
             this.image_Touchstrip.AutoSize = true;
             this.image_Touchstrip.Image = global::RB3_X360_Keyboard.Properties.Resources.touchstrip_cropped;
-            this.image_Touchstrip.Location = new System.Drawing.Point(14, 58);
+            this.image_Touchstrip.Location = new System.Drawing.Point(14, 80);
             this.image_Touchstrip.MaximumSize = new System.Drawing.Size(117, 43);
             this.image_Touchstrip.MinimumSize = new System.Drawing.Size(117, 43);
             this.image_Touchstrip.Name = "image_Touchstrip";
@@ -1095,6 +1111,28 @@ namespace Program
             this.button_Start.UseVisualStyleBackColor = true;
             this.button_Start.Click += new System.EventHandler(this.button_Start_Click);
             // 
+            // group_Debug
+            // 
+            this.group_Debug.Controls.Add(this.button_Debug);
+            this.group_Debug.Location = new System.Drawing.Point(486, 12);
+            this.group_Debug.Name = "group_Debug";
+            this.group_Debug.Size = new System.Drawing.Size(179, 93);
+            this.group_Debug.TabIndex = 4;
+            this.group_Debug.TabStop = false;
+            this.group_Debug.Text = "Key/Velocity Debug";
+            this.group_Debug.Visible = false;
+            // 
+            // button_Debug
+            // 
+            this.button_Debug.Location = new System.Drawing.Point(21, 30);
+            this.button_Debug.Name = "button_Debug";
+            this.button_Debug.Size = new System.Drawing.Size(135, 44);
+            this.button_Debug.TabIndex = 0;
+            this.button_Debug.Text = "Debug";
+            this.button_Debug.UseVisualStyleBackColor = true;
+            this.button_Debug.Visible = false;
+            this.button_Debug.Click += new System.EventHandler(this.button_Debug_Click);
+            // 
             // timer_IOLoop
             // 
             this.timer_IOLoop.Enabled = true;
@@ -1106,6 +1144,7 @@ namespace Program
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(828, 611);
+            this.Controls.Add(this.group_Debug);
             this.Controls.Add(group_Start);
             this.Controls.Add(group_ButtonInputs);
             this.Controls.Add(group_KeyboardInputs);
@@ -1129,6 +1168,7 @@ namespace Program
             group_ButtonInputs.ResumeLayout(false);
             group_ButtonInputs.PerformLayout();
             group_Start.ResumeLayout(false);
+            this.group_Debug.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1188,6 +1228,9 @@ namespace Program
         private Timer timer_IOLoop;
         private Label label_Setting_Octave;
         private Label label_Setting_Program;
+        private Label image_Pedal;
+        private Button button_Debug;
+        private GroupBox group_Debug;
     }
 }
 

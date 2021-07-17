@@ -38,7 +38,7 @@ namespace RB3_X360_Keyboard.Properties {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
-                if(object.ReferenceEquals(resourceMan, null)) {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RB3_X360_Keyboard.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
@@ -586,6 +586,26 @@ namespace RB3_X360_Keyboard.Properties {
         internal static System.Drawing.Bitmap overdrivePressed_cropped {
             get {
                 object obj = ResourceManager.GetObject("overdrivePressed_cropped", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pedal_small {
+            get {
+                object obj = ResourceManager.GetObject("pedal_small", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pedalPressed_small {
+            get {
+                object obj = ResourceManager.GetObject("pedalPressed_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

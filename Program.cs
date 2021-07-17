@@ -6,10 +6,13 @@ using System.Windows.Forms;
 
 namespace Program
 {
+	/// <summary>
+	/// The main entry point for the application.
+	/// </summary>
 	static class Program
 	{
 		/// <summary>
-		///  The main entry point for the application.
+		/// Starts the application.
 		/// </summary>
 		[STAThread]
 		static void Main()
