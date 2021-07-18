@@ -1,25 +1,19 @@
 # RB3 X360 Keyboard
 ## About
-This project aims to allow you to use the Rock Band 3 Xbox 360 keyboard with other programs while it's connected to an Xbox 360 wireless receiver, via either an emulated Xbox 360 controller, keypresses or MIDI inputs.
+This program allows you to use an Xbox 360 RB3 keyboard for things while connected to an Xbox 360 wireless receiver, via either an emulated Xbox 360 controller, keypresses, or MIDI inputs.
 
-I have documented everything I've learned so far in [a .txt file included in this repo.](https://github.com/TheNathannator/RB3-X360-Keyboard/blob/main/X360%20Keys%20Inputs.txt) Note that I will update it with new info as I progress through development.
+Currently, the touch strip is not supported. Also, the different pedal modes currently do nothing, I have yet to figure out what each of them do.
 
-**Note: The code is unfinished, I am still working on structuring things and making a functional first version.**
+## Installation
 
-## Roadmap
-Here's what needs to be done that I can think of so far:
-- Framework for the input data
-- XInput output stuff
-- Keypress output stuff
-- MIDI output stuff
-- UI
+1. Download the latest version from https://github.com/TheNathannator/releases/latest
+2. Extract the contents of the .zip into a new folder.
+3. Install the [ViGEmBus driver](https://github.com/ViGEm/ViGEmBus/releases/latest) if you wish to use Xbox 360 controller emulation.
+4. Install MIDI loopback software such as [loopMIDI](https://www.tobias-erichsen.de/software/loopmidi.html) if you wish to use MIDI output.
 
-## Similar Projects
-Jason Harley's [RB3KB-USB2MIDI](https://jasonharley2o.com/wiki/doku.php?id=rb3keyboard),
-[RB3KB-USB2PSKB](https://jasonharley2o.com/wiki/doku.php?id=rb3keyboardps), and 
-[RB3M-USB2MIDI](https://jasonharley2o.com/wiki/doku.php?id=rb3mustang) programs for PS3 and Wii keyboards and Mustang guitars.
+## Research
 
-martinjos's [rb3_driver](https://github.com/martinjos/rb3_driver) for Wii (and likely PS3) keyboards.
+I have documented everything I've learned about the keyboard inputs so far in [a .txt file included in this repo.](https://github.com/TheNathannator/RB3_X360_Keyboard/blob/main/X360%20Keys%20Inputs.txt) I will update it with new info as I progress through development.
 
 ## Building
 
@@ -30,8 +24,18 @@ Requires
 [H.InputSimulator](https://www.nuget.org/packages/H.InputSimulator/) from 
 [NuGet](https://www.nuget.org/).
 
+## Similar Projects
+Jason Harley's [RB3KB-USB2MIDI](https://jasonharley2o.com/wiki/doku.php?id=rb3keyboard),
+[RB3KB-USB2PSKB](https://jasonharley2o.com/wiki/doku.php?id=rb3keyboardps), and 
+[RB3M-USB2MIDI](https://jasonharley2o.com/wiki/doku.php?id=rb3mustang) programs for PS3 and Wii keyboards and Mustang guitars.
+
+martinjos's [rb3_driver](https://github.com/martinjos/rb3_driver) for Wii (and likely PS3) keyboards.
+
 ## Acknowledgements
 bearzly's [RockBandPiano](https://github.com/bearzly/RockBandPiano) project for pointing me in the right direction with how the inputs work
+
+
+This project uses:
 
 [SharpDX](http://sharpdx.org/) for XInput reading
 
@@ -42,4 +46,4 @@ bearzly's [RockBandPiano](https://github.com/bearzly/RockBandPiano) project for 
 [H.InputSimulator](https://github.com/HavenDV/H.InputSimulator) for keypress simulation
 
 ## License
-This project is licensed under the MIT License. See [LICENSE](https://github.com/TheNathannator/RB3-X360-Keyboard/blob/main/LICENSE) for details.
+This project is licensed under the MIT License. See [LICENSE](https://github.com/TheNathannator/RB3_X360_Keyboard/blob/main/LICENSE) for details.
