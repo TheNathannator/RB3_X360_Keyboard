@@ -44,7 +44,6 @@ namespace Program
 				playerIndex = -1;
 				outputStarted = false;
 				button_Start.Text = "Start";
-				MessageBox.Show("The keyboard was disconnected, output has been stopped.", "Keyboard Disconnected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
 
