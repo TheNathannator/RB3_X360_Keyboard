@@ -6,7 +6,7 @@ Currently, the touch strip is not supported. Also, the different pedal modes cur
 
 ## Installation
 
-1. Download the latest version from https://github.com/TheNathannator/releases/latest
+1. Download the latest version from https://github.com/TheNathannator/RB3_X360_Keyboard/releases/latest
 2. Extract the contents of the .zip into a new folder.
 3. Install the [ViGEmBus driver](https://github.com/ViGEm/ViGEmBus/releases/latest) if you wish to use Xbox 360 controller emulation.
 4. Install MIDI loopback software such as [loopMIDI](https://www.tobias-erichsen.de/software/loopmidi.html) if you wish to use MIDI output.
