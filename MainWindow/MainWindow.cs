@@ -285,7 +285,7 @@ namespace Program
 		{
 			NumericUpDown ud = sender as NumericUpDown;
 
-			octave = (int)ud.Value;
+			octave = (int)(Math.Clamp(ud.Value, 0, 8));
 		}
 
 		/// <summary>
@@ -295,7 +295,7 @@ namespace Program
 		{
 			NumericUpDown ud = sender as NumericUpDown;
 
-			program = (byte)ud.Value;
+			program = (byte)(Math.Clamp((ud.Value - 1), 0, 127));
 		}
 
 		/// <summary>

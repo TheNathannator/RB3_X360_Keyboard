@@ -152,17 +152,20 @@ namespace Program
 				midiLight[3] = drumMode;
 			}
 
-			if(midiLight[0]) image_MidiLight1.BackColor = Color.Red;
-			else image_MidiLight1.BackColor = Color.Black;
+			if(outputStarted)
+			{
+				if(midiLight[0]) image_MidiLight1.BackColor = Color.Red;
+				else image_MidiLight1.BackColor = Color.Black;
 
-			if(midiLight[1]) image_MidiLight2.BackColor = Color.Red;
-			else image_MidiLight2.BackColor = Color.Black;
+				if(midiLight[1]) image_MidiLight2.BackColor = Color.Red;
+				else image_MidiLight2.BackColor = Color.Black;
 
-			if(midiLight[2]) image_MidiLight3.BackColor = Color.Red;
-			else image_MidiLight3.BackColor = Color.Black;
+				if(midiLight[2]) image_MidiLight3.BackColor = Color.Red;
+				else image_MidiLight3.BackColor = Color.Black;
 
-			if(midiLight[3]) image_MidiLight4.BackColor = Color.Red;
-			else image_MidiLight4.BackColor = Color.Black;
+				if(midiLight[3]) image_MidiLight4.BackColor = Color.Red;
+				else image_MidiLight4.BackColor = Color.Black;
+			}
 		}
 
 		/// <summary>

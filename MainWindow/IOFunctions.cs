@@ -201,6 +201,11 @@ namespace Program
 					radio_Output_Midi.Enabled = true;
 					dropdown_Output_MidiDevice.Enabled = true;
 
+					image_MidiLight1.BackColor = Color.Black;
+					image_MidiLight2.BackColor = Color.Black;
+					image_MidiLight3.BackColor = Color.Black;
+					image_MidiLight4.BackColor = Color.Black;
+
 					switch(outputMode)
 					{
 						default:
