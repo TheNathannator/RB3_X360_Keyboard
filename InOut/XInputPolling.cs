@@ -136,6 +136,9 @@ namespace InOut
 				}
 
 				// Assign velocities from the velocity array to keys.
+				// Note: The keyboard has an issue where if you press a key in the right way, it won't register a velocity for it.
+				// It doesn't account for this, and just fills up the velocity array as it normally would when additional keys are pressed.
+				// I don't think that can be accounted for here, unfortunately.
 				byte v = 0;
 				for(byte i = 0; i < 25; i++)
 				{

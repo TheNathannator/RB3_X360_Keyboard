@@ -95,7 +95,7 @@ namespace Program
 				{
 					if(stateCurrent.btnA && stateCurrent.btnY)
 					{
-						program = 1;
+						program = 0;
 						PlayAnimation(3);
 					}
 					else
@@ -111,8 +111,8 @@ namespace Program
 							PlayAnimation(1);
 						}
 					}
-					program = Math.Clamp((byte)program, (byte)1, (byte)128);
-					numUpDown_Setting_Program.Value = program;
+					program = Math.Clamp((byte)program, (byte)0, (byte)127);
+					numUpDown_Setting_Program.Value = program + 1;
 				}
 			}
 

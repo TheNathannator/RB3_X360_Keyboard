@@ -2,7 +2,7 @@
 ## About
 This program allows you to use an Xbox 360 RB3 keyboard for things while connected to an Xbox 360 wireless receiver, via either an emulated Xbox 360 controller, keypresses, or MIDI inputs.
 
-Currently, the touch strip is not supported. Also, the different pedal modes currently do nothing, I have yet to figure out what each of them do.
+Currently, the touch strip is not supported. Also, the different pedal modes are not set up yet, I have yet to figure out what each of them do.
 
 ## Installation
 
