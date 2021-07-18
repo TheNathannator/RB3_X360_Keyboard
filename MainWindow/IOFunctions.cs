@@ -25,20 +25,23 @@ namespace Program
 			// Check if the controller has been disconnected.
 			if(!inputController.IsConnected)
 			{
-				switch(outputMode)
+				if(outputStarted)
 				{
-					case 1:
-						xinput.Panic(output360);
-						output360.Disconnect();
-						client.Dispose();
-						break;
-					case 2:
-						key.Panic(outputKey);
-						break;
-					case 3:
-						outputMidi.TurnAllNotesOff();
-						outputMidi.Dispose();
-						break;
+					switch(outputMode)
+					{
+						case 1:
+							xinput.Panic(output360);
+							output360.Disconnect();
+							client.Dispose();
+							break;
+						case 2:
+							key.Panic(outputKey);
+							break;
+						case 3:
+							outputMidi.TurnAllNotesOff();
+							outputMidi.Dispose();
+							break;
+					}
 				}
 				controllerConnected = false;
 				playerIndex = -1;
