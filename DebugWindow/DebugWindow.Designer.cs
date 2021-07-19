@@ -31,6 +31,7 @@ namespace Program
         {
             System.Windows.Forms.Label label_pedalAnalog;
             System.Windows.Forms.Label label_pedalDigital;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DebugWindow));
             this.group_Key = new System.Windows.Forms.GroupBox();
             this.text_Key24 = new System.Windows.Forms.TextBox();
             this.text_Key23 = new System.Windows.Forms.TextBox();
@@ -106,6 +107,15 @@ namespace Program
             label_pedalAnalog.Size = new System.Drawing.Size(74, 15);
             label_pedalAnalog.TabIndex = 3;
             label_pedalAnalog.Text = "pedalAnalog";
+            // 
+            // label_pedalDigital
+            // 
+            label_pedalDigital.AutoSize = true;
+            label_pedalDigital.Location = new System.Drawing.Point(492, 71);
+            label_pedalDigital.Name = "label_pedalDigital";
+            label_pedalDigital.Size = new System.Drawing.Size(41, 15);
+            label_pedalDigital.TabIndex = 26;
+            label_pedalDigital.Text = "Digital";
             // 
             // group_Key
             // 
@@ -761,15 +771,6 @@ namespace Program
             this.text_pedalDigital.Text = "0";
             this.text_pedalDigital.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label_pedalDigital
-            // 
-            label_pedalDigital.AutoSize = true;
-            label_pedalDigital.Location = new System.Drawing.Point(492, 71);
-            label_pedalDigital.Name = "label_pedalDigital";
-            label_pedalDigital.Size = new System.Drawing.Size(41, 15);
-            label_pedalDigital.TabIndex = 26;
-            label_pedalDigital.Text = "Digital";
-            // 
             // DebugWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -782,9 +783,15 @@ namespace Program
             this.Controls.Add(this.group_Vel);
             this.Controls.Add(this.group_Velocity);
             this.Controls.Add(this.group_Key);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(589, 232);
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(589, 232);
             this.Name = "DebugWindow";
+            this.ShowIcon = false;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Debug Window";
             this.group_Key.ResumeLayout(false);
             this.group_Key.PerformLayout();

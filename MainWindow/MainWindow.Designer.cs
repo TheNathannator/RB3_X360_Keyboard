@@ -1,6 +1,4 @@
 ﻿using System.Windows.Forms;
-using System.Drawing;
-using image = RB3_X360_Keyboard.Properties.Resources;
 
 namespace Program
 {
@@ -1154,6 +1152,7 @@ namespace Program
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(844, 620);
+			this.MaximumSize = new System.Drawing.Size(844, 620);
             this.Name = "MainWindow";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "RB3 X360 Keyboard";
