@@ -330,8 +330,8 @@ namespace Program
 		private void button_Start_Click(object sender, EventArgs e)
 		{
 			Button b = sender as Button;
-			if(b.Name == "Start") OutputToggle(true);
-			else if(b.Name == "Stop") OutputToggle(false);
+			if(b.Text == "Start") OutputToggle(true);
+			else if(b.Text == "Stop") OutputToggle(false);
 		}
 
 		/// <summary>

@@ -90,7 +90,7 @@ namespace InOut
 			// Sends control channel events.
 			if(stateCurrent.pedalDigital != statePrevious.pedalDigital)
 			{
-				ControlChangeEvent digital = new ControlChangeEvent((sevenbit)63, (sevenbit)0);
+				ControlChangeEvent digital = new ControlChangeEvent((sevenbit)64, (sevenbit)0);
 
 				digital.Channel = (fourbit)0;
 				if(stateCurrent.pedalDigital) digital.ControlValue = (sevenbit)127;
@@ -107,13 +107,13 @@ namespace InOut
 				switch(pedalMode)
 				{
 					case 1:
-						analog.ControlNumber = (sevenbit)10;
+						analog.ControlNumber = (sevenbit)11;
 						break;
 					case 2:
-						analog.ControlNumber = (sevenbit)6;
+						analog.ControlNumber = (sevenbit)7;
 						break;
 					case 3:
-						analog.ControlNumber = (sevenbit)3;
+						analog.ControlNumber = (sevenbit)4;
 						break;
 				}
 				analog.ControlValue = (sevenbit)stateCurrent.pedalAnalog;
