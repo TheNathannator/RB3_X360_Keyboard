@@ -142,7 +142,9 @@ namespace InOut
 				byte v = 0;
 				for(byte i = 0; i < 25; i++)
 				{
-					if(pressed < 6)
+					// FIX: Velocities don't register 100% correctly if pressed goes from 0 to 6 in a single frame
+					// || v < 4 is a partial fix
+					if(pressed < 6 || v < 4)
 					{
 						if(stateCurrent.key[i])
 						{
@@ -159,7 +161,7 @@ namespace InOut
 
 					if(stateCurrent.key[i] && stateCurrent.velocity[i] == 0)
 					{
-						stateCurrent.velocity[i] = 100;
+						stateCurrent.velocity[i] = 80;
 					}
 
 					if(!stateCurrent.key[i])
