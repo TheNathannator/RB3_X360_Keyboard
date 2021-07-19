@@ -31,7 +31,7 @@ namespace InOut
 		/// <summary>
 		/// Outputs to a MIDI device.
 		/// </summary>
-		public void Output(OutputDevice outputMidi, ref InputState stateCurrent, ref InputState statePrevious, int pedalMode, int octave, byte program, bool drumMode)
+		public void Output(OutputDevice outputMidi, ref InputState stateCurrent, ref InputState statePrevious, int pedalMode, byte octave, byte program, bool drumMode)
 		{
 			// Turns off all MIDI notes.
 			if(stateCurrent.btnBk && stateCurrent.btnGuide && stateCurrent.btnSt)
@@ -68,25 +68,59 @@ namespace InOut
 			// Sends note on/off events.
 			for(int i = 0; i < 25; i++)
 			{
-				NoteOnEvent noteOn   = new NoteOnEvent((sevenbit)midiNum[i], (sevenbit)stateCurrent.velocity[i]);
-				NoteOffEvent noteOff = new NoteOffEvent((sevenbit)midiNum[i], (sevenbit)0);
-				if(drumMode && i < 12)
-				{
-					noteOn.Channel  = (fourbit)9;
-					noteOff.Channel = (fourbit)9;
-				}
-				else
-				{
-					noteOn.Channel  = (fourbit)0;
-					noteOff.Channel = (fourbit)0;
-				}
-				
 				if(stateCurrent.key[i] != statePrevious.key[i])
 				{
-					if(stateCurrent.key[i]) outputMidi.SendEvent(noteOn);
-					else outputMidi.SendEvent(noteOff);
+					if(stateCurrent.key[i])
+					{
+						NoteOnEvent note = new NoteOnEvent((sevenbit)midiNum[i], (sevenbit)stateCurrent.velocity[i]);
+						if(drumMode && i < 12) note.Channel = (fourbit)9;
+						else note.Channel  = (fourbit)0;
+						outputMidi.SendEvent(note);
+					}
+					else
+					{
+						NoteOffEvent note = new NoteOffEvent((sevenbit)midiNum[i], (sevenbit)0);
+						if(drumMode && i < 12) note.Channel = (fourbit)9;
+						else note.Channel  = (fourbit)0;
+						outputMidi.SendEvent(note);
+					}
 				}
 			}
+
+			// Sends control channel events.
+			if(stateCurrent.pedalDigital != statePrevious.pedalDigital)
+			{
+				ControlChangeEvent digital = new ControlChangeEvent((sevenbit)63, (sevenbit)0);
+
+				digital.Channel = (fourbit)0;
+				if(stateCurrent.pedalDigital) digital.ControlValue = (sevenbit)127;
+				else digital.ControlValue = (sevenbit)0;
+				
+				outputMidi.SendEvent(digital);
+			}
+
+			if(stateCurrent.pedalAnalog != statePrevious.pedalAnalog)
+			{
+				ControlChangeEvent analog  = new ControlChangeEvent();
+
+				analog.Channel  = (fourbit)0;
+				switch(pedalMode)
+				{
+					case 1:
+						analog.ControlNumber = (sevenbit)10;
+						break;
+					case 2:
+						analog.ControlNumber = (sevenbit)6;
+						break;
+					case 3:
+						analog.ControlNumber = (sevenbit)3;
+						break;
+				}
+				analog.ControlValue = (sevenbit)stateCurrent.pedalAnalog;
+				
+				outputMidi.SendEvent(analog);
+			}
+			
 
 			//
 			// Touch strip code goes here, once I find out how to read it.

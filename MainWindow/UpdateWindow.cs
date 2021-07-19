@@ -111,7 +111,7 @@ namespace Program
 							PlayAnimation(1);
 						}
 					}
-					program = Math.Clamp((byte)program, (byte)0, (byte)127);
+					program = Math.Clamp(program, (byte)0, (byte)127);
 					numUpDown_Setting_Program.Value = program + 1;
 				}
 			}
@@ -139,7 +139,7 @@ namespace Program
 							PlayAnimation(1);
 						}
 					}
-					octave = Math.Clamp(octave, 0, 8);
+					octave = Math.Clamp(octave, (byte)0, (byte)8);
 					numUpDown_Setting_Octave.Value = octave;
 				}
 			}

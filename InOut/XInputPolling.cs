@@ -171,6 +171,7 @@ namespace InOut
 				// Allocate the rest of the button states.
 				stateCurrent.overdrive    = (inputGamepad.RightThumbY & 0x80)   == 0x80;
 				stateCurrent.pedalDigital = (inputGamepad.RightThumbY & 0x8000) == 0x8000;
+				stateCurrent.pedalAnalog  = (byte)((~inputGamepad.RightThumbY & 0x7F00) >> 8);
 
 				stateCurrent.btnA = ((int)inputGamepad.Buttons & Bits[12]) == Bits[12];	// XINPUT_GAMEPAD_A = state.Buttons & 0x1000
 				stateCurrent.btnB = ((int)inputGamepad.Buttons & Bits[13]) == Bits[13];	// XINPUT_GAMEPAD_B = state.Buttons & 0x2000

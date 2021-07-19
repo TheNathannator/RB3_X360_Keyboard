@@ -1151,8 +1151,11 @@ namespace Program
             this.Controls.Add(group_OutputType);
             this.Controls.Add(group_Settings);
             this.Controls.Add(group_PedalMode);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(844, 620);
             this.Name = "MainWindow";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "RB3 X360 Keyboard";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.appClosing);
             group_PedalMode.ResumeLayout(false);

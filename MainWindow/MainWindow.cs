@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Diagnostics;
+using System.Timers;
 using System.Windows.Forms;
 using SharpDX.XInput;
 using Nefarius.ViGEm.Client;
@@ -84,7 +85,7 @@ namespace Program
 		/// <summary>
 		/// The current octave offset.
 		/// </summary>
-		public int octave = 4;
+		public byte octave = 4;
 		/// <summary>
 		/// The current program number.
 		/// </summary>
@@ -285,7 +286,7 @@ namespace Program
 		{
 			NumericUpDown ud = sender as NumericUpDown;
 
-			octave = (int)(Math.Clamp(ud.Value, 0, 8));
+			octave = (byte)(Math.Clamp(ud.Value, 0, 8));
 		}
 
 		/// <summary>

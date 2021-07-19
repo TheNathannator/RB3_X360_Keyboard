@@ -59,7 +59,7 @@ namespace InOut
 		/// <remarks>
 		/// Unused because I don't know how this works, or if this is even a functionality lol, don't have an analog pedal to test with.
 		/// </remarks>
-		public int pedalAnalog;	
+		public byte pedalAnalog;	
 
 		/// <summary>
 		/// The face buttons.

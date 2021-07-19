@@ -29,6 +29,8 @@ namespace Program
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.Label label_pedalAnalog;
+            System.Windows.Forms.Label label_pedalDigital;
             this.group_Key = new System.Windows.Forms.GroupBox();
             this.text_Key24 = new System.Windows.Forms.TextBox();
             this.text_Key23 = new System.Windows.Forms.TextBox();
@@ -87,10 +89,23 @@ namespace Program
             this.text_Vel2 = new System.Windows.Forms.TextBox();
             this.text_Vel4 = new System.Windows.Forms.TextBox();
             this.text_Vel1 = new System.Windows.Forms.TextBox();
+            this.text_pedalAnalog = new System.Windows.Forms.TextBox();
+            this.text_pedalDigital = new System.Windows.Forms.TextBox();
+            label_pedalAnalog = new System.Windows.Forms.Label();
+            label_pedalDigital = new System.Windows.Forms.Label();
             this.group_Key.SuspendLayout();
             this.group_Velocity.SuspendLayout();
             this.group_Vel.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // label_pedalAnalog
+            // 
+            label_pedalAnalog.AutoSize = true;
+            label_pedalAnalog.Location = new System.Drawing.Point(384, 71);
+            label_pedalAnalog.Name = "label_pedalAnalog";
+            label_pedalAnalog.Size = new System.Drawing.Size(74, 15);
+            label_pedalAnalog.TabIndex = 3;
+            label_pedalAnalog.Text = "pedalAnalog";
             // 
             // group_Key
             // 
@@ -419,7 +434,7 @@ namespace Program
             this.text_Velocity24.ReadOnly = true;
             this.text_Velocity24.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity24.TabIndex = 24;
-            this.text_Velocity24.Text = "000";
+            this.text_Velocity24.Text = "0";
             this.text_Velocity24.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity23
@@ -429,7 +444,7 @@ namespace Program
             this.text_Velocity23.ReadOnly = true;
             this.text_Velocity23.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity23.TabIndex = 23;
-            this.text_Velocity23.Text = "000";
+            this.text_Velocity23.Text = "0";
             this.text_Velocity23.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity22
@@ -439,7 +454,7 @@ namespace Program
             this.text_Velocity22.ReadOnly = true;
             this.text_Velocity22.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity22.TabIndex = 22;
-            this.text_Velocity22.Text = "000";
+            this.text_Velocity22.Text = "0";
             this.text_Velocity22.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity21
@@ -449,7 +464,7 @@ namespace Program
             this.text_Velocity21.ReadOnly = true;
             this.text_Velocity21.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity21.TabIndex = 21;
-            this.text_Velocity21.Text = "000";
+            this.text_Velocity21.Text = "0";
             this.text_Velocity21.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity20
@@ -459,7 +474,7 @@ namespace Program
             this.text_Velocity20.ReadOnly = true;
             this.text_Velocity20.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity20.TabIndex = 20;
-            this.text_Velocity20.Text = "000";
+            this.text_Velocity20.Text = "0";
             this.text_Velocity20.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity19
@@ -469,7 +484,7 @@ namespace Program
             this.text_Velocity19.ReadOnly = true;
             this.text_Velocity19.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity19.TabIndex = 19;
-            this.text_Velocity19.Text = "000";
+            this.text_Velocity19.Text = "0";
             this.text_Velocity19.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity18
@@ -479,7 +494,7 @@ namespace Program
             this.text_Velocity18.ReadOnly = true;
             this.text_Velocity18.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity18.TabIndex = 18;
-            this.text_Velocity18.Text = "000";
+            this.text_Velocity18.Text = "0";
             this.text_Velocity18.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity17
@@ -489,7 +504,7 @@ namespace Program
             this.text_Velocity17.ReadOnly = true;
             this.text_Velocity17.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity17.TabIndex = 17;
-            this.text_Velocity17.Text = "000";
+            this.text_Velocity17.Text = "0";
             this.text_Velocity17.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity16
@@ -499,7 +514,7 @@ namespace Program
             this.text_Velocity16.ReadOnly = true;
             this.text_Velocity16.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity16.TabIndex = 16;
-            this.text_Velocity16.Text = "000";
+            this.text_Velocity16.Text = "0";
             this.text_Velocity16.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity15
@@ -509,7 +524,7 @@ namespace Program
             this.text_Velocity15.ReadOnly = true;
             this.text_Velocity15.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity15.TabIndex = 15;
-            this.text_Velocity15.Text = "000";
+            this.text_Velocity15.Text = "0";
             this.text_Velocity15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity14
@@ -519,7 +534,7 @@ namespace Program
             this.text_Velocity14.ReadOnly = true;
             this.text_Velocity14.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity14.TabIndex = 14;
-            this.text_Velocity14.Text = "000";
+            this.text_Velocity14.Text = "0";
             this.text_Velocity14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity13
@@ -529,7 +544,7 @@ namespace Program
             this.text_Velocity13.ReadOnly = true;
             this.text_Velocity13.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity13.TabIndex = 13;
-            this.text_Velocity13.Text = "000";
+            this.text_Velocity13.Text = "0";
             this.text_Velocity13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity12
@@ -539,7 +554,7 @@ namespace Program
             this.text_Velocity12.ReadOnly = true;
             this.text_Velocity12.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity12.TabIndex = 12;
-            this.text_Velocity12.Text = "000";
+            this.text_Velocity12.Text = "0";
             this.text_Velocity12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity11
@@ -549,7 +564,7 @@ namespace Program
             this.text_Velocity11.ReadOnly = true;
             this.text_Velocity11.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity11.TabIndex = 11;
-            this.text_Velocity11.Text = "000";
+            this.text_Velocity11.Text = "0";
             this.text_Velocity11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity10
@@ -559,7 +574,7 @@ namespace Program
             this.text_Velocity10.ReadOnly = true;
             this.text_Velocity10.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity10.TabIndex = 10;
-            this.text_Velocity10.Text = "000";
+            this.text_Velocity10.Text = "0";
             this.text_Velocity10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity9
@@ -569,7 +584,7 @@ namespace Program
             this.text_Velocity9.ReadOnly = true;
             this.text_Velocity9.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity9.TabIndex = 9;
-            this.text_Velocity9.Text = "000";
+            this.text_Velocity9.Text = "0";
             this.text_Velocity9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity8
@@ -579,7 +594,7 @@ namespace Program
             this.text_Velocity8.ReadOnly = true;
             this.text_Velocity8.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity8.TabIndex = 8;
-            this.text_Velocity8.Text = "000";
+            this.text_Velocity8.Text = "0";
             this.text_Velocity8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity7
@@ -589,7 +604,7 @@ namespace Program
             this.text_Velocity7.ReadOnly = true;
             this.text_Velocity7.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity7.TabIndex = 7;
-            this.text_Velocity7.Text = "000";
+            this.text_Velocity7.Text = "0";
             this.text_Velocity7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity6
@@ -599,7 +614,7 @@ namespace Program
             this.text_Velocity6.ReadOnly = true;
             this.text_Velocity6.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity6.TabIndex = 6;
-            this.text_Velocity6.Text = "000";
+            this.text_Velocity6.Text = "0";
             this.text_Velocity6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity5
@@ -609,7 +624,7 @@ namespace Program
             this.text_Velocity5.ReadOnly = true;
             this.text_Velocity5.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity5.TabIndex = 5;
-            this.text_Velocity5.Text = "000";
+            this.text_Velocity5.Text = "0";
             this.text_Velocity5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity4
@@ -619,7 +634,7 @@ namespace Program
             this.text_Velocity4.ReadOnly = true;
             this.text_Velocity4.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity4.TabIndex = 4;
-            this.text_Velocity4.Text = "000";
+            this.text_Velocity4.Text = "0";
             this.text_Velocity4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity3
@@ -629,7 +644,7 @@ namespace Program
             this.text_Velocity3.ReadOnly = true;
             this.text_Velocity3.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity3.TabIndex = 3;
-            this.text_Velocity3.Text = "000";
+            this.text_Velocity3.Text = "0";
             this.text_Velocity3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity2
@@ -639,7 +654,7 @@ namespace Program
             this.text_Velocity2.ReadOnly = true;
             this.text_Velocity2.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity2.TabIndex = 2;
-            this.text_Velocity2.Text = "000";
+            this.text_Velocity2.Text = "0";
             this.text_Velocity2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity1
@@ -649,7 +664,7 @@ namespace Program
             this.text_Velocity1.ReadOnly = true;
             this.text_Velocity1.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity1.TabIndex = 1;
-            this.text_Velocity1.Text = "000";
+            this.text_Velocity1.Text = "0";
             this.text_Velocity1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Velocity0
@@ -659,7 +674,7 @@ namespace Program
             this.text_Velocity0.ReadOnly = true;
             this.text_Velocity0.Size = new System.Drawing.Size(28, 23);
             this.text_Velocity0.TabIndex = 0;
-            this.text_Velocity0.Text = "000";
+            this.text_Velocity0.Text = "0";
             this.text_Velocity0.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // group_Vel
@@ -683,7 +698,7 @@ namespace Program
             this.text_Vel0.ReadOnly = true;
             this.text_Vel0.Size = new System.Drawing.Size(28, 23);
             this.text_Vel0.TabIndex = 23;
-            this.text_Vel0.Text = "000";
+            this.text_Vel0.Text = "0";
             this.text_Vel0.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Vel3
@@ -693,7 +708,7 @@ namespace Program
             this.text_Vel3.ReadOnly = true;
             this.text_Vel3.Size = new System.Drawing.Size(28, 23);
             this.text_Vel3.TabIndex = 22;
-            this.text_Vel3.Text = "000";
+            this.text_Vel3.Text = "0";
             this.text_Vel3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Vel2
@@ -703,7 +718,7 @@ namespace Program
             this.text_Vel2.ReadOnly = true;
             this.text_Vel2.Size = new System.Drawing.Size(28, 23);
             this.text_Vel2.TabIndex = 21;
-            this.text_Vel2.Text = "000";
+            this.text_Vel2.Text = "0";
             this.text_Vel2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Vel4
@@ -713,7 +728,7 @@ namespace Program
             this.text_Vel4.ReadOnly = true;
             this.text_Vel4.Size = new System.Drawing.Size(28, 23);
             this.text_Vel4.TabIndex = 20;
-            this.text_Vel4.Text = "000";
+            this.text_Vel4.Text = "0";
             this.text_Vel4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // text_Vel1
@@ -723,17 +738,52 @@ namespace Program
             this.text_Vel1.ReadOnly = true;
             this.text_Vel1.Size = new System.Drawing.Size(28, 23);
             this.text_Vel1.TabIndex = 19;
-            this.text_Vel1.Text = "000";
+            this.text_Vel1.Text = "0";
             this.text_Vel1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // text_pedalAnalog
+            // 
+            this.text_pedalAnalog.Location = new System.Drawing.Point(458, 68);
+            this.text_pedalAnalog.Name = "text_pedalAnalog";
+            this.text_pedalAnalog.ReadOnly = true;
+            this.text_pedalAnalog.Size = new System.Drawing.Size(28, 23);
+            this.text_pedalAnalog.TabIndex = 23;
+            this.text_pedalAnalog.Text = "0";
+            this.text_pedalAnalog.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // text_pedalDigital
+            // 
+            this.text_pedalDigital.Location = new System.Drawing.Point(536, 68);
+            this.text_pedalDigital.Name = "text_pedalDigital";
+            this.text_pedalDigital.ReadOnly = true;
+            this.text_pedalDigital.Size = new System.Drawing.Size(18, 23);
+            this.text_pedalDigital.TabIndex = 25;
+            this.text_pedalDigital.Text = "0";
+            this.text_pedalDigital.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label_pedalDigital
+            // 
+            label_pedalDigital.AutoSize = true;
+            label_pedalDigital.Location = new System.Drawing.Point(492, 71);
+            label_pedalDigital.Name = "label_pedalDigital";
+            label_pedalDigital.Size = new System.Drawing.Size(41, 15);
+            label_pedalDigital.TabIndex = 26;
+            label_pedalDigital.Text = "Digital";
             // 
             // DebugWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(573, 193);
+            this.Controls.Add(label_pedalDigital);
+            this.Controls.Add(this.text_pedalDigital);
+            this.Controls.Add(this.text_pedalAnalog);
+            this.Controls.Add(label_pedalAnalog);
             this.Controls.Add(this.group_Vel);
             this.Controls.Add(this.group_Velocity);
             this.Controls.Add(this.group_Key);
+            this.MaximumSize = new System.Drawing.Size(589, 232);
+            this.MinimumSize = new System.Drawing.Size(589, 232);
             this.Name = "DebugWindow";
             this.Text = "Debug Window";
             this.group_Key.ResumeLayout(false);
@@ -743,6 +793,7 @@ namespace Program
             this.group_Vel.ResumeLayout(false);
             this.group_Vel.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -806,5 +857,7 @@ namespace Program
         private System.Windows.Forms.TextBox text_Vel2;
         private System.Windows.Forms.TextBox text_Vel4;
         private System.Windows.Forms.TextBox text_Vel1;
+        private System.Windows.Forms.TextBox text_pedalAnalog;
+        private System.Windows.Forms.TextBox text_pedalDigital;
     }
 }
