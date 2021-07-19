@@ -1141,7 +1141,7 @@ namespace Program
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(828, 611);
+            this.ClientSize = new System.Drawing.Size(828, 612);
             this.Controls.Add(this.group_Debug);
             this.Controls.Add(group_Start);
             this.Controls.Add(group_ButtonInputs);
@@ -1151,8 +1151,8 @@ namespace Program
             this.Controls.Add(group_PedalMode);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(844, 620);
-			this.MaximumSize = new System.Drawing.Size(844, 620);
+            this.MaximumSize = new System.Drawing.Size(844, 651);
+            this.MinimumSize = new System.Drawing.Size(844, 651);
             this.Name = "MainWindow";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "RB3 X360 Keyboard";
