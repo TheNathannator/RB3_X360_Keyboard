@@ -6,41 +6,43 @@ https://github.com/bearzly/RockBandPiano
 Subtype number: 15
 Face buttons work like a standard Xbox 360 controller
 
+x = this bit doesn't matter
+1 = this bit is activated/used by this input, and active high (i.e. when equal to 1).
+0 = this bit is activated/used by this input, active low (i.e. when equal to 0).
+
 Keys:
 C1 is the leftmost key, C3 is the rightmost key
 
-x = this bit doesn't matter
-1 = this bit is activated/used by this input
-Note name - Input  Decimal value  Binary value
+Note - Input      Decimal Binary
 
-C1  - L Trigger  128     0b 1xxx_xxxx
-Db1 - L Trigger  64      0b x1xx_xxxx
-D1  - L Trigger  32      0b xx1x_xxxx
-Eb1 - L Trigger  16      0b xxx1_xxxx
-E1  - L Trigger  8       0b xxxx_1xxx
-F1  - L Trigger  4       0b xxxx_x1xx
-Gb1 - L Trigger  2       0b xxxx_xx1x
-G1  - L Trigger  1       0b xxxx_xxx1
+C1   - L Trigger  128     0b 1xxx_xxxx
+Db1  - L Trigger  64      0b x1xx_xxxx
+D1   - L Trigger  32      0b xx1x_xxxx
+Eb1  - L Trigger  16      0b xxx1_xxxx
+E1   - L Trigger  8       0b xxxx_1xxx
+F1   - L Trigger  4       0b xxxx_x1xx
+Gb1  - L Trigger  2       0b xxxx_xx1x
+G1   - L Trigger  1       0b xxxx_xxx1
 
-Ab1 - R Trigger  128     0b 1xxx_xxxx
-A1  - R Trigger  64      0b x1xx_xxxx
-Bb1 - R Trigger  32      0b xx1x_xxxx
-B1  - R Trigger  16      0b xxx1_xxxx
-C2  - R Trigger  8       0b xxxx_1xxx
-Db2 - R Trigger  4       0b xxxx_x1xx
-D2  - R Trigger  2       0b xxxx_xx1x
-Eb2 - R Trigger  1       0b xxxx_xxx1
+Ab1  - R Trigger  128     0b 1xxx_xxxx
+A1   - R Trigger  64      0b x1xx_xxxx
+Bb1  - R Trigger  32      0b xx1x_xxxx
+B1   - R Trigger  16      0b xxx1_xxxx
+C2   - R Trigger  8       0b xxxx_1xxx
+Db2  - R Trigger  4       0b xxxx_x1xx
+D2   - R Trigger  2       0b xxxx_xx1x
+Eb2  - R Trigger  1       0b xxxx_xxx1
 
-E2  - L Stick X  128     0b xxxx_xxxx_1xxx_xxxx
-F2  - L Stick X  64      0b xxxx_xxxx_x1xx_xxxx
-Gb2 - L Stick X  32      0b xxxx_xxxx_xx1x_xxxx
-G2  - L Stick X  16      0b xxxx_xxxx_xxx1_xxxx
-Ab2 - L Stick X  8       0b xxxx_xxxx_xxxx_1xxx
-A2  - L Stick X  4       0b xxxx_xxxx_xxxx_x1xx
-Bb2 - L Stick X  2       0b xxxx_xxxx_xxxx_xx1x
-B2  - L Stick X  1       0b xxxx_xxxx_xxxx_xxx1
+E2   - L Stick X  128     0b xxxx_xxxx_1xxx_xxxx
+F2   - L Stick X  64      0b xxxx_xxxx_x1xx_xxxx
+Gb2  - L Stick X  32      0b xxxx_xxxx_xx1x_xxxx
+G2   - L Stick X  16      0b xxxx_xxxx_xxx1_xxxx
+Ab2  - L Stick X  8       0b xxxx_xxxx_xxxx_1xxx
+A2   - L Stick X  4       0b xxxx_xxxx_xxxx_x1xx
+Bb2  - L Stick X  2       0b xxxx_xxxx_xxxx_xx1x
+B2   - L Stick X  1       0b xxxx_xxxx_xxxx_xxx1
 
-C3  - L Stick X  -32768  0b 1xxx_xxxx_xxxx_xxxx
+C3   - L Stick X  -32768  0b 1xxx_xxxx_xxxx_xxxx
 
 Velocity:
 	1st key: L Stick X  0b x111_1111_xxxx_xxxx
@@ -62,7 +64,6 @@ Velocity:
 
 Overdrive button:         Right Stick Y  128     0b xxxx_xxxx_1xxx_xxxx
 Pedal port digital input: Right Stick Y  -32768  0b 1xxx_xxxx_xxxx_xxxx
-
-Right Stick Y 32512 0b x111_1111_xxxx_xxxx is always active after pressing the overdrive button for some reason, maybe it's used for the analog input portion of the pedal port?
+Pedal port analog input:  Right Stick Y          0b x000_0000_xxxx_xxxx
 
 Effect slider: just increments the XInput packet count as far as I can tell, no inputs assigned to it. Probably not possible to get its data via XInput, but it's gotta be possible some way else, RB3 can get position data from it.
