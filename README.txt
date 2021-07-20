@@ -20,8 +20,8 @@ Xbox 360:
     F1 & F2: X button
     G1 & G2: Left bumper
     A1 & A2: Right bumper
-	B1 & B2: Left stick click
-	C3: Right stick click
+    B1 & B2: Left stick click
+    C3: Right stick click
     Overdrive button: Back button
     Pedal digital: Back button in standard mode, left bumper in drum mode
 
@@ -54,9 +54,9 @@ MIDI:
     
     Pedal digital: Control channel 64 (Damper pedal)
     Pedal analog:
-      Expression pedal mode: Control channel 11 (Expression)
-      Channel volume pedal mode: Control channel 7 (Channel volume)
-      Foot controller pedal mode: Control channel 4 (Foot controller)
+        Expression pedal mode: Control channel 11 (Expression)
+        Channel volume pedal mode: Control channel 7 (Channel volume)
+        Foot controller pedal mode: Control channel 4 (Foot controller)
     
     The touch strip does nothing here at the moment, still need to add support for that.	
 
