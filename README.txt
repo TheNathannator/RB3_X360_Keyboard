@@ -2,11 +2,13 @@
 - About -
 This program allows you to use an Xbox 360 RB3 keyboard for things while connected to an Xbox 360 wireless receiver, via either an emulated Xbox 360 controller, keypresses, or MIDI inputs.
 
+
 - Notes - 
 Currently, the touch strip is not supported.
 
 Install the ViGEmBus driver from https://github.com/ViGEm/ViGEmBus/releases/latest if you wish to use Xbox 360 controller emulation.
 Install MIDI loopback software such as loopMIDI from https://www.tobias-erichsen.de/software/loopmidi.html if you wish to use MIDI output.
+
 
 - Modes -
 In all modes, pressing Start, Back, and the Guide button at the same time will disable all outputs immediately.
@@ -59,6 +61,7 @@ MIDI:
         Foot controller pedal mode: Control channel 4 (Foot controller)
     
     The touch strip does nothing here at the moment, still need to add support for that.	
+
 
 - License -
 This project is licensed under the MIT License. See LICENSE for details.
