@@ -96,6 +96,9 @@ namespace InOut
 		/// </summary>
 		public void Poll(Controller inputController, ref InputState stateCurrent, ref InputState statePrevious)
 		{
+			// TODO: Find the touch strip input
+
+
 			inputState = inputController.GetState();
 
 			// Only poll if the packet number has incremented.

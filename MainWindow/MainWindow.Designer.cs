@@ -42,14 +42,6 @@ namespace Program
             System.Windows.Forms.Label image_RedRange;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             System.Windows.Forms.GroupBox group_ButtonInputs;
-            System.Windows.Forms.Label label_Dpad_FootController;
-            System.Windows.Forms.Label label_Dpad_ChannelVolume;
-            System.Windows.Forms.Label label_Dpad_Expression;
-            System.Windows.Forms.Label label_Dpad_DrumMode;
-            System.Windows.Forms.Label label_ProgramIncrement;
-            System.Windows.Forms.Label label_OctaveIncrement;
-            System.Windows.Forms.Label label_OctaveDecrement;
-            System.Windows.Forms.Label label_ProgramDecrement;
             System.Windows.Forms.GroupBox group_Start;
             this.radio_Pedal_Expression = new System.Windows.Forms.RadioButton();
             this.radio_Pedal_ChannelVolume = new System.Windows.Forms.RadioButton();
@@ -94,6 +86,14 @@ namespace Program
             this.image_MidiLight3 = new System.Windows.Forms.Label();
             this.image_MidiLight2 = new System.Windows.Forms.Label();
             this.image_MidiLight1 = new System.Windows.Forms.Label();
+            this.label_Dpad_FootController = new System.Windows.Forms.Label();
+            this.label_Dpad_ChannelVolume = new System.Windows.Forms.Label();
+            this.label_Dpad_Expression = new System.Windows.Forms.Label();
+            this.label_Dpad_DrumMode = new System.Windows.Forms.Label();
+            this.label_ProgramIncrement = new System.Windows.Forms.Label();
+            this.label_OctaveIncrement = new System.Windows.Forms.Label();
+            this.label_OctaveDecrement = new System.Windows.Forms.Label();
+            this.label_ProgramDecrement = new System.Windows.Forms.Label();
             this.image_OverdriveButton = new System.Windows.Forms.Label();
             this.image_Touchstrip = new System.Windows.Forms.Label();
             this.image_Dpad = new System.Windows.Forms.Label();
@@ -118,14 +118,6 @@ namespace Program
             image_YellowRange = new System.Windows.Forms.Label();
             image_RedRange = new System.Windows.Forms.Label();
             group_ButtonInputs = new System.Windows.Forms.GroupBox();
-            label_Dpad_FootController = new System.Windows.Forms.Label();
-            label_Dpad_ChannelVolume = new System.Windows.Forms.Label();
-            label_Dpad_Expression = new System.Windows.Forms.Label();
-            label_Dpad_DrumMode = new System.Windows.Forms.Label();
-            label_ProgramIncrement = new System.Windows.Forms.Label();
-            label_OctaveIncrement = new System.Windows.Forms.Label();
-            label_OctaveDecrement = new System.Windows.Forms.Label();
-            label_ProgramDecrement = new System.Windows.Forms.Label();
             group_Start = new System.Windows.Forms.GroupBox();
             group_PedalMode.SuspendLayout();
             group_Settings.SuspendLayout();
@@ -464,7 +456,7 @@ namespace Program
             this.image_KeyBb2.Name = "image_KeyBb2";
             this.image_KeyBb2.Size = new System.Drawing.Size(30, 196);
             this.image_KeyBb2.TabIndex = 27;
-            this.image_KeyBb2.Text = "A#\r\nBb2\r\n\r\n";
+            this.image_KeyBb2.Text = "A#\r\nBb\r\n2\r\n";
             this.image_KeyBb2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // image_KeyAb2
@@ -479,7 +471,7 @@ namespace Program
             this.image_KeyAb2.Name = "image_KeyAb2";
             this.image_KeyAb2.Size = new System.Drawing.Size(30, 196);
             this.image_KeyAb2.TabIndex = 25;
-            this.image_KeyAb2.Text = "G#\r\nAb2\r\n\r\n";
+            this.image_KeyAb2.Text = "G#\r\nAb\r\n2\r\n";
             this.image_KeyAb2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // image_KeyGb2
@@ -494,7 +486,7 @@ namespace Program
             this.image_KeyGb2.Name = "image_KeyGb2";
             this.image_KeyGb2.Size = new System.Drawing.Size(30, 196);
             this.image_KeyGb2.TabIndex = 23;
-            this.image_KeyGb2.Text = "F#\r\nGb2\r\n\r\n";
+            this.image_KeyGb2.Text = "F#\r\nGb\r\n2\r\n";
             this.image_KeyGb2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // image_KeyEb2
@@ -509,7 +501,7 @@ namespace Program
             this.image_KeyEb2.Name = "image_KeyEb2";
             this.image_KeyEb2.Size = new System.Drawing.Size(30, 196);
             this.image_KeyEb2.TabIndex = 20;
-            this.image_KeyEb2.Text = "D#\r\nEb2\r\n\r\n";
+            this.image_KeyEb2.Text = "D#\r\nEb\r\n2\r\n";
             this.image_KeyEb2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // image_KeyDb2
@@ -524,7 +516,7 @@ namespace Program
             this.image_KeyDb2.Name = "image_KeyDb2";
             this.image_KeyDb2.Size = new System.Drawing.Size(30, 196);
             this.image_KeyDb2.TabIndex = 18;
-            this.image_KeyDb2.Text = "C#\r\nDb2\r\n\r\n";
+            this.image_KeyDb2.Text = "C#\r\nDb\r\n2\r\n";
             this.image_KeyDb2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // image_KeyB2
@@ -637,7 +629,7 @@ namespace Program
             this.image_KeyBb1.Name = "image_KeyBb1";
             this.image_KeyBb1.Size = new System.Drawing.Size(30, 196);
             this.image_KeyBb1.TabIndex = 15;
-            this.image_KeyBb1.Text = "A#\r\nBb1\r\n\r\n";
+            this.image_KeyBb1.Text = "A#\r\nBb\r\n1\r\n";
             this.image_KeyBb1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // image_KeyAb1
@@ -652,7 +644,7 @@ namespace Program
             this.image_KeyAb1.Name = "image_KeyAb1";
             this.image_KeyAb1.Size = new System.Drawing.Size(30, 196);
             this.image_KeyAb1.TabIndex = 13;
-            this.image_KeyAb1.Text = "G#\r\nAb1\r\n\r\n";
+            this.image_KeyAb1.Text = "G#\r\nAb\r\n1\r\n";
             this.image_KeyAb1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // image_KeyGb1
@@ -667,7 +659,7 @@ namespace Program
             this.image_KeyGb1.Name = "image_KeyGb1";
             this.image_KeyGb1.Size = new System.Drawing.Size(30, 196);
             this.image_KeyGb1.TabIndex = 11;
-            this.image_KeyGb1.Text = "F#\r\nGb1\r\n\r\n";
+            this.image_KeyGb1.Text = "F#\r\nGb\r\n1\r\n";
             this.image_KeyGb1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // image_KeyEb1
@@ -682,7 +674,7 @@ namespace Program
             this.image_KeyEb1.Name = "image_KeyEb1";
             this.image_KeyEb1.Size = new System.Drawing.Size(30, 196);
             this.image_KeyEb1.TabIndex = 8;
-            this.image_KeyEb1.Text = "D#\r\nEb1\r\n\r\n";
+            this.image_KeyEb1.Text = "D#\r\nEb\r\n1\r\n";
             this.image_KeyEb1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // image_KeyDb1
@@ -697,7 +689,7 @@ namespace Program
             this.image_KeyDb1.Name = "image_KeyDb1";
             this.image_KeyDb1.Size = new System.Drawing.Size(30, 196);
             this.image_KeyDb1.TabIndex = 6;
-            this.image_KeyDb1.Text = "C#\r\nDb1\r\n\r\n";
+            this.image_KeyDb1.Text = "C#\r\nDb\r\n1\r\n";
             this.image_KeyDb1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // image_KeyB1
@@ -806,14 +798,14 @@ namespace Program
             group_ButtonInputs.Controls.Add(this.image_MidiLight3);
             group_ButtonInputs.Controls.Add(this.image_MidiLight2);
             group_ButtonInputs.Controls.Add(this.image_MidiLight1);
-            group_ButtonInputs.Controls.Add(label_Dpad_FootController);
-            group_ButtonInputs.Controls.Add(label_Dpad_ChannelVolume);
-            group_ButtonInputs.Controls.Add(label_Dpad_Expression);
-            group_ButtonInputs.Controls.Add(label_Dpad_DrumMode);
-            group_ButtonInputs.Controls.Add(label_ProgramIncrement);
-            group_ButtonInputs.Controls.Add(label_OctaveIncrement);
-            group_ButtonInputs.Controls.Add(label_OctaveDecrement);
-            group_ButtonInputs.Controls.Add(label_ProgramDecrement);
+            group_ButtonInputs.Controls.Add(this.label_Dpad_FootController);
+            group_ButtonInputs.Controls.Add(this.label_Dpad_ChannelVolume);
+            group_ButtonInputs.Controls.Add(this.label_Dpad_Expression);
+            group_ButtonInputs.Controls.Add(this.label_Dpad_DrumMode);
+            group_ButtonInputs.Controls.Add(this.label_ProgramIncrement);
+            group_ButtonInputs.Controls.Add(this.label_OctaveIncrement);
+            group_ButtonInputs.Controls.Add(this.label_OctaveDecrement);
+            group_ButtonInputs.Controls.Add(this.label_ProgramDecrement);
             group_ButtonInputs.Controls.Add(this.image_OverdriveButton);
             group_ButtonInputs.Controls.Add(this.image_Touchstrip);
             group_ButtonInputs.Controls.Add(this.image_Dpad);
@@ -898,86 +890,94 @@ namespace Program
             // 
             // label_Dpad_FootController
             // 
-            label_Dpad_FootController.AutoSize = true;
-            label_Dpad_FootController.Location = new System.Drawing.Point(349, 56);
-            label_Dpad_FootController.Name = "label_Dpad_FootController";
-            label_Dpad_FootController.Size = new System.Drawing.Size(60, 30);
-            label_Dpad_FootController.TabIndex = 6;
-            label_Dpad_FootController.Text = "Foot\r\nController";
-            label_Dpad_FootController.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label_Dpad_FootController.AutoSize = true;
+            this.label_Dpad_FootController.Location = new System.Drawing.Point(349, 56);
+            this.label_Dpad_FootController.Name = "label_Dpad_FootController";
+            this.label_Dpad_FootController.Size = new System.Drawing.Size(60, 30);
+            this.label_Dpad_FootController.TabIndex = 6;
+            this.label_Dpad_FootController.Text = "Foot\r\nController";
+            this.label_Dpad_FootController.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label_Dpad_FootController.Enabled = false;
             // 
             // label_Dpad_ChannelVolume
             // 
-            label_Dpad_ChannelVolume.AutoSize = true;
-            label_Dpad_ChannelVolume.Location = new System.Drawing.Point(262, 111);
-            label_Dpad_ChannelVolume.Name = "label_Dpad_ChannelVolume";
-            label_Dpad_ChannelVolume.Size = new System.Drawing.Size(94, 15);
-            label_Dpad_ChannelVolume.TabIndex = 5;
-            label_Dpad_ChannelVolume.Text = "Channel Volume";
-            label_Dpad_ChannelVolume.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Dpad_ChannelVolume.AutoSize = true;
+            this.label_Dpad_ChannelVolume.Location = new System.Drawing.Point(262, 111);
+            this.label_Dpad_ChannelVolume.Name = "label_Dpad_ChannelVolume";
+            this.label_Dpad_ChannelVolume.Size = new System.Drawing.Size(94, 15);
+            this.label_Dpad_ChannelVolume.TabIndex = 5;
+            this.label_Dpad_ChannelVolume.Text = "Channel Volume";
+            this.label_Dpad_ChannelVolume.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Dpad_ChannelVolume.Enabled = false;
             // 
             // label_Dpad_Expression
             // 
-            label_Dpad_Expression.AutoSize = true;
-            label_Dpad_Expression.Location = new System.Drawing.Point(208, 64);
-            label_Dpad_Expression.Name = "label_Dpad_Expression";
-            label_Dpad_Expression.Size = new System.Drawing.Size(63, 15);
-            label_Dpad_Expression.TabIndex = 4;
-            label_Dpad_Expression.Text = "Expression";
-            label_Dpad_Expression.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label_Dpad_Expression.AutoSize = true;
+            this.label_Dpad_Expression.Location = new System.Drawing.Point(208, 64);
+            this.label_Dpad_Expression.Name = "label_Dpad_Expression";
+            this.label_Dpad_Expression.Size = new System.Drawing.Size(63, 15);
+            this.label_Dpad_Expression.TabIndex = 4;
+            this.label_Dpad_Expression.Text = "Expression";
+            this.label_Dpad_Expression.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label_Dpad_Expression.Enabled = false;
             // 
             // label_Dpad_DrumMode
             // 
-            label_Dpad_DrumMode.AutoSize = true;
-            label_Dpad_DrumMode.BackColor = System.Drawing.Color.Transparent;
-            label_Dpad_DrumMode.Location = new System.Drawing.Point(274, 17);
-            label_Dpad_DrumMode.Name = "label_Dpad_DrumMode";
-            label_Dpad_DrumMode.Size = new System.Drawing.Size(71, 15);
-            label_Dpad_DrumMode.TabIndex = 3;
-            label_Dpad_DrumMode.Text = "Drum Mode";
-            label_Dpad_DrumMode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Dpad_DrumMode.AutoSize = true;
+            this.label_Dpad_DrumMode.BackColor = System.Drawing.Color.Transparent;
+            this.label_Dpad_DrumMode.Location = new System.Drawing.Point(274, 17);
+            this.label_Dpad_DrumMode.Name = "label_Dpad_DrumMode";
+            this.label_Dpad_DrumMode.Size = new System.Drawing.Size(71, 15);
+            this.label_Dpad_DrumMode.TabIndex = 3;
+            this.label_Dpad_DrumMode.Text = "Drum Mode";
+            this.label_Dpad_DrumMode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Dpad_DrumMode.Enabled = false;
             // 
             // label_ProgramIncrement
             // 
-            label_ProgramIncrement.AutoSize = true;
-            label_ProgramIncrement.BackColor = System.Drawing.Color.Transparent;
-            label_ProgramIncrement.Location = new System.Drawing.Point(625, 12);
-            label_ProgramIncrement.Name = "label_ProgramIncrement";
-            label_ProgramIncrement.Size = new System.Drawing.Size(110, 15);
-            label_ProgramIncrement.TabIndex = 17;
-            label_ProgramIncrement.Text = "Program Increment";
-            label_ProgramIncrement.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ProgramIncrement.AutoSize = true;
+            this.label_ProgramIncrement.BackColor = System.Drawing.Color.Transparent;
+            this.label_ProgramIncrement.Location = new System.Drawing.Point(625, 12);
+            this.label_ProgramIncrement.Name = "label_ProgramIncrement";
+            this.label_ProgramIncrement.Size = new System.Drawing.Size(110, 15);
+            this.label_ProgramIncrement.TabIndex = 17;
+            this.label_ProgramIncrement.Text = "Program Increment";
+            this.label_ProgramIncrement.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ProgramIncrement.Enabled = false;
             // 
             // label_OctaveIncrement
             // 
-            label_OctaveIncrement.AutoSize = true;
-            label_OctaveIncrement.Location = new System.Drawing.Point(727, 56);
-            label_OctaveIncrement.Name = "label_OctaveIncrement";
-            label_OctaveIncrement.Size = new System.Drawing.Size(61, 30);
-            label_OctaveIncrement.TabIndex = 13;
-            label_OctaveIncrement.Text = "Octave\r\nIncrement";
-            label_OctaveIncrement.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label_OctaveIncrement.AutoSize = true;
+            this.label_OctaveIncrement.Location = new System.Drawing.Point(727, 56);
+            this.label_OctaveIncrement.Name = "label_OctaveIncrement";
+            this.label_OctaveIncrement.Size = new System.Drawing.Size(61, 30);
+            this.label_OctaveIncrement.TabIndex = 13;
+            this.label_OctaveIncrement.Text = "Octave\r\nIncrement";
+            this.label_OctaveIncrement.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label_OctaveIncrement.Enabled = false;
             // 
             // label_OctaveDecrement
             // 
-            label_OctaveDecrement.AutoSize = true;
-            label_OctaveDecrement.Location = new System.Drawing.Point(565, 56);
-            label_OctaveDecrement.Name = "label_OctaveDecrement";
-            label_OctaveDecrement.Size = new System.Drawing.Size(65, 30);
-            label_OctaveDecrement.TabIndex = 15;
-            label_OctaveDecrement.Text = "Octave\r\nDecrement";
-            label_OctaveDecrement.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label_OctaveDecrement.AutoSize = true;
+            this.label_OctaveDecrement.Location = new System.Drawing.Point(565, 56);
+            this.label_OctaveDecrement.Name = "label_OctaveDecrement";
+            this.label_OctaveDecrement.Size = new System.Drawing.Size(65, 30);
+            this.label_OctaveDecrement.TabIndex = 15;
+            this.label_OctaveDecrement.Text = "Octave\r\nDecrement";
+            this.label_OctaveDecrement.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label_OctaveDecrement.Enabled = false;
             // 
             // label_ProgramDecrement
             // 
-            label_ProgramDecrement.AutoSize = true;
-            label_ProgramDecrement.BackColor = System.Drawing.Color.Transparent;
-            label_ProgramDecrement.Location = new System.Drawing.Point(623, 117);
-            label_ProgramDecrement.Name = "label_ProgramDecrement";
-            label_ProgramDecrement.Size = new System.Drawing.Size(114, 15);
-            label_ProgramDecrement.TabIndex = 11;
-            label_ProgramDecrement.Text = "Program Decrement";
-            label_ProgramDecrement.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ProgramDecrement.AutoSize = true;
+            this.label_ProgramDecrement.BackColor = System.Drawing.Color.Transparent;
+            this.label_ProgramDecrement.Location = new System.Drawing.Point(623, 117);
+            this.label_ProgramDecrement.Name = "label_ProgramDecrement";
+            this.label_ProgramDecrement.Size = new System.Drawing.Size(114, 15);
+            this.label_ProgramDecrement.TabIndex = 11;
+            this.label_ProgramDecrement.Text = "Program Decrement";
+            this.label_ProgramDecrement.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ProgramDecrement.Enabled = false;
             // 
             // image_OverdriveButton
             // 
@@ -1151,7 +1151,7 @@ namespace Program
             this.Controls.Add(group_PedalMode);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.MaximizeBox = false;
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(844, 651);
             this.MinimumSize = new System.Drawing.Size(844, 651);
             this.Name = "MainWindow";
@@ -1234,6 +1234,14 @@ namespace Program
         private Label image_Pedal;
         private Button button_Debug;
         private GroupBox group_Debug;
+        private Label label_Dpad_FootController;
+        private Label label_Dpad_ChannelVolume;
+        private Label label_Dpad_Expression;
+        private Label label_Dpad_DrumMode;
+        private Label label_ProgramIncrement;
+        private Label label_OctaveIncrement;
+        private Label label_OctaveDecrement;
+        private Label label_ProgramDecrement;
     }
 }
 

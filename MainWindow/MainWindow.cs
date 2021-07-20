@@ -305,6 +305,75 @@ namespace Program
 		private void checkbox_SettingDrumMode_Changed(object sender, EventArgs e)
 		{
 			drumMode = !drumMode;
+
+			if(outputStarted)
+			{
+				if(outputMode == 1)
+				{
+					switch(drumMode)
+					{
+						case true:
+						{
+							image_KeyC1.Text = " B\r\n";
+							image_KeyDb1.Text = string.Empty;
+							image_KeyD1.Text = " Y\r\n";
+							image_KeyEb1.Text = string.Empty;
+							image_KeyE1.Text = " X\r\n";
+							image_KeyF1.Text = " A\r\n";
+							image_KeyGb1.Text = string.Empty;
+							image_KeyG1.Text = " LB\r\n";
+							image_KeyAb1.Text = string.Empty;
+							image_KeyA1.Text = " RB\r\n";
+							image_KeyBb1.Text = string.Empty;
+							image_KeyB1.Text = "LS\r\nClk\r\n";
+							image_KeyC2.Text = " B\r\n";
+							image_KeyDb2.Text = string.Empty;
+							image_KeyD2.Text = " Y\r\n";
+							image_KeyEb2.Text = string.Empty;
+							image_KeyE2.Text = " X\r\n";
+							image_KeyF2.Text = " A\r\n";
+							image_KeyGb2.Text = string.Empty;
+							image_KeyG2.Text = " LB\r\n";
+							image_KeyAb2.Text = string.Empty;
+							image_KeyA2.Text = " RB\r\n";
+							image_KeyBb2.Text = string.Empty;
+							image_KeyB2.Text = "LS\r\nClk\r\n";
+							image_KeyC3.Text = "RS\r\nClk\r\n";
+							break;
+						}
+
+						case false:
+						{
+							image_KeyC1.Text = " A\r\n";
+							image_KeyDb1.Text = string.Empty;
+							image_KeyD1.Text = " B\r\n";
+							image_KeyEb1.Text = string.Empty;
+							image_KeyE1.Text = " Y\r\n";
+							image_KeyF1.Text = " X\r\n";
+							image_KeyGb1.Text = string.Empty;
+							image_KeyG1.Text = " LB\r\n";
+							image_KeyAb1.Text = string.Empty;
+							image_KeyA1.Text = " RB\r\n";
+							image_KeyBb1.Text = string.Empty;
+							image_KeyB1.Text = "LS\r\nClk\r\n";
+							image_KeyC2.Text = " A\r\n";
+							image_KeyDb2.Text = string.Empty;
+							image_KeyD2.Text = " B\r\n";
+							image_KeyEb2.Text = string.Empty;
+							image_KeyE2.Text = " Y\r\n";
+							image_KeyF2.Text = " X\r\n";
+							image_KeyGb2.Text = string.Empty;
+							image_KeyG2.Text = " LB\r\n";
+							image_KeyAb2.Text = string.Empty;
+							image_KeyA2.Text = " RB\r\n";
+							image_KeyBb2.Text = string.Empty;
+							image_KeyB2.Text = "LS\r\nClk\r\n";
+							image_KeyC3.Text = "RS\r\nClk\r\n";
+							break;
+						}
+					}
+				}
+			}
 		}
 
 		/// <summary>

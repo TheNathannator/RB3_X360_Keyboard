@@ -40,15 +40,18 @@ namespace Program
 			// Toggle drum mode.
 			if(checkbox_Setting_DrumMode.Enabled)
 			{
-				if(stateCurrent.dpadU != statePrevious.dpadU)
+				if(outputMode == 3)
 				{
-					if(stateCurrent.dpadU)
+					if(stateCurrent.dpadU != statePrevious.dpadU)
 					{
-						drumMode = !drumMode;
+						if(stateCurrent.dpadU)
+						{
+							drumMode = !drumMode;
 
-						checkbox_Setting_DrumMode.CheckedChanged -= checkbox_SettingDrumMode_Changed;
-						checkbox_Setting_DrumMode.Checked = drumMode;
-						checkbox_Setting_DrumMode.CheckedChanged += checkbox_SettingDrumMode_Changed;
+							checkbox_Setting_DrumMode.CheckedChanged -= checkbox_SettingDrumMode_Changed;
+							checkbox_Setting_DrumMode.Checked = drumMode;
+							checkbox_Setting_DrumMode.CheckedChanged += checkbox_SettingDrumMode_Changed;
+						}
 					}
 				}
 			}
