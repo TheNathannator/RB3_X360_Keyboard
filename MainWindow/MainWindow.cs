@@ -216,7 +216,7 @@ namespace Program
 			{
 				Input();
 				UpdateValues();
-				UpdateImages();
+				if(this.Focused) UpdateImages();
 				if(outputStarted) Output();
 #if DEBUG
 				if(debug.Visible) debug.UpdateWindow(ref stateCurrent);
