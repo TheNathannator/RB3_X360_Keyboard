@@ -74,6 +74,8 @@ namespace InOut
 				currentState.btnBk     ||
 				currentState.overdrive ||
 				(currentState.pedalDigital & !drumMode));
+
+			output360.SubmitReport();
 		}
 
 		/// <summary>

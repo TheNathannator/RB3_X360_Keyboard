@@ -89,6 +89,7 @@ namespace Program
 						{
 							client = new ViGEmClient();
 							output360 = client.CreateXbox360Controller();
+							output360.AutoSubmitReport = false;
 							try{output360.Connect();}
 							catch(VigemNoFreeSlotException)
 							{
