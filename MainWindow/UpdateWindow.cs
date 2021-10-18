@@ -22,14 +22,36 @@ namespace Program
 		/// </summary>
 		bool animating = false;
 		/// <summary>
-		/// Indicates the animation type.
+		/// Current animation step.
 		/// </summary>
 		/// <remarks>
-		/// <para>0 = No animation, 1 = End animation</para>
-		/// <para>1x = Increasing, 2x = Decreasing, 3x = Reset</para>
-		/// <para>x0 = part 1, x1 = part 2, x2 = part 3, x3 = part 4</para>
+		/// See the AnimationSteps enum for number definitions.
 		/// </remarks>
 		int animationType = 0;
+
+		/// <summary>
+		/// Available animation steps.
+		/// </summary>
+		enum AnimationSteps
+		{
+			None = 0,
+			End1 = 1,
+			End2 = 2,
+			Increasing1 = 10,
+			Increasing2 = 11,
+			Increasing3 = 12,
+			Increasing4 = 13,
+			Increasing5 = 14,
+			Decreasing1 = 20,
+			Decreasing2 = 21,
+			Decreasing3 = 22,
+			Decreasing4 = 23,
+			Decreasing5 = 24,
+			Reset1 = 30,
+			Reset2 = 31,
+			Reset3 = 32,
+			Reset4 = 33,
+		}
 
 
 		/// <summary>
@@ -40,7 +62,7 @@ namespace Program
 			// Toggle drum mode.
 			if(checkbox_Setting_DrumMode.Enabled)
 			{
-				if(outputMode == 3)
+				if(outputMode == (int)OutputModes.MIDI)
 				{
 					if(stateCurrent.dpadU != statePrevious.dpadU)
 					{
@@ -63,7 +85,7 @@ namespace Program
 				{
 					if(stateCurrent.dpadL)
 					{
-						pedalMode = 1;
+						pedalMode = (int)PedalModes.Expression;
 						radio_Pedal_Expression.Checked = true;
 					}
 				}
@@ -74,7 +96,7 @@ namespace Program
 				{
 					if(stateCurrent.dpadD)
 					{
-						pedalMode = 2;
+						pedalMode = (int)PedalModes.ChannelVolume;
 						radio_Pedal_ChannelVolume.Checked = true;
 					}
 				}
@@ -85,7 +107,7 @@ namespace Program
 				{
 					if(stateCurrent.dpadR)
 					{
-						pedalMode = 3;
+						pedalMode = (int)PedalModes.FootController;
 						radio_Pedal_FootController.Checked = true;
 					}
 				}
@@ -150,8 +172,8 @@ namespace Program
 			if(!animating)
 			{
 				midiLight[0] = outputStarted;
-				midiLight[1] = pedalMode == 3;
-				midiLight[2] = pedalMode == 2;
+				midiLight[1] = pedalMode == (int)PedalModes.FootController;
+				midiLight[2] = pedalMode == (int)PedalModes.ChannelVolume;
 				midiLight[3] = drumMode;
 			}
 
@@ -210,100 +232,101 @@ namespace Program
 
 				// Animation end
 				// 0000
-				case 1:
+				case (int)AnimationSteps.End1:
 					midiLight[0] = false;
 					midiLight[1] = false;
 					midiLight[2] = false;
 					midiLight[3] = false;
-					animationType = 2;
+					animationType = (int)AnimationSteps.End2;
 					break;
 
-				case 2:
+				// 0000 for an additional 100 ms
+				case (int)AnimationSteps.End2:
 					midiLight[0] = false;
 					midiLight[1] = false;
 					midiLight[2] = false;
 					midiLight[3] = false;
-					animationType = 0;
+					animationType = (int)AnimationSteps.None;
 					animationTimer.Enabled = false;
 					animating = false;
 					break;
 
 				// Increase
 				// 1000
-				case 10:
+				case (int)AnimationSteps.Increasing1:
 					midiLight[0] = true;
 					midiLight[1] = false;
 					midiLight[2] = false;
 					midiLight[3] = false;
-					animationType = 11;
+					animationType = (int)AnimationSteps.Increasing2;
 					break;
 
 				// 1100
-				case 11:
+				case (int)AnimationSteps.Increasing2:
 					midiLight[0] = true;
 					midiLight[1] = true;
 					midiLight[2] = false;
 					midiLight[3] = false;
-					animationType = 12;
+					animationType = (int)AnimationSteps.Increasing3;
 					break;
 
 				// 1110
-				case 12:
+				case (int)AnimationSteps.Increasing3:
 					midiLight[0] = true;
 					midiLight[1] = true;
 					midiLight[2] = true;
 					midiLight[3] = false;
-					animationType = 13;
+					animationType = (int)AnimationSteps.Increasing4;
 					break;
 
 				// 1111
-				case 13:
+				case (int)AnimationSteps.Increasing4:
 					midiLight[0] = true;
 					midiLight[1] = true;
 					midiLight[2] = true;
 					midiLight[3] = true;
-					animationType = 14;
+					animationType = (int)AnimationSteps.Increasing5;
 					break;
 
-				// 1111
-				case 14:
+				// 1111 for an additional 100 ms
+				case (int)AnimationSteps.Increasing5:
 					midiLight[0] = true;
 					midiLight[1] = true;
 					midiLight[2] = true;
 					midiLight[3] = true;
-					animationType = 1;
+					animationType = (int)AnimationSteps.End1;
 					break;
 
 				// Decrease
 				// 1111
-				case 20:
+				case (int)AnimationSteps.Decreasing1:
 					midiLight[0] = true;
 					midiLight[1] = true;
 					midiLight[2] = true;
 					midiLight[3] = true;
-					animationType = 21;
+					animationType = (int)AnimationSteps.Decreasing2;
 					break;
 
 				// 1110
-				case 21:
+				case (int)AnimationSteps.Decreasing2:
 					midiLight[0] = true;
 					midiLight[1] = true;
 					midiLight[2] = true;
 					midiLight[3] = false;
-					animationType = 22;
+					animationType = (int)AnimationSteps.Decreasing3;
 					break;
 
 				// 1100
-				case 22:
+				case (int)AnimationSteps.Decreasing3:
 					midiLight[0] = true;
 					midiLight[1] = true;
 					midiLight[2] = false;
 					midiLight[3] = false;
-					animationType = 23;
+					animationType = (int)AnimationSteps.Decreasing4;
 					break;
 
 				// 1000
-				case 23:
+				case (int)AnimationSteps.Decreasing4:
 					midiLight[0] = true;
 					midiLight[1] = false;
 					midiLight[2] = false;
@@ -311,50 +334,50 @@ namespace Program
 					animationType = 24;
 					break;
 
-				// 1000
-				case 24:
+				// 1000 for an additional 100 ms
+				case (int)AnimationSteps.Decreasing5:
 					midiLight[0] = true;
 					midiLight[1] = false;
 					midiLight[2] = false;
 					midiLight[3] = false;
-					animationType = 1;
+					animationType = (int)AnimationSteps.End1;
 					break;
 
 				// Reset
 				// 0110
-				case 30:
+				case (int)AnimationSteps.Reset1:
 					midiLight[0] = false;
 					midiLight[1] = true;
 					midiLight[2] = true;
 					midiLight[3] = false;
-					animationType = 31;
+					animationType = (int)AnimationSteps.Reset2;
 					break;
 
-				// 0110
-				case 31:
+				// 0110 for an additional 100 ms
+				case (int)AnimationSteps.Reset2:
 					midiLight[0] = false;
 					midiLight[1] = true;
 					midiLight[2] = true;
 					midiLight[3] = false;
-					animationType = 32;
+					animationType = (int)AnimationSteps.Reset3;
 					break;
 
 				// 1001
-				case 32:
+				case (int)AnimationSteps.Reset3:
 					midiLight[0] = true;
 					midiLight[1] = false;
 					midiLight[2] = false;
 					midiLight[3] = true;
-					animationType = 33;
+					animationType = (int)AnimationSteps.Reset4;
 					break;
 
 				// 1001
-				case 33:
+				case (int)AnimationSteps.Reset4:
 					midiLight[0] = true;
 					midiLight[1] = false;
 					midiLight[2] = false;
 					midiLight[3] = true;
-					animationType = 1;
+					animationType = (int)AnimationSteps.End1;
 					break;
 			}
 		}

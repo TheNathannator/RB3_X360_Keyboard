@@ -54,13 +54,13 @@ namespace Program
 		{
 			switch(outputMode)
 			{
-				case 1:
+				case (int)OutputModes.Xbox360:
 					xinput.Output(output360, ref stateCurrent, drumMode);
 					break;
-				case 2:
+				case (int)OutputModes.Keyboard:
 					key.Output(outputKey, ref stateCurrent, ref statePrevious);
 					break;
-				case 3:
+				case (int)OutputModes.MIDI:
 					mid.Output(outputMidi, ref stateCurrent, ref statePrevious, pedalMode, octave, program, drumMode);
 					break;
 			}
@@ -84,8 +84,7 @@ namespace Program
 						default:
 							break;
 
-						// Xbox 360 output
-						case 1:
+						case (int)OutputModes.Xbox360:
 						{
 							client = new ViGEmClient();
 							output360 = client.CreateXbox360Controller();
@@ -180,8 +179,7 @@ namespace Program
 							break;
 						}
 
-						// Keyboard output
-						case 2:
+						case (int)OutputModes.Keyboard:
 						{
 							outputKey = simulator.Keyboard;
 
@@ -231,8 +229,7 @@ namespace Program
 							break;
 						}
 
-						// MIDI output
-						case 3:
+						case (int)OutputModes.MIDI:
 						{
 							try{dropdown_Output_MidiDevice.SelectedItem.ToString();}
 							catch(NullReferenceException)
@@ -345,15 +342,15 @@ namespace Program
 					{
 						default:
 							break;
-						case 1:
+						case (int)OutputModes.Xbox360:
 							xinput.Panic(output360);
 							output360.Disconnect();
 							client.Dispose();
 							break;
-						case 2:
+						case (int)OutputModes.Keyboard:
 							key.Panic(outputKey);
 							break;
-						case 3:
+						case (int)OutputModes.MIDI:
 							outputMidi.TurnAllNotesOff();
 							outputMidi.Dispose();
 							break;

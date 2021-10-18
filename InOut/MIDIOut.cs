@@ -26,6 +26,15 @@ namespace InOut
 		/// The previous program number.
 		/// </summary>	
 		private byte previousProgram = 1;
+		/// <summary>
+		/// Available pedal modes.
+		/// </summary>
+		enum PedalModes
+		{
+			Expression = 1,
+			ChannelVolume = 2,
+			FootController = 3
+		}
 
 
 		/// <summary>
@@ -106,13 +115,13 @@ namespace InOut
 				analog.Channel  = (fourbit)0;
 				switch(pedalMode)
 				{
-					case 1:
+					case (int)PedalModes.Expression:
 						analog.ControlNumber = (sevenbit)11;
 						break;
-					case 2:
+					case (int)PedalModes.ChannelVolume:
 						analog.ControlNumber = (sevenbit)7;
 						break;
-					case 3:
+					case (int)PedalModes.FootController:
 						analog.ControlNumber = (sevenbit)4;
 						break;
 				}

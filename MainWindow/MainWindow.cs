@@ -79,7 +79,7 @@ namespace Program
 		/// The current pedal mode.
 		/// </summary>
 		/// <remarks>
-		/// 1 = expression, 2 = channel volume, 3 = foot controller.
+		/// See the PedalModes enum for available modes.
 		/// </remarks>
 		public int pedalMode = 1;
 		/// <summary>
@@ -112,9 +112,29 @@ namespace Program
 		/// The currently selected output mode.
 		/// </summary>
 		/// <remarks>
-		/// 1 = Xbox 360, 2 = keyboard, 3 = MIDI.
+		/// See the OutputModes enum for available modes.
 		/// </remarks>
 		int outputMode = 2;
+
+		/// <summary>
+		/// Available output modes.
+		/// </summary>
+		enum OutputModes
+		{
+			Xbox360 = 1,
+			Keyboard = 2,
+			MIDI = 3
+		}
+
+		/// <summary>
+		/// Available pedal modes.
+		/// </summary>
+		enum PedalModes
+		{
+			Expression = 1,
+			ChannelVolume = 2,
+			FootController = 3
+		}
 
 		/// <summary>
 		/// Timer for MIDI light animations.
@@ -165,15 +185,15 @@ namespace Program
 			{
 				switch(outputMode)
 				{
-					case 1:
+					case (int)OutputModes.Xbox360:
 						xinput.Panic(output360);
 						output360.Disconnect();
 						client.Dispose();
 						break;
-					case 2:
+					case (int)OutputModes.Keyboard:
 						key.Panic(outputKey);
 						break;
-					case 3:
+					case (int)OutputModes.MIDI:
 						outputMidi.TurnAllNotesOff();
 						outputMidi.Dispose();
 						break;
@@ -225,13 +245,13 @@ namespace Program
 				{
 					default:
 					case "Expression":
-						pedalMode = 1;
+						pedalMode = (int)PedalModes.Expression;
 						return;
 					case "Channel Volume":
-						pedalMode = 2;
+						pedalMode = (int)PedalModes.ChannelVolume;
 						return;
 					case "Foot Controller":
-						pedalMode = 3;
+						pedalMode = (int)PedalModes.FootController;
 						return;
 				}
 			}
@@ -251,16 +271,16 @@ namespace Program
 				switch (rb.Text)
 				{
 					case "Xbox 360 Controller":
-						if(rb.Checked) outputMode = 1;
+						if(rb.Checked) outputMode = (int)OutputModes.Xbox360;
 						dropdown_Output_MidiDevice.Enabled = false;
 						break;
 					default:
 					case "Keyboard":
-						if(rb.Checked) outputMode = 2;
+						if(rb.Checked) outputMode = (int)OutputModes.Keyboard;
 						dropdown_Output_MidiDevice.Enabled = false;
 						break;
 					case "MIDI":
-						if(rb.Checked) outputMode = 3;
+						if(rb.Checked) outputMode = (int)OutputModes.MIDI;
 						dropdown_Output_MidiDevice.Enabled = true;
 						break;
 				}
@@ -296,7 +316,7 @@ namespace Program
 
 			if(outputStarted)
 			{
-				if(outputMode == 1)
+				if(outputMode == (int)OutputModes.Xbox360)
 				{
 					switch(drumMode)
 					{
