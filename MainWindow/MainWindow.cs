@@ -161,9 +161,11 @@ namespace Program
 			}
 			catch (VigemBusNotFoundException)
 			{
+				vigem = false;
 				radio_Output_Xbox360.Text = "ViGEmBus not found";
+				radio_Output_Xbox360.Enabled = false;
 			}
-			
+
 #if DEBUG
 			// Only show the debug button and group if current mode is Debug.
 			group_Debug.Visible = true;
