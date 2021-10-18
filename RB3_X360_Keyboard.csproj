@@ -6,11 +6,8 @@
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>Program.Program</StartupObject>
     <ApplicationIcon>Images\icon.ico</ApplicationIcon>
-	<PublishTrimmed>true</PublishTrimmed>
     <PublishSingleFile>true</PublishSingleFile>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <PublishTrimmed>true</PublishTrimmed>
-    <TrimMode>Link</TrimMode>
   </PropertyGroup>
 
   <ItemGroup>
