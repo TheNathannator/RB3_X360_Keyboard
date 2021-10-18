@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Diagnostics;
 using System.Timers;
@@ -132,9 +132,14 @@ namespace Program
 			InitializeComponent();
 
 			// Only allow Xbox 360 controller output if ViGEmBus is found.
-			vigem = ViGEmCheck();
-			radio_Output_Xbox360.Enabled = vigem;
-			if(!vigem)
+			try
+			{
+				var client = new ViGEmClient();
+				client.Dispose();
+				vigem = true;
+				radio_Output_Xbox360.Enabled = true;
+			}
+			catch (VigemBusNotFoundException)
 			{
 				radio_Output_Xbox360.Text = "ViGEmBus not found";
 			}
@@ -149,23 +154,6 @@ namespace Program
 			animationTimer = new System.Timers.Timer(100);
 			animationTimer.Elapsed += animationTimer_Elapsed;
 			animationTimer.AutoReset = true;
-		}
-
-		/// <summary>
-		/// Checks if ViGEmBus is installed.
-		/// </summary>
-		private bool ViGEmCheck()
-		{
-			try
-			{
-				var client = new ViGEmClient();
-				client.Dispose();
-				return true;
-			}
-			catch (VigemBusNotFoundException)
-			{
-				return false;
-			}
 		}
 
 		/// <summary>
