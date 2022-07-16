@@ -15,7 +15,7 @@ The touch strip is not supported, as it is not reported through the standard inp
 
 ## Research
 
-I have documented everything I know about the keyboard inputs in [a Markdown file included in this repo](Xbox%20360%20Keyboard%20Inputs.md). For the most part everything should be correct, but there are a couple things missing or potentially incorrect.
+I have documented everything I know about the keyboard inputs in [a Markdown file included in this repo](doc/Xbox%20360%20Keyboard%20Inputs.md). For the most part everything should be correct, but there are a couple things missing or potentially incorrect.
 
 ## Similar Projects
 
