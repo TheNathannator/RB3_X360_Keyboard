@@ -1,11 +1,5 @@
 # RB3 X360 Keyboard
 
-## ARCHIVAL NOTICE
-
-This is the first program I ever made. It's not the best, and I wish to start over from scratch. The new repository may be found [here](https://github.com/TheNathannator/RBK360).
-
-This project will no longer be maintained. In its current state, it is mildly buggy. Use at your own risk.
-
 ## About
 
 This program allows you to use an Xbox 360 RB3 keyboard for things while connected to an Xbox 360 wireless receiver, via either an emulated Xbox 360 controller, keypresses, or MIDI inputs.
